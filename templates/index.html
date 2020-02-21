@@ -1,0 +1,36 @@
+{% extends "_base.html" %}
+{% import "main-page-macros.html" as main_macros %}
+{% import "navbar-macros.html" as navbar_macros %}
+{% block body %}
+	{% block header %}
+		<!-- Navigation bar -->
+		<nav class="navbar is-link is-fixed-top">
+		<div class="navbar-brand">
+			<a class="navbar-item" href="{{ get_url(path="/") }}">
+			Logo
+			<!-- <img
+				src="https://bulma.io/images/bulma-logo.png"
+				width="112"
+				height="28"
+			/> -->
+			</a>
+			<div class="navbar-burger burger" data-target="nav-menu">
+			<span></span>
+			<span></span>
+			<span></span>
+			</div>
+		</div>
+		<div id="nav-menu" class="navbar-menu">
+			{% block navbarstart %}
+				{{ main_macros::navbar_start() }}
+			{% endblock navbarstart %}
+			{% block navbarend %}
+				{{ navbar_macros::navbar_end() }}
+			{% endblock navbarend %}
+		</div>
+		</nav>
+	{% endblock header %}
+	{% block content %}
+		{{ main_macros::main_page() }}
+	{% endblock content %}
+{% endblock body %}

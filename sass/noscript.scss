@@ -1,0 +1,17 @@
+@import "vendor/bulma/sass/utilities/initial-variables";
+@import "vendor/bulma/sass/utilities/derived-variables";
+@import "vendor/bulma/sass/utilities/mixins";
+
+$navbar-breakpoint: $desktop !default;
+
+@include until($navbar-breakpoint) {
+  .navbar-menu {
+    display: block;
+  }
+}
+.navbar-burger {
+  display: none;
+}
+nav.navbar.is-fixed-top {
+  position: initial;
+}
