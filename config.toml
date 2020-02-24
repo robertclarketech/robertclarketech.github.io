@@ -17,6 +17,18 @@ generate_rss = true
 title = "Robert Clarke"
 description = "Robert Clarke's website"
 
+taxonomies = [
+    {name = "categories", paginate_by = 5, rss = true},
+    {name = "tags", paginate_by = 5, rss = true}
+]
+
 [extra]
 # Put all your custom variables here
 author = "Robert Clarke"
+
+menu = [
+    {url = "$BASE_URL/categories", name = "Categories"},
+    {url = "$BASE_URL/tags", name = "Tags"}
+]
+
+title = "Blog"

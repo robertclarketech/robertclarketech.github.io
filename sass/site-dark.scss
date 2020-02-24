@@ -2,3 +2,6 @@
 @import "vendor/bulma/_bulma.sass";
 @import "vendor/darkly/_overrides.scss";
 @import "_site.scss";
+input#search::placeholder {
+	color: $grey-lighter;
+}

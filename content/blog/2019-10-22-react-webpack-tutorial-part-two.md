@@ -1,0 +1,228 @@
++++
+title = "React And Webpack Tutorial - Part 2"
+description = "A React and Webpack tutorial, starting from the very bottom."
+
+[taxonomies]
+categories = ["React Webpack Tutorial"]
+tags = ["react", "webpack"]
++++
+
+# Previous
+
+- [Part 1](@/blog/2019-10-21-react-webpack-tutorial-part-one.md)
+
+You can find the full repository and all previous commits by [clicking here](https://gitlab.com/Worble/react-webpack-tutorial).
+
+Welcome back. Last time, we left off with a basic Hello World React app that we had just gotten working by using Webpack to bundle it. Today we're going to convert that to a JSX file and setup a Webpack configuration file.
+
+<!-- more -->
+
+# JSX and Webpack config
+
+If you remember last time, when we took Reacts basic example, it looked like this:
+
+```tsx
+ReactDOM.render(<h1>Hello, world!</h1>, document.getElementById("root"));
+```
+
+This is Reacts JSX templating language, which allows you to define HTML inside of your JavaScript. Let's change our current file back to this version.
+
+```tsx
+import ReactDOM from "react-dom";
+import React from "react";
+
+ReactDOM.render(<h1>Hello, world!</h1>, document.getElementById("root"));
+```
+
+And if we try to run `yarn webpack` like previously, we get an error:
+
+```
+>yarn webpack
+yarn run v1.17.3
+$ <folder>\node_modules\.bin\webpack
+Hash: 1862c125716c06df2a51
+Version: webpack 4.41.2
+Time: 338ms
+Built at: 10/22/2019 4:27:18 PM
+ 1 asset
+Entrypoint main = main.js
+[0] ./src/index.js 354 bytes {0} [built] [failed] [1 error]
+
+WARNING in configuration
+The 'mode' option has not been set, webpack will fallback to 'production' for this value. Set 'mode' option to 'development' or 'production' to enable defaults for each environment.
+You can also set it to 'none' to disable any default behavior. Learn more: https://webpack.js.org/configuration/mode/
+
+ERROR in ./src/index.js 3:16
+Module parse failed: Unexpected token (3:16)
+You may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders
+| import ReactDOM from "react-dom";
+|
+> ReactDOM.render(<h1>Hello, world!</h1>, document.getElementById("root"));
+|
+error Command failed with exit code 2.
+```
+
+Webpack nicely tells us exactly where it errored (`./src/index.js 3:16`) and what happened (`Module parse failed: Unexpected token (3:16)`). Basically, this is Webpack telling us it encountered something strange and it didn't know how to parse it. This makes sense, since although we passed it a `.js` file, the contents were not valid JavaScript.
+
+So to start solving this problem, let's make our intentions clearer. First, let's rename our `src/index.js` to `index.jsx`. This doesn't actually fix anything, but let's anyone looking at it know it's a JSX file. If you happen to run `yarn webpack` again you'll now notice it gives the error `Insufficient number of arguments or no entry found.` and `ERROR in Entry module not found: Error: Can't resolve './src' in <folder>`. This is because the `src/index.js` file it was previously looking for is now gone, and Webpack doesn't know where our entrypoint is.
+
+Now, create a `webpack.config.js` in your folders root directory and populate it like so:
+
+```js
+const path = require("path");
+
+module.exports = {
+  entry: path.resolve(__dirname, "src", "index.jsx"),
+  output: {
+    filename: "main.js",
+    path: path.join(__dirname, "dist")
+  }
+};
+```
+
+Let's break this file down a bit now. The top line is a NodeJS import. Using Node libraries in frontend development may seem a little strange, but since Webpack is a build tool build with Node, we have access to these. We're going to be using the `path` library to ensure we have clean, sanitized folder paths.
+
+Next we have the `module.exports` line. All Webpack configuration files will have this line, and it is essentially an object defining our custom Webpack configuration. Everything else in this file will be a property on `module.exports`.
+
+Then we have the `entry` property, this defines our entrypoint, and after that we have the `output`, which defines where to place our Webpackified files and what to call the final bundle. Within both of these we're using the Node library `path`, just to make sure that whatever we pass here is appropriate for the operating system ('/' instead of '\\' for example). Together, this webpack configuration is the equivalent of doing `yarn webpack ./src/index.jsx -o ./dist`.
+
+We can run Webpack with our newly created configuration file by doing `yarn webpack`. If there is any file called `webpack.config.js`, then Webpack will automatically pick it up, and use that for it's configuration. If your config file is called something else, you can use `yarn webpack --config <config_name>` to specify the filename.
+
+So we have a Webpack configuration file, but even if we run it, we still get the same error! So what's the point? Well, now we can move onto some of the real meat of Webpack, _loaders_.
+
+# Loaders and Babel
+
+To quote [Webpack's website](https://webpack.js.org/concepts/#loaders)
+
+> Out of the box, webpack only understands JavaScript and JSON files. Loaders allow webpack to process other types of files and convert them into valid modules that can be consumed by your application and added to the dependency graph.
+
+Basically, loaders allow us to use filetypes other than JSON and JavaScript with our application. There are hundreds of these available on npm for whatever filetype you might want to use, or you can create your own if one doesn't already exist.
+
+In order to use JSX syntax, we're going use Babel in order to compile it into JavaScript, which can then be understood by Webpack. Babel will also gives us some other fringe benefits, such as the ability to use ES2015+ syntax in browsers that don't support it.
+
+In order to use Babel, we will need to download the `core`, the `react-preset` for react support, `preset-env` so we can use ES2015+ features, and the `babel-loader` so Webpack can use it.
+
+```
+>yarn add --dev @babel/core @babel/preset-react @babel/preset-env babel-loader
+```
+
+Again, these are all dev dependencies, we won't be including any of these packages in our final build.
+
+Now we've installed the loader, we need to tell Webpack when to use it. Update your `webpack.config.js` to look like the below:
+
+```js
+const path = require("path");
+
+module.exports = {
+  entry: path.resolve(__dirname, "src", "index.jsx"),
+  output: {
+    filename: "main.js",
+    path: path.join(__dirname, "dist")
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js(x?)$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: "babel-loader",
+            options: {
+              cacheDirectory: true
+            }
+          }
+        ]
+      }
+    ]
+  }
+};
+```
+
+As you can see, we've added a new property called `module`, and underneath module we've added `rules`. Rules are an array of objects that tell Webpack "Hey, when you meet a file that matches these conditions, use this loader with this configuration". As you can see here, we currently only have one object under `rules`. The first property this object has is `test`: this is a pattern to match on the filename. Here, we're telling it to match every file which ends in `.js`, and optionally `x` so it matches our `.jsx` file as well. This means all of our JavaScript and JSX files will be compiled by Babel, allowing us to both compile JSX and use ES2015+ syntax in any `.js` file in one rule.
+
+After that we have the property `use`, which is an array of loaders that should be used on any matched file. You can have multiple loaders for a single file, and note that they will always be called from right to left. For now however, we just have the one loader. Some loaders will also have options you can specify, for example here we are telling `babel-loader` to use a cache, so that we can avoid needing to run the potentially expensive Babel recompilation process on each run. You can see all the `babel-loader` options on it's [GitHub page](https://github.com/babel/babel-loader#options).
+
+You might try now to run webpack again, except we'll be greeted with a new error:
+
+```
+ERROR in ./src/index.jsx
+Module build failed (from ./node_modules/babel-loader/lib/index.js):
+SyntaxError: <snip> Unexpected token (3:16)
+
+  1 | import ReactDOM from "react-dom";
+  2 |
+> 3 | ReactDOM.render(<h1>Hello, world!</h1>, document.getElementById("root"));
+    |                 ^
+  4 |
+```
+
+It's still erroring! And in the same place! Well, this is because we still haven't told Babel to use the presets we installed, and without knowing about `@babel/preset-react`, Babel still doesn't know how to consume our JSX file. So, in the root of your project create a file called `.babelrc`. Inside of here, we're simply going to specify what presets Babel should use:
+
+```json
+{
+  "presets": ["@babel/preset-env", "@babel/preset-react"]
+}
+```
+
+Now if you looked on `babel-loader`'s GitHub page, you might notice that we could specify the presets there under `options`:
+
+```js
+//...
+module.exports = {
+  //...
+  use: {
+    loader: "babel-loader",
+    options: {
+      presets: ["@babel/preset-env"],
+      plugins: ["@babel/plugin-proposal-object-rest-spread"]
+    }
+  }
+};
+```
+
+Now, again this isn't necessarily _wrong_, however this approach has a couple of disadvantages
+
+1. If we want to change it, we have to dive into our webpack file. Later on, when we have many loaders, this could be somewhat of a pain
+2. If we wanted to use babel for other filetypes, we'd have to copy it every time
+3. And most importantly, this means this information is only available to Webpack. If we wanted to change to Parcel, or use the Babel CLI for exmaple, then we'd have to pull these out regardless
+
+Putting this information in a seperate `.babelrc` file makes it more accessible, reusable and easier to edit.
+
+It's also worth noting that while this `.babelrc` file works for our purposes, there's lots of configuration options you can set. For example, [babel-preset-env's documentation page](https://babeljs.io/docs/en/babel-preset-env) recommends that you specify which browsers you wish to support like so:
+
+```json
+{
+  "presets": [
+    [
+      "@babel/env",
+      {
+        "targets": {
+          "edge": "17",
+          "firefox": "60",
+          "chrome": "67",
+          "safari": "11.1"
+        }
+      }
+    ]
+  ]
+}
+```
+
+Without this, it will just compile all ES2015+ code, which is probably a little inefficient. For now we don't care, but it's definitely worth checking all your Babel presets and plugins to make sure it's being set up right before shipping to production!
+
+# Finishing Up
+
+So, now that we're finally finished with all that, you can run `yarn webpack` again and... presto! We've finally managed to compile our `.jsx` file into something that can be understood by browsers.
+
+This seems like another good point for a commit, so we'll do just that:
+
+```
+>git add .
+>git commit -m "Changed to use JSX, added Webpack config, and setup Babel"
+```
+
+[You can view this commit here](https://gitlab.com/Worble/react-webpack-tutorial/commit/5fe267ba76972a21a33dae07c7143dfb3f0b5f9a).
+
+Tune in next time where we'll set up a dev server to view changes as we make them, including hot reloading!
+
+[Click here for Part 3!](@/blog/2019-10-23-react-webpack-tutorial-part-three.md)

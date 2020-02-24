@@ -1,3 +1,8 @@
+@import "./blog/article";
+@import "./blog/search-results";
+@import "./blog/pagination";
+@import "./blog/nav";
+
 .pad-nav {
 	padding-top: $navbar-height;
 }
@@ -5,4 +10,27 @@
 	text-align: center;
 	margin-top: 1rem;
 	margin-bottom: 4rem;
+}
+
+main {
+	flex: 1;
+}
+
+.article,
+.tag-list {
+	.content p {
+		line-height: 1.9;
+		margin: 15px 0;
+	}
+}
+
+.list.box {
+	margin-top: 1rem;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+
+	> a {
+		margin: 0.2rem;
+	}
 }

@@ -1,18 +1,22 @@
+{% import "blog/post_macros.html" as post_macros %}
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="{{ get_url(path="fontawesome/css/all.min.css") }}" />
-		<link rel="stylesheet" media="(prefers-color-scheme: dark)" href="{{ get_url(path="site-dark.css") }}" />
-		<link rel="stylesheet" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)" href="{{ get_url(path="site-light.css") }}" />
-		<noscript>
-			<link rel="stylesheet" href="{{ get_url(path="noscript.css") }}" /> 
-		</noscript>
-		<link rel="icon" href="{{ get_url(path="favicon.ico") }}" />
-		<title>{% block title %}{{ config.title }}{% endblock title %}</title>
-		<meta name="description" content="{% block description %}{{ config.description }}{% endblock description %}">
-		<meta name="author" content="{% block author %}{{ config.extra.author }}{% endblock author %}">
+		{% block head %}
+			<meta charset="UTF-8" />
+			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+			<link rel="stylesheet" href="{{ get_url(path="fontawesome/css/all.min.css") }}" />
+			<link rel="stylesheet" media="(prefers-color-scheme: dark)" href="{{ get_url(path="site-dark.css") }}" />
+			<link rel="stylesheet" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)" href="{{ get_url(path="site-light.css") }}" />
+			<noscript>
+				<link rel="stylesheet" href="{{ get_url(path="noscript.css") }}" /> 
+			</noscript>
+			<link rel="icon" href="{{ get_url(path="favicon.ico") }}" />
+			<title>{% block title %}{{ config.title }}{% endblock title %}</title>
+			<meta name="description" content="{% block description %}{{ config.description }}{% endblock description %}">
+			<meta name="author" content="{% block author %}{{ config.extra.author }}{% endblock author %}">
+		{% endblock head %}
 	</head>
   	<body>
 		{% block body %}{% endblock body %}

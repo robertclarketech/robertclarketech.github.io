@@ -18,3 +18,6 @@ $navbar-breakpoint: $desktop !default;
 nav.navbar.is-fixed-top {
 	position: initial;
 }
+.js-only {
+	display: none;
+}

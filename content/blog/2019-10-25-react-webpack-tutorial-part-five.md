@@ -1,0 +1,323 @@
++++
+title = "React And Webpack Tutorial - Part 5"
+description = "A React and Webpack tutorial, starting from the very bottom."
+
+[taxonomies]
+categories = ["React Webpack Tutorial"]
+tags = ["react", "webpack"]
++++
+
+# Previous
+
+- [Part 1](@/blog/2019-10-21-react-webpack-tutorial-part-one.md)
+- [Part 2](@/blog/2019-10-22-react-webpack-tutorial-part-two.md)
+- [Part 3](@/blog/2019-10-23-react-webpack-tutorial-part-three.md)
+- [Part 4](@/blog/2019-10-24-react-webpack-tutorial-part-four.md)
+
+You can find the full repository and all previous commits by [clicking here](https://gitlab.com/Worble/react-webpack-tutorial).
+
+Previously, we had just finished updating our project to have seperate development and production configurations. Today we're going to changing the way we create our `index.html` file, do some cache-busting, and look at serving static files. Let's get started.
+
+<!-- more -->
+
+# HTML Webpack Plugin
+
+## Development
+
+Up until now, whenever we wanted to preview our code without using the dev server, we had to use the `./dist/index.html` we created way back in part one. This sucks for a couple of reasons:
+
+1. We've placed it in dist, which means it isn't source controlled. Anyone new to the project cloning it will have to make their own.
+2. It had a hardcoded reference to the scriptname of `main.js`. If this changed in the future, we'd have to remember to change this too.
+3. The html we want to display may not necessarily be static; we may want to change what's displayed based on certain compile-time parameters.
+4. Anytime we add anything new, like extra scripts, or css, again we have to edit this file.
+
+So, in order to get around these problems, we can use the handy [html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin). It's worth noting, if you're using an application server such as Express, ASP.NET, Spring, or PHP to serve your front end html, then you probably won't be using this to generate your html; those servers do that for you, usually with their own templating language. In those cases, Webpack is usually a build step for creating JavaScript, which you would then embed the normal way for those servers. The use-case for generating our html in Webpack is usually for a SPA backed by a simple web server, like NGINX or Apache.
+
+Anyway, let's get on with it. First, let's add the plugin:
+
+```
+>yarn add --dev html-webpack-plugin
+```
+
+Then we'll import and call it in our dev webpack config (we'll worry about prod later):
+
+```js
+//...
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+module.exports = merge(common, {
+  //...
+  plugins: [new HtmlWebpackPlugin()]
+});
+```
+
+Now we're setup, delete your `./dist` folder and run `yarn dev`. You should now see that it's created a `index.html` for us, that should look something like this:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Webpack App</title>
+  </head>
+  <body>
+    <script type="text/javascript" src="main.js"></script>
+  </body>
+</html>
+```
+
+As you can see, it's automatically inserted our script into the body for us. But, if we try to open it in a browser, nothing will render! As I'm sure you'll have already noticed, our `./src/index.tsx` script has a hard dependancy on an element existing with an Id of "root" in order to render our React application. There's a couple of ways around this.
+
+We could, for instance, remove the dependency from the JavaScript, and have it create it's own element that it attaches to:
+
+```tsx
+//...
+const reactRootElement = document.createElement("div");
+document.body.append(reactRootElement);
+ReactDOM.render(<MyComponent />, reactRootElement);
+```
+
+If we rerun Webpack, we can see this fixes the problem. But, if we take another look at the generated HTMl there's a number of other things wrong with it. Our html tag has no lang attribute, there's no meta viewport in the head, and the title is just "Webpack App". Clearly we need some way to set these. Well luckily we can set a template to be used by `html-webpack-plugin`.
+
+First, let's make the template we want to use. Let's create `./src/index.html` and populate it with want we want:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>My Awesome WebApp</title>
+  </head>
+  <body></body>
+</html>
+```
+
+Then, back in our `webpack.dev.config`, let's edit our plugins so it takes our new template:
+
+```js
+//...
+module.exports = merge(common, {
+  //...
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, "src", "index.html")
+    })
+  ]
+});
+```
+
+If we rerun our Webpack command, you can now see that our `./dist/index.html` file is created, using the template we specified, and appending our scripts onto the body. Let's make a commit here:
+
+```
+>git add .
+>git commit -m "added developer html-webpack-plugin"
+```
+
+[You can view the commit here](https://gitlab.com/Worble/react-webpack-tutorial/commit/e5ddb796389f77c0551326cb953eb138e47ba23d).
+
+Let's make the same thing but for our production build.
+
+## Production
+
+So, we'll start off much the same way as we did for Development: we need to add the template path to our `./webpack.prod.js`. Instead of repeating code between the two, we'll move what we added from `./webpack.dev.js` to `./webpack.common.js`. Now we probably _could_ leave it at that for production: it would still produce what we want, but if we take a look at the [options](https://github.com/jantimon/html-webpack-plugin#options) available, there's some great extras we can use here, especially around [minification](https://github.com/jantimon/html-webpack-plugin#minification), so let's use those (I know it claims that these should be used automatically when the mode is set to "production", but I found this isn't the case).
+
+So let's add it to our `./webpack.prod.js`:
+
+```js
+//...
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+module.exports = merge(common, {
+  //...
+  plugins: [
+    new HtmlWebpackPlugin({
+      minify: {
+        collapseWhitespace: true,
+        removeComments: true,
+        removeRedundantAttributes: true,
+        removeScriptTypeAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        useShortDoctype: true
+      }
+    })
+  ]
+});
+```
+
+Although we do have to define the plugin again, since we already told it the template to use in the common config, we can safely leave that out here.
+
+Alright, if you build for prod now, you'll be able to see
+that we also have minified html. It might not be saving much space right now, but every byte counts!
+
+Let's commit this up too:
+
+```
+>git add .
+>git commit -m "added production html-webpack-plugin"
+```
+
+[You can view the commit here](https://gitlab.com/Worble/react-webpack-tutorial/commit/49c17e5acb57b92a3701c91886a4259f7c0988db).
+
+# Cache Busting
+
+If you take a look at the [html-webpack-options](https://github.com/jantimon/html-webpack-plugin#options) you'll notice that one of them is called "hash". If you turn this on and build your project, you'll notice that the reference to the script in `./dist/index.html` looks something similar to this:
+
+```html
+<script type="text/javascript" src="main.js?34e8366ba7b24f3fdeab"></script>
+```
+
+Those letters and numbers after the "?" are hash of the contents of the file: if you keep rebuilding without changing any of the source files, that hash will never change. If you do make a change however, it will be a new id. So what's the point of this? Well, the browser will cache certain files so the subsequent page loads for users are shorter. This is great for users, but not so great when we have changes we want to be pushed down. By adding a unique identifier that changes, the browser will always download the newest file.
+
+Now, we could do this by using this option in `html-webpack-plugin`, however Webpack exposes this functionality directly to us. We can modify our `output` property in `./webpack.common.js` to use these hashes:
+
+```js
+//...
+module.exports = {
+  //...
+  output: {
+    filename: "[id].[hash].js",
+    path: path.join(__dirname, "dist")
+  }
+  //...
+};
+```
+
+If you build now, you'll see that the `./dist/main.js` filename itself has changed to a hash (and if you forgot to turn off hashing on `html-webpack-plugin`, you'll see the hash in the `./dist/index.html` twice!). I personally prefer this approach, since it means we could switch to a different html plugin, or even switch to an application server, and still retain this functionality. Less coupling is always good!
+
+It was only a small change, but let's do another commit here:
+
+```
+>git add .
+>git commit -m "changed output to id and hash"
+```
+
+[You can view the commit here](https://gitlab.com/Worble/react-webpack-tutorial/commit/7a877760bb6282f2f0d141ac084c9afcd630091d).
+
+# Clean Webpack Plugin
+
+One thing you might have noticed, is that when we changed the output name of our bundle, the old bundle still remained! Webpack does not clean out our distribution folder before adding new files to it. This is potentially helpful as it allows you to place static files in there that don't need building. However, without maintenence it also means that stale assets could build up. What if we just placed the entire distribution folder on our web server? At best this would just make deploy times longer, at worst it could be a security risk!
+
+Again, there are a number of ways to manage this, for example, you could change the npm script in our `./package.json` to remove the directory before running Webpack. We're going to use a Webpack plugin, however, for the extra flexibility it provides, and the fact it helps keep all of our configuration in one place.
+
+We're going to be using `clean-webpack-plugin` ([documentation](https://github.com/johnagan/clean-webpack-plugin)). This one couldn't be simpler. First, let's install:
+
+```
+>yarn add --dev clean-webpack-plugin
+```
+
+And edit our `./webpack.common.js`:
+
+```js
+//...
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+
+module.exports = {
+  //...
+  plugins: [
+    //...
+    new CleanWebpackPlugin()
+  ]
+};
+```
+
+And we're done! Run a new build and ensure the old `./dist/main.js` file is removed (if you've already removed it, just create any new file and watch it get removed). As always, there are [a bunch of options you can set](https://github.com/johnagan/clean-webpack-plugin#options-and-defaults-optional) but we don't need to set any of them for our use-case.
+
+Again, it may not feel like we've done much, but let's do a new commit here:
+
+```
+>git add .
+>git commit -m "added clean-webpack-plugin"
+```
+
+[You can view the commit here](https://gitlab.com/Worble/react-webpack-tutorial/commit/e01f93c88051ca9219d4a4da257f38cdbbf23175).
+
+# Static Files
+
+So, if we are deleting the contents of our distribution folder every time we deploy, just how do we handle static files? First of all, let's mock out what we want to achieve.
+
+Say for instance, we want to add an image to show in `./src/myComponent.tsx`:
+
+```tsx
+//...
+class MyComponent extends React.Component<{}, IMyComponentState> {
+  //...
+  render() {
+    return (
+      <div>
+        ...
+        <img src="my_image.jpg"></img>
+      </div>
+    );
+  }
+}
+//...
+```
+
+For demonstration purposes, we're going to be using a free image taken from [Pexels](https://www.pexels.com) (although I did make it smaller for size reasons).
+
+<figure>
+  <img src="/animal-creature-cute-47547.jpg" alt="cute squirrel eating"/>
+  <figcaption>Free image from <a href="https://www.pexels.com/photo/brown-squirrel-47547/">Pexels</a></figcaption>
+</figure>
+
+To begin with, we're going to place this image into a new folder in the root of our project, which we'll call `static`. Now we need to make Webpack aware of the files within this folder, so it can know to move them into the `./dist` folder. The way Webpack knows about most files is that it starts from our entrypoint and looks at it's imports, and then looks at the imports of those imports, etc, etc. However, that also mean that Webpack will try to read and process them, and we just want them moving into dist as-is, so how do we achieve that? Well, like with our `./src/index.html`, it's with a plugin.
+
+We're going to be using `copy-webpack-plugin` ([documentation](https://github.com/webpack-contrib/copy-webpack-plugin)) to move everything within our `./static` folder to the `./dist` folder.
+
+So as always, let's install it:
+
+```
+>yarn add --dev copy-webpack-plugin
+```
+
+And let's configure it:
+
+```js
+//...
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+
+module.exports = {
+  //...
+  plugins: [
+    //...
+    new CopyWebpackPlugin([
+      {
+        from: path.join(__dirname, "static")
+      }
+    ])
+  ]
+};
+```
+
+If we do a build now, you should see the file getting copied across, and after opening our `./dist/index.html`, you should be able to see the image! Hurray! It even works out of the box with our dev server too!
+
+It's also at this point that I realised that the `content-base` option in our devServer wasn't needed, whoops. Sorry about that everyone. You can remove that now, and your `./webpack.dev.js` should look like this:
+
+```js
+const merge = require("webpack-merge");
+const common = require("./webpack.common.js");
+const path = require("path");
+
+module.exports = merge(common, {
+  mode: "development",
+  devtool: "eval-source-map",
+  devServer: {
+    hot: true
+  }
+});
+```
+
+Alright, let's commit this one up too:
+
+```
+>git add .
+>git commit -m "added static files and copy-webpack-plugin"
+```
+
+[You can view the commit here](https://gitlab.com/Worble/react-webpack-tutorial/commit/34ab50c5d1219ae97b193b10c070035561fdbb3f).
+
+That's all for today, folks. Next time we'll cover SASS compilation, as well as file compression!
+
+[Click here for Part 6!](@/blog/2019-10-28-react-webpack-tutorial-part-six.md)

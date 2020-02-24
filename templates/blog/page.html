@@ -1,0 +1,26 @@
+{% extends "blog/index.html" %}
+{% import "blog/post_macros.html" as post_macros %}
+{% block blogcontent %}
+<!-- END NAV -->
+<main class="pad-nav">
+    <section class="container">
+        <div class="columns is-desktop">
+            <div class="column is-10-desktop is-offset-1-desktop">
+                <article itemscope itemtype="http://schema.org/BlogPosting">
+                    <div class="card article">
+                        <div class="card-content">
+                            {{ post_macros::article_header(page = page) }}
+                            <div itemprop="articleBody" class="content article-body">
+                                {{ page.content | safe }}
+                            </div>
+                        </div>
+                        {% block page_footer %}
+                        {{ post_macros::post_footer(page=page) }}
+                        {% endblock page_footer %}
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock blogcontent %}

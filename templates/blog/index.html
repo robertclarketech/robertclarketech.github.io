@@ -1,3 +1,79 @@
 {% extends "index.html" %}
-{% block navbarstart %}<div></div>{% endblock navbarstart %}
-{% block content %}<div></div>{% endblock content %}
+{% import "blog/post_macros.html" as post_macros %}
+{% import "blog/index_macros.html" as index_macros %}
+{% import "blog/taxonomy_macros.html" as taxonomy_macros %}
+{% block head %}
+	{{ super() }}
+	{% if config.generate_rss %}
+		<link rel="alternate" type="application/rss+xml" title="RSS" href="{{ get_url(path="rss.xml") | safe }}">
+	{% endif %}
+	{% if config.build_search_index %}
+		<script defer type="text/javascript" src="{{ get_url(path="elasticlunr.min.js") }}"></script>
+    	<script defer type="text/javascript" src="{{ get_url(path="search_index.en.js") }}"></script>
+	{% endif %}
+{% endblock head %}
+{% block navbarbrand %}
+	{{ index_macros::brand() }}
+{% endblock navbarbrand %}
+{% block navbarstart %}
+	<div class="navbar-start">
+		<a class="navbar-item" href="{{ get_url(path="/") }}">
+			<span class="icon">
+				<i class="fas fa-user"></i>
+			</span>
+			<span>About Me</span>
+		</a>
+	</div>
+{% endblock navbarstart %}
+{% block navbarend %}
+	<div class="navbar-end">
+		{% if config.extra.menu %}
+			{% for item in config.extra.menu %}
+				{% set item_url =  item.url | replace(from="$BASE_URL", to=config.base_url) %}
+				{% set item_url = item_url ~ "/" %}
+				<a itemprop="url"
+					class="navbar-item {% if item_url == current_url %}is-active{% endif %}"
+					href="{{ item.url | safe | replace(from="$BASE_URL", to=config.base_url) }}">
+					<span itemprop="name">{{ item.name }}
+					</span>
+				</a>
+			{% endfor %}
+		{% endif %}	
+		{% if config.build_search_index %}
+			<div class="navbar-item search-container js-only">
+				<input class="input" id="search" type="search" placeholder="Search">
+				<div class="search-results box">
+					<div class="search-results__items"></div>
+				</div>
+			</div>
+		{% endif %}
+	</div>
+{% endblock navbarend %}
+{% block content %}
+	{% block blogcontent %}
+	<main class="index pad-nav">
+        <!-- START HERO TITLE -->
+        {% if config.extra.title %}
+        	{{ index_macros::hero(title=config.extra.title, primary=true) }}
+        {% endif %}
+        <!-- END HERO TITLE -->
+        <div class="container">
+            <!-- START ARTICLE FEED -->
+            {% if paginator %}
+            	{{ index_macros::list_articles(pages=paginator.pages) }}
+            {% else %}
+            	{{ index_macros::list_articles(pages=section.pages) }}
+            {% endif %}
+            <!-- END ARTICLE FEED -->
+            <!-- START PAGINATION -->
+            {% if paginator %}
+            	{{ index_macros::paginate(paginator=paginator) }}
+            {% endif %}
+            <!-- END PAGINATION -->
+        </div>
+    </main>	
+	{% endblock blogcontent %}
+	{% if config.build_search_index %}
+		<script type="text/javascript" src="{{ get_url(path="search.js") }}"></script>
+	{% endif %}
+{% endblock content %}
