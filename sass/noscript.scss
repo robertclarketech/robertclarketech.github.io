@@ -5,13 +5,16 @@
 $navbar-breakpoint: $desktop !default;
 
 @include until($navbar-breakpoint) {
-  .navbar-menu {
-    display: block;
-  }
+	.navbar-menu {
+		display: block;
+	}
+}
+.pad-nav {
+	padding-top: 0;
 }
 .navbar-burger {
-  display: none;
+	display: none;
 }
 nav.navbar.is-fixed-top {
-  position: initial;
+	position: initial;
 }
