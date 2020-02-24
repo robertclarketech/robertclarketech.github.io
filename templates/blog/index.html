@@ -2,6 +2,7 @@
 {% import "blog/post_macros.html" as post_macros %}
 {% import "blog/index_macros.html" as index_macros %}
 {% import "blog/taxonomy_macros.html" as taxonomy_macros %}
+
 {% block head %}
 	{{ super() }}
 	{% if config.generate_rss %}
@@ -11,6 +12,8 @@
 		<script defer type="text/javascript" src="{{ get_url(path="elasticlunr.min.js") }}"></script>
     	<script defer type="text/javascript" src="{{ get_url(path="search_index.en.js") }}"></script>
 	{% endif %}
+	{% block title %}{{ config.extra.blog_title }}{% endblock title %}
+	{% block description %}{{ config.extra.blog_description }}{% endblock description %}
 {% endblock head %}
 {% block navbarbrand %}
 	{{ index_macros::brand() }}
