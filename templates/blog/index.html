@@ -12,9 +12,9 @@
 		<script defer type="text/javascript" src="{{ get_url(path="elasticlunr.min.js") }}"></script>
     	<script defer type="text/javascript" src="{{ get_url(path="search_index.en.js") }}"></script>
 	{% endif %}
-	{% block title %}{{ config.extra.blog_title }}{% endblock title %}
-	{% block description %}{{ config.extra.blog_description }}{% endblock description %}
 {% endblock head %}
+{% block title %}{{ config.extra.blog_title }}{% endblock title %}
+{% block description %}{{ config.extra.blog_description }}{% endblock description %}
 {% block navbarbrand %}
 	{{ index_macros::brand() }}
 {% endblock navbarbrand %}

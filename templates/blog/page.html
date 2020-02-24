@@ -1,11 +1,7 @@
 {% extends "blog/index.html" %}
 {% import "blog/post_macros.html" as post_macros %}
-{% block title %}
-    {{ page.title }} - {{ super() }}
-{% endblock title %}
-{% block description %}
-    {{ page.description }}
-{% endblock description %}
+{% block title %}{{ page.title }} - {{ super() }}{% endblock title %}
+{% block description %}{{ page.description }}{% endblock description %}
 {% block blogcontent %}
 <!-- END NAV -->
 <main class="pad-nav">
