@@ -22,7 +22,21 @@
 </head>
 
 <body>
-	{% block body %}{% endblock body %}
+	<div class="body">
+		{% block body %}{% endblock body %}
+	</div>
+	<!-- Footer -->
+	<footer class="footer">
+		<div class="columns">
+			<div class="column">
+				<div class="content">
+					Copyright &#169; 2020 Robert Clarke &nbsp;&nbsp;|&nbsp;&nbsp; <a
+						href="{{ get_url(path="sitemap.xml") }}">Site Map</a>
+
+				</div>
+			</div>
+		</div>
+	</footer>
 	<script src="{{ get_url(path="site.js") }}"></script>
 </body>
 

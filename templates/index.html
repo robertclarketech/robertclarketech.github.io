@@ -3,9 +3,8 @@
 {% import "main-page/_navbar.html" as main_nav_macro %}
 {% import "_navbar-macros.html" as navbar_macros %}
 {% block body %}
-	{% block header %}
-		<!-- Navigation bar -->
-		<nav class="navbar is-primary is-fixed-top">
+	<!-- Navigation bar -->
+	<nav class="navbar is-primary is-fixed-top">
 		<div class="navbar-brand">
 			{% block navbarbrand %}
 				<a class="navbar-item" href="{{ get_url(path="/") }}">
@@ -34,8 +33,7 @@
 				{{ navbar_macros::navbar_end() }}
 			{% endblock navbarend %}
 		</div>
-		</nav>
-	{% endblock header %}
+	</nav>
 	{% block content %}
 		{{ main_macro::main_page() }}
 	{% endblock content %}
