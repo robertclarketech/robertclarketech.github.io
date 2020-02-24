@@ -59,14 +59,7 @@
 	height: $size-small;
 }
 
-.progress,
-.tag {
-	border-radius: $radius;
-}
-
 .navbar {
-	border-radius: $radius;
-
 	.navbar-dropdown .navbar-item {
 		@include desktop {
 			color: $text;

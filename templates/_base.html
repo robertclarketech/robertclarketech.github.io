@@ -4,7 +4,8 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="{{ get_url(path="fontawesome/css/all.min.css") }}" />
-		<link rel="stylesheet" href="{{ get_url(path="site.css") }}" /> 
+		<link rel="stylesheet" media="(prefers-color-scheme: dark)" href="{{ get_url(path="site-dark.css") }}" />
+		<link rel="stylesheet" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)" href="{{ get_url(path="site-light.css") }}" />
 		<noscript>
 			<link rel="stylesheet" href="{{ get_url(path="noscript.css") }}" /> 
 		</noscript>
