@@ -18,15 +18,19 @@
 }
 
 .button {
+
 	&.is-active,
 	&:active {
 		box-shadow: inset 1px 1px 4px rgba($grey-darker, 0.3);
 	}
-	@each $name, $pair in $colors {
+
+	@each $name,
+	$pair in $colors {
 		$color: nth($pair, 1);
 		$color-invert: nth($pair, 2);
 
 		&.is-#{$name} {
+
 			&.is-hovered,
 			&:hover {
 				background-color: darken($color, 10);
@@ -42,7 +46,9 @@
 }
 
 .notification {
-	@each $name, $pair in $colors {
+
+	@each $name,
+	$pair in $colors {
 		$color: nth($pair, 1);
 		$color-invert: nth($pair, 2);
 
@@ -82,12 +88,14 @@
 		}
 	}
 
-	@each $name, $pair in $colors {
+	@each $name,
+	$pair in $colors {
 		$color: nth($pair, 1);
 		$color-invert: nth($pair, 2);
 
 		&.is-#{$name} {
 			@include touch {
+
 				.navbar-item,
 				.navbar-link {
 					color: $color-invert;
@@ -104,11 +112,14 @@
 }
 
 .hero {
+
 	// Colors
 	.navbar {
 		background-color: $primary;
 	}
-	@each $name, $pair in $colors {
+
+	@each $name,
+	$pair in $colors {
 		$color: nth($pair, 1);
 		$color-invert: nth($pair, 2);
 
@@ -131,4 +142,29 @@
 			background-color: lighten($primary, 40);
 		}
 	}
+}
+
+.tag:not(body) {
+
+	@each $name,
+	$pair in $colors {
+		$color: nth($pair, 1);
+		$color-invert: nth($pair, 2);
+
+		&.is-#{$name} {
+			background-color: $color;
+			color: $color-invert;
+
+			@if length($pair)>3 {
+				$color-light: nth($pair, 3);
+				$color-dark: nth($pair, 4);
+
+				&.is-light {
+					background-color: $color-dark;
+					color: $color-light;
+				}
+			}
+		}
+	}
+
 }

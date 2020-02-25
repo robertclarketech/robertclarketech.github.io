@@ -1,17 +1,6 @@
 @import "./blog/article";
 @import "./blog/search-results";
 @import "./blog/pagination";
-@import "./blog/nav";
-
-.pad-nav {
-	padding-top: $navbar-height;
-}
-
-.section-heading {
-	text-align: center;
-	margin-top: 1rem;
-	margin-bottom: 4rem;
-}
 
 html,
 body {
@@ -25,6 +14,7 @@ body {
 
 .body {
 	flex: 1 0 auto;
+	margin-bottom: 1rem;
 }
 
 .footer {
@@ -33,6 +23,16 @@ body {
 
 main {
 	flex: 1;
+}
+
+.pad-nav {
+	padding-top: $navbar-height;
+}
+
+.section-heading {
+	text-align: center;
+	margin-top: 1rem;
+	margin-bottom: 4rem;
 }
 
 .article,

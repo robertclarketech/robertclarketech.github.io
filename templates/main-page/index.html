@@ -3,64 +3,14 @@
 {% import "main-page/_skills.html" as skills_macro %} 
 {% import "main-page/_resume.html" as resume_macro %} 
 {% import "main-page/_services.html" as services_macro %} 
+{% import "main-page/_contact.html" as contact_macro %} 
+
 {% macro main_page() %} 
 {{ header_macro::header() }} 
 {{ about_macro::about() }} 
 {{ skills_macro::skills() }}
 {{ services_macro::services() }}
 {{ resume_macro::resume() }}
-
-<!-- Contact -->
-{# <section class="section" id="contact">
-	<div class="container">
-		<div class="section-heading">
-			<h3 class="title is-2">Contact</h3>
-			<h4 class="subtitle is-5">Get in touch</h4>
-		</div>
-		<br />
-
-		<div class="columns">
-			<div class="column is-8 is-offset-2">
-				<div class="box">
-					<div class="field">
-						<label class="label">Name</label>
-						<div class="control">
-							<input class="input" type="text" placeholder="Text input" />
-						</div>
-					</div>
-
-					<div class="field">
-						<label class="label">Email</label>
-						<div class="control has-icons-left">
-							<input class="input" type="email" placeholder="Email input" value="" />
-							<span class="icon is-small is-left">
-								<i class="fas fa-envelope"></i>
-							</span>
-						</div>
-					</div>
-
-					<div class="field">
-						<label class="label">Message</label>
-						<div class="control">
-							<textarea class="textarea" placeholder="Textarea"></textarea>
-						</div>
-					</div>
-
-					<div class="field is-grouped has-text-centered">
-						<div class="control">
-							<button class="button is-primary is-large">
-								<span class="icon">
-									<i class="fas fa-envelope"></i>
-								</span>
-								<span>Submit</span>
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section> #}
-
+{{ contact_macro::contact() }}
 
 {% endmacro main_page %}

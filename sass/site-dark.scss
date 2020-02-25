@@ -2,6 +2,18 @@
 @import "vendor/bulma/_bulma.sass";
 @import "vendor/darkly/_overrides.scss";
 @import "_site.scss";
+
 input#search::placeholder {
 	color: $grey-lighter;
+}
+
+.box {
+	$card-border-color: lighten($grey-darker, 5);
+	box-shadow: none;
+	background-color: $grey-darker;
+	border-radius: $radius;
+}
+
+.card .tag {
+	background-color: $body-background-color
 }
