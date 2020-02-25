@@ -5,12 +5,14 @@ sudo: required
 before_script:
   # Download and unzip the zola executable
   # Replace the version numbers in the URL by the version you want to use
-  - sudo apt-get -y update
-  - sudo apt-get -y install libssl1.0.0 libssl-dev
-  - sudo ln -s /lib/x86_64-linux-gnu/libssl.so.1.0.0 /lib/x86_64-linux-gnulibssl.so.10
-  - sudo ln -s /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 /lib/x86_64-linux-gnulibcrypto.so.10
-  - sudo ln -s /lib/x86_64-linux-gnu/libssl.so.1.0.0 /usr/lib/libssl.so.10
-  - sudo ln -s /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 /usr/lib/libcrypto.so.10
+  #- sudo apt-get -y update
+  #- sudo apt-get -y install libssl1.0.0 libssl-dev
+  # - sudo ln -s /lib/x86_64-linux-gnu/libssl.so.1.0.0 /lib/x86_64-linux-gnulibssl.so.10
+  # - sudo ln -s /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 /lib/x86_64-linux-gnulibcrypto.so.10
+  # - sudo ln -s /lib/x86_64-linux-gnu/libssl.so.1.0.0 /usr/lib/libssl.so.10
+  # - sudo ln -s /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 /usr/lib/libcrypto.so.10
+  - sudo ln -s /usr/local/lib/libssl.so.1.1 /usr/lib/libssl.so.1.1 
+  - sudo ln -s /usr/local/lib/libcrypto.so.1.1 /usr/lib/libcrypto.so.1.1 
   - curl -s -L https://github.com/getzola/zola/releases/download/v0.9.0/zola-v0.9.0-x86_64-unknown-linux-gnu.tar.gz | sudo tar xvzf - -C /usr/local/bin
 
 script:
