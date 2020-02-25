@@ -10,4 +10,4 @@ jobs:
       uses: shalzz/zola-deploy-action@master
       env:
         PAGES_BRANCH: gh-pages
-        TOKEN: d969e28136a488ca1752c0440a167cc27e90ff8d
+        TOKEN: ${{ secrets.PAT }}
