@@ -14,16 +14,4 @@ jobs:
       env:
         PAGES_BRANCH: master
         TOKEN: ${{ secrets.PAT }}
-  postbuild: 
-    name: purge-css
-    needs: build
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [8.x, 10.x, 12.x]
-    steps:
-    - name: purge-css
-      run: |
-        npx purgecss --css ./*.css --content **/*.html --output .
-        npx purgecss --css ./fontawesome/css/*.css --content **/*.html --output ./fontawesome/css/
 
