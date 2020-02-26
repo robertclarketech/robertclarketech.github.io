@@ -15,7 +15,7 @@
 {% endmacro hero %}
 
 {% macro list_articles(pages) %}
-<section class="articles">
+<section class="articles section">
     <div class="columns is-desktop">
         <div class="column is-10-desktop is-offset-1-desktop">
             {% for page in pages %}
@@ -27,7 +27,7 @@
 {% endmacro list_articles %}
 
 {% macro paginate(paginator) %}
-<section class="paginator-container">
+<section class="paginator-container section">
     <div class="columns">
         <div class="column is-10 is-offset-1">
             <nav class="pagination is-centered" role="navigation" aria-label="pagination">
