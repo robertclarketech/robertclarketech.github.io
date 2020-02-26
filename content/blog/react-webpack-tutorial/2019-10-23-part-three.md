@@ -4,13 +4,13 @@ description = "A React and Webpack tutorial, starting from the very bottom."
 
 [taxonomies]
 categories = ["React Webpack Tutorial"]
-tags = ["react", "webpack"]
+tags = ["react", "webpack", "babel"]
 +++
 
 # Previous
 
-- [Part 1](@/blog/2019-10-21-react-webpack-tutorial-part-one.md)
-- [Part 2](@/blog/2019-10-22-react-webpack-tutorial-part-two.md)
+- [Part 1](@/blog/react-webpack-tutorial/2019-10-21-part-one.md)
+- [Part 2](@/blog/react-webpack-tutorial/2019-10-22-part-two.md)
 
 You can find the full repository and all previous commits by [clicking here](https://gitlab.com/Worble/react-webpack-tutorial).
 
@@ -338,4 +338,4 @@ That's all for this time, let's make a quick commit:
 
 Next time we'll look into getting TypeScript support for our JSX components, as well as setting up a Webpack config for our production environment.
 
-[Click here for Part 4!](@/blog/2019-10-24-react-webpack-tutorial-part-four.md)
+[Click here for Part 4!](@/blog/react-webpack-tutorial/2019-10-24-part-four.md)

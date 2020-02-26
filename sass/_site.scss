@@ -45,11 +45,11 @@ main {
 
 .column {
 	.box {
-		height: 100%
+		height: 100%;
 	}
 
 	.card {
-		height: 100%
+		height: 100%;
 	}
 }
 
@@ -59,7 +59,7 @@ main {
 	flex-direction: row;
 	flex-wrap: wrap;
 
-	>a {
+	> a {
 		margin: 0.2rem;
 	}
 }
@@ -69,7 +69,7 @@ main {
 }
 
 @include from($tablet) {
-	.footer-left {
+	.footer-right {
 		margin-left: auto;
 	}
 }
