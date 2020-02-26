@@ -1,7 +1,7 @@
 {% macro hero(title, primary) %}
-{% set class = "is-bold" %}
+{% set class = "" %}
 {% if primary %}
-{% set class = class ~ " hero is-primary" %}
+{% set class = class ~ "hero is-primary" %}
 {% endif %}
 <section class="{{class}}">
     <header>
@@ -27,7 +27,7 @@
 {% endmacro list_articles %}
 
 {% macro paginate(paginator) %}
-<section class="paginator-container section">
+<section class="section">
     <div class="columns">
         <div class="column is-10 is-offset-1">
             <nav class="pagination is-centered" role="navigation" aria-label="pagination">
