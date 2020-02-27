@@ -11,7 +11,7 @@
 <!-- IE 10 + 11 specific since they don't support prefers-color-scheme -->
 <link rel="stylesheet" media="all and (-ms-high-contrast: none), (-ms-high-contrast: active)"
 	href="{{ get_url(path="site-light.css") }}" />
-<!-- IE 9 and below - this will render mostly properly however since IE9 doesn't support flexbox or document.querySelector the site will still be broken -->
+<!-- IE 9 and below - this will render mostly properly however since IE10 doesn't support element.dataset the site will still be broken -->
 <!--[if IE]>
 	<link rel="stylesheet" href="{{ get_url(path="site-light.css") }}">
 <![endif]-->
