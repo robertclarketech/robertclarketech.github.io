@@ -1,0 +1,21 @@
+{% macro header() %}
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="{{ get_url(path="apple-touch-icon.png") }}" />
+<link rel="icon" type="image/png" sizes="32x32" href="{{ get_url(path="favicon-32x32.png") }}" />
+<link rel="icon" type="image/png" sizes="16x16" href="{{ get_url(path="favicon-16x16.png") }}" />
+<link rel="manifest" href="{{ get_url(path="site.webmanifest") }}" />
+<link rel="stylesheet" media="(prefers-color-scheme: dark)" href="{{ get_url(path="site-dark.css") }}" />
+<link rel="stylesheet" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)"
+	href="{{ get_url(path="site-light.css") }}" />
+<!-- IE 10 + 11 specific since they don't support prefers-color-scheme -->
+<link rel="stylesheet" media="all and (-ms-high-contrast: none), (-ms-high-contrast: active)"
+	href="{{ get_url(path="site-light.css") }}" />
+<!-- IE 9 and below - this will render mostly properly however since IE9 doesn't support flexbox or document.querySelector the site will still be broken -->
+<!--[if IE]>
+	<link rel="stylesheet" href="{{ get_url(path="site-light.css") }}">
+<![endif]-->
+<noscript>
+	<link rel="stylesheet" href="{{ get_url(path="noscript.css") }}" />
+</noscript>
+{% endmacro header %}
