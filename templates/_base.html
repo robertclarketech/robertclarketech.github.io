@@ -1,25 +1,16 @@
 {% import "blog/post_macros.html" as post_macros %}
+{% import "_footer.html" as footer_macro %}
+{% import "_header.html" as header_macro %}
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 	{% block head %}
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="apple-touch-icon" sizes="180x180" href="{{ get_url(path="apple-touch-icon.png") }}" />
-	<link rel="icon" type="image/png" sizes="32x32" href="{{ get_url(path="favicon-32x32.png") }}" />
-	<link rel="icon" type="image/png" sizes="16x16" href="{{ get_url(path="favicon-16x16.png") }}" />
-	<link rel="manifest" href="{{ get_url(path="site.webmanifest") }}" />
-	<link rel="stylesheet" media="(prefers-color-scheme: dark)" href="{{ get_url(path="site-dark.css") }}" />
-	<link rel="stylesheet" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)"
-		href="{{ get_url(path="site-light.css") }}" />
-	<noscript>
-		<link rel="stylesheet" href="{{ get_url(path="noscript.css") }}" />
-	</noscript>
-	<title>{% block title %}{{ config.title }}{% endblock title %}</title>
-	<meta name="description" content="{% block description %}{{ config.description }}{% endblock description %}" />
-	<meta name="author" content="{% block author %}{{ config.extra.author }}{% endblock author %}" />
+		{{ header_macro::header() }}
+		<title>{% block title %}{{ config.title }}{% endblock title %}</title>
+		<meta name="description" content="{% block description %}{{ config.description }}{% endblock description %}" />
+		<meta name="author" content="{% block author %}{{ config.extra.author }}{% endblock author %}" />
 	{% endblock head %}
 </head>
 
@@ -29,29 +20,7 @@
 	</div>
 	<!-- Footer -->
 	<footer class="footer">
-		<div class="columns is-tablet">
-			<div class="column">
-				<div class="content">
-					Copyright &#169; 2020 Robert Clarke &nbsp;&nbsp;|&nbsp;&nbsp; 
-					<a class="has-text-info" href="{{ get_url(path="sitemap.xml") }}">
-						Site Map
-					</a>
-				</div>
-			</div>
-			<div class="column is-flex">
-				<div class="content is-flex footer-right">
-					<a aria-label="Bulma Homepage" href="https://bulma.io/" rel="noreferrer noopener" target="_blank">
-						<picture>
-							<source srcset="{{ get_url(path="img/made-with-bulma--dark.png") }}" media="(prefers-color-scheme: dark)">
-							<img alt="Made with bulma" src="{{ get_url(path="img/made-with-bulma.png") }}" width="128" height="24">
-						</picture>
-					</a>
-					<span>
-						&nbsp;and <a class="has-text-info" rel="noreferrer noopener" href="https://www.getzola.org/" target="_blank">Zola</a>
-					</span>
-				</div>
-			</div>
-		</div>
+		{{ footer_macro::footer() }}
 	</footer>
 	<link rel="stylesheet" href="{{ get_url(path="fontawesome/css/all.min.css") }}" />
 	<script async src="{{ get_url(path="site.js") }}"></script>
