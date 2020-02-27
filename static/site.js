@@ -8,8 +8,8 @@
 		menu.classList.toggle("is-active");
 	});
 	var navItems = document.querySelectorAll(".navbar-menu .navbar-item");
-	for (let i = 0; i < navItems.length; i++) {
-		const element = navItems[i];
+	for (var i = 0; i < navItems.length; i++) {
+		var element = navItems[i];
 		element.addEventListener("click", function() {
 			burger.classList.remove("is-active");
 			menu.classList.remove("is-active");
