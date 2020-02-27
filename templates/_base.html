@@ -11,7 +11,6 @@
 	<link rel="icon" type="image/png" sizes="32x32" href="{{ get_url(path="favicon-32x32.png") }}" />
 	<link rel="icon" type="image/png" sizes="16x16" href="{{ get_url(path="favicon-16x16.png") }}" />
 	<link rel="manifest" href="{{ get_url(path="site.webmanifest") }}" />
-	<link rel="stylesheet" href="{{ get_url(path="fontawesome/css/all.min.css") }}" />
 	<link rel="stylesheet" media="(prefers-color-scheme: dark)" href="{{ get_url(path="site-dark.css") }}" />
 	<link rel="stylesheet" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)"
 		href="{{ get_url(path="site-light.css") }}" />
@@ -54,7 +53,8 @@
 			</div>
 		</div>
 	</footer>
-	<script src="{{ get_url(path="site.js") }}"></script>
+	<link rel="stylesheet" href="{{ get_url(path="fontawesome/css/all.min.css") }}" />
+	<script async src="{{ get_url(path="site.js") }}"></script>
 </body>
 
 </html>

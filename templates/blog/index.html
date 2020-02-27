@@ -81,6 +81,6 @@
     </main>	
 	{% endblock blogcontent %}
 	{% if config.build_search_index %}
-		<script type="text/javascript" src="{{ get_url(path="search.js") }}"></script>
+		<script async type="text/javascript" src="{{ get_url(path="search.js") }}"></script>
 	{% endif %}
 {% endblock content %}
