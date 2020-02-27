@@ -18,8 +18,8 @@ title = "Robert Clarke - Full Stack Web Developer"
 description = "Robert Clarke's website"
 
 taxonomies = [
-    {name = "categories", paginate_by = 5, rss = true},
-    {name = "tags", paginate_by = 5, rss = true}
+    {name = "categories", paginate_by = 5},
+    {name = "tags", paginate_by = 5}
 ]
 
 [extra]
