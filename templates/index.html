@@ -3,33 +3,33 @@
 {% import "main-page/_navbar.html" as main_nav_macro %}
 {% import "_navbar-macros.html" as navbar_macros %}
 {% block body %}
-	<!-- Navigation bar -->
-	<nav class="navbar is-primary is-fixed-top">
-		<div class="navbar-brand">
-			{% block navbarbrand %}
-				<a class="navbar-item" href="{{ get_url(path="/") }}">
-					<span aria-hidden="true" class="icon">
-						<i class="fas fa-home"></i>
-					</span>
-					<span>Home</span>
-				</a>
-			{% endblock navbarbrand %}
-			<div class="navbar-burger burger" data-target="nav-menu">
+<!-- Navigation bar -->
+<nav class="navbar is-primary is-fixed-top">
+	<div class="navbar-brand">
+		{% block navbarbrand %}
+		<a class="navbar-item" href="{{ get_url(path="/") }}">
+			<span aria-hidden="true" class="icon">
+				<i class="icon-home3"></i>
+			</span>
+			<span>Home</span>
+		</a>
+		{% endblock navbarbrand %}
+		<div class="navbar-burger burger" data-target="nav-menu">
 			<span></span>
 			<span></span>
 			<span></span>
-			</div>
 		</div>
-		<div id="nav-menu" class="navbar-menu">
-			{% block navbarstart %}
-				{{ main_nav_macro::navbar_start() }}
-			{% endblock navbarstart %}
-			{% block navbarend %}
-				{{ navbar_macros::navbar_end() }}
-			{% endblock navbarend %}
-		</div>
-	</nav>
-	{% block content %}
-		{{ main_macro::main_page() }}
-	{% endblock content %}
+	</div>
+	<div id="nav-menu" class="navbar-menu">
+		{% block navbarstart %}
+		{{ main_nav_macro::navbar_start() }}
+		{% endblock navbarstart %}
+		{% block navbarend %}
+		{{ navbar_macros::navbar_end() }}
+		{% endblock navbarend %}
+	</div>
+</nav>
+{% block content %}
+{{ main_macro::main_page() }}
+{% endblock content %}
 {% endblock body %}
