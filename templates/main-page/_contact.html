@@ -13,74 +13,46 @@
 				<div class="box">
 					<form action="https://mailthis.to/clarkero" method="POST">
 						<div class="field">
-							<label class="label"
-								>Name
+							<label class="label">Name
 								<div class="control">
-									<input
-										class="input"
-										name="name"
-										type="text"
-										placeholder="Name"
-									/>
+									<input class="input" name="name" type="text" placeholder="Name" />
 								</div>
 							</label>
 						</div>
 
 						<div class="field">
-							<label class="label"
-								>Email
+							<label class="label">Email
 								<div class="control has-icons-left">
-									<input
-										class="input"
-										type="email"
-										name="_replyto"
-										placeholder="Your Contact Address"
-									/>
-									<span
-										aria-hidden="true"
-										class="icon is-small is-left"
-									>
-										<i class="fas fa-envelope"></i>
+									<input class="input" type="email" name="_replyto"
+										placeholder="Your Contact Address" />
+									<span aria-hidden="true" class="icon is-small is-left">
+										<i class="icon-envelop"></i>
 									</span>
 								</div>
 							</label>
 						</div>
 
 						<div class="field">
-							<label class="label"
-								>Message
+							<label class="label">Message
 								<div class="control">
-									<textarea
-										class="textarea"
-										name="message"
-										placeholder="Write your query here"
-									></textarea>
+									<textarea class="textarea" name="message"
+										placeholder="Write your query here"></textarea>
 								</div>
 							</label>
 						</div>
 
-						<input
-							type="hidden"
-							name="_subject"
-							value="Contact form submitted"
-						/>
+						<input type="hidden" name="_subject" value="Contact form submitted" />
 						<input type="hidden" name="_honeypot" value="" />
-						<input
-							type="hidden"
-							name="_confirmation"
-							value="Thanks for getting in touch! I'll be in contact soon."
-						/>
+						<input type="hidden" name="_confirmation"
+							value="Thanks for getting in touch! I'll be in contact soon." />
 						<input type="hidden" name="_after" value="{{
 						get_url(path="/") }}">
 
 						<div class="field is-grouped has-text-centered">
 							<div class="control">
-								<button
-									class="button is-primary is-large"
-									type="submit"
-								>
+								<button class="button is-primary is-large" type="submit">
 									<span aria-hidden="true" class="icon">
-										<i class="fas fa-envelope"></i>
+										<i class="icon-envelop"></i>
 									</span>
 									<span>Submit</span>
 								</button>
