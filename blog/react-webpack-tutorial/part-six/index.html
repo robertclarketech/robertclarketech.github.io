@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	
+
+		
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;favicon-16x16.png" />
+<link rel="manifest" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;site.webmanifest" />
+<link rel="stylesheet" media="(prefers-color-scheme: dark)" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;site-dark.css" />
+<link rel="stylesheet" media="screen and (prefers-color-scheme: no-preference), (prefers-color-scheme: light)"
+	href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;site-light.css" />
+<noscript>
+	<link rel="stylesheet" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;noscript.css" />
+</noscript>
+
+		<title>React And Webpack Tutorial - Part 6 - Robert Clarke&#x27;s Blog</title>
+		<meta name="description" content="A React and Webpack tutorial, starting from the very bottom." />
+		<meta name="author" content="Robert Clarke" />
+	
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="https://www.robertclarke.tech/rss.xml">
+
+
+<script defer type="text/javascript" src="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;elasticlunr.min.js"></script>
+<script defer type="text/javascript" src="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;search_index.en.js"></script>
+
+
+</head>
+
+<body>
+	<div class="body">
+		
+<!-- Navigation bar -->
+<nav class="navbar is-primary is-fixed-top">
+	<div class="navbar-brand">
+		
+
+<a class="navbar-item" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;blog">
+    <span aria-hidden="true" class="icon">
+        <i class="icon-blog"></i>
+    </span>
+    <span>Home</span>
+</a>
+
+
+		<div class="navbar-burger burger" data-target="nav-menu">
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</div>
+	<div id="nav-menu" class="navbar-menu">
+		
+<div class="navbar-start">
+	<a class="navbar-item" href="https:&#x2F;&#x2F;www.robertclarke.tech">
+		<span aria-hidden="true" class="icon">
+			<i class="icon-info"></i>
+		</span>
+		<span>About Me</span>
+	</a>
+</div>
+
+		
+<div class="navbar-end">
+	
+	
+	
+	
+	<a itemprop="url" class="navbar-item "
+		href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;categories">
+		<span itemprop="name">Categories
+		</span>
+	</a>
+	
+	
+	
+	<a itemprop="url" class="navbar-item "
+		href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;tags">
+		<span itemprop="name">Tags
+		</span>
+	</a>
+	
+	
+	
+	<div class="navbar-item search-container js-only">
+		<input class="input" id="search" type="search" placeholder="Search">
+		<div class="search-results box">
+			<div class="search-results__items"></div>
+		</div>
+	</div>
+	
+</div>
+
+	</div>
+</nav>
+
+
+<main class="pad-nav">
+    <section class="section">
+        <div class="columns is-desktop">
+            <div class="column is-10-desktop is-offset-1-desktop">
+                <article itemscope itemtype="http://schema.org/BlogPosting">
+                    <div class="card article">
+                        <div class="card-content">
+                            
+<header>
+    <div class="has-text-centered">
+        <a href="https://www.robertclarke.tech/blog/react-webpack-tutorial/part-six/">
+            <h4 class="title is-3">React And Webpack Tutorial - Part 6
+            </h4>
+        </a>
+        <div class="tags has-addons level-item">
+            <span class="tag is-rounded">2019-10-28</span>
+                       
+            <span class="tag is-rounded">
+<svg class="i-clock" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round"
+    stroke-linejoin="round" stroke-width="6.25%">
+    <circle cx="16" cy="16" r="14" />
+    <path d="M16 8 L16 16 20 20" />
+</svg>
+<span>&nbsp;9 minute read</span>
+</span>
+        </div>
+    </div>
+</header>
+
+                            <div itemprop="articleBody" class="content article-body">
+                                <h1 id="previous">Previous</h1>
+<ul>
+<li><a href="https://www.robertclarke.tech/blog/react-webpack-tutorial/part-one/">Part 1</a></li>
+<li><a href="https://www.robertclarke.tech/blog/react-webpack-tutorial/part-two/">Part 2</a></li>
+<li><a href="https://www.robertclarke.tech/blog/react-webpack-tutorial/part-three/">Part 3</a></li>
+<li><a href="https://www.robertclarke.tech/blog/react-webpack-tutorial/part-four/">Part 4</a></li>
+<li><a href="https://www.robertclarke.tech/blog/react-webpack-tutorial/part-five/">Part 5</a></li>
+</ul>
+<p>You can find the full repository and all previous commits by <a href="https://gitlab.com/Worble/react-webpack-tutorial">clicking here</a>.</p>
+<p>Last time, we started creating our <code>dist/index.html</code> file through Webpack, looked at how to ensure users are always getting our latest changes, and how to serve static files. In today's programme, we're going to be covering SASS compilation, and file compression!</p>
+<span id="continue-reading"></span>
+<h1 id="css">CSS</h1>
+<p>Although I say we're going to SASS compilation, we haven't even added some CSS to our project yet! So let's tackle that first.</p>
+<p>Alright, let's make some CSS. We'll put this in a new folder under <code>./src/</code> called <code>css</code>, and create a new file called <code>reset.css</code>. We'll just put a basic CSS reset in here for now:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#59c2ff;">html </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae6;">box-sizing</span><span style="color:#bfbab0cc;">: </span><span style="font-style:italic;color:#f29668;">border-box</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae6;">font-size</span><span style="color:#bfbab0cc;">: </span><span style="color:#f29718;">16</span><span style="color:#ff7733;">px</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+}</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+</span><span style="color:#59c2ff;">*</span><span style="color:#bfbab0;">,</span><span style="color:#bfbab0;">
+</span><span style="color:#59c2ff;">*</span><span style="color:#bfbab0;">:before,</span><span style="color:#bfbab0;">
+</span><span style="color:#59c2ff;">*</span><span style="color:#bfbab0;">:after {</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae6;">box-sizing</span><span style="color:#bfbab0cc;">: </span><span style="font-style:italic;color:#f29668;">inherit</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+}</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+</span><span style="color:#59c2ff;">body</span><span style="color:#bfbab0;">,</span><span style="color:#bfbab0;">
+</span><span style="color:#59c2ff;">h1</span><span style="color:#bfbab0;">,</span><span style="color:#bfbab0;">
+</span><span style="color:#59c2ff;">h2</span><span style="color:#bfbab0;">,</span><span style="color:#bfbab0;">
+</span><span style="color:#59c2ff;">h3</span><span style="color:#bfbab0;">,</span><span style="color:#bfbab0;">
+</span><span style="color:#59c2ff;">h4</span><span style="color:#bfbab0;">,</span><span style="color:#bfbab0;">
+</span><span style="color:#59c2ff;">h5</span><span style="color:#bfbab0;">,</span><span style="color:#bfbab0;">
+</span><span style="color:#59c2ff;">h6</span><span style="color:#bfbab0;">,</span><span style="color:#bfbab0;">
+</span><span style="color:#59c2ff;">p</span><span style="color:#bfbab0;">,</span><span style="color:#bfbab0;">
+</span><span style="color:#59c2ff;">ol</span><span style="color:#bfbab0;">,</span><span style="color:#bfbab0;">
+</span><span style="color:#59c2ff;">ul </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae6;">margin</span><span style="color:#bfbab0cc;">: </span><span style="color:#f29718;">0</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae6;">padding</span><span style="color:#bfbab0cc;">: </span><span style="color:#f29718;">0</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae6;">font-weight</span><span style="color:#bfbab0cc;">: </span><span style="font-style:italic;color:#f29668;">normal</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+}</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+</span><span style="color:#59c2ff;">ol</span><span style="color:#bfbab0;">,</span><span style="color:#bfbab0;">
+</span><span style="color:#59c2ff;">ul </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae6;">list-style</span><span style="color:#bfbab0cc;">: </span><span style="font-style:italic;color:#f29668;">none</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+}</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+</span><span style="color:#59c2ff;">img </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae6;">max-width</span><span style="color:#bfbab0cc;">: </span><span style="color:#f29718;">100</span><span style="color:#ff7733;">%</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae6;">height</span><span style="color:#bfbab0cc;">: </span><span style="font-style:italic;color:#f29668;">auto</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+}</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Alright, now let's import this into our <code>./src/index.tsx</code> so it's picked up by Webpack:</p>
+<pre style="background-color:#0f1419;">
+<span style="font-style:italic;color:#5c6773;">//...</span><span style="color:#bfbab0;">
+</span><span style="color:#ff7733;">import </span><span style="color:#c2d94c;">&quot;./css/reset.css&quot;</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="font-style:italic;color:#5c6773;">//...</span><span style="color:#bfbab0;">
+</span></pre>
+<p>If we run Webpack now, we should see that familiar message:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">ERROR in ./src/css/reset.css 1:5</span><span style="color:#bfbab0;">
+Module parse failed: Unexpected token (1:5)</span><span style="color:#bfbab0;">
+You may need an appropriate loader to handle this file type, currently no loaders</span><span style="color:#bfbab0;">
+are configured to process this file.</span><span style="color:#bfbab0;">
+</span></pre>
+<p>And it's right! We're going to need two new loaders for css support - the aptly named <code>css-loader</code> (<a href="https://webpack.js.org/loaders/css-loader/">documentation</a>) in order to actually read and parse the styles, and then the <code>style-loader</code> (<a href="https://webpack.js.org/loaders/style-loader/">documentation</a>), which will take the styles and put them in <code>&lt;style&gt;&lt;/style&gt;</code> tags on the DOM.</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">yarn add --dev style-loader css-loader</span><span style="color:#bfbab0;">
+</span></pre>
+<p>And once again, let's update our <code>./webpack.common.js</code>, telling it what it do when it meets a <code>.css</code> file:</p>
+<pre style="background-color:#0f1419;">
+<span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+</span><span style="font-style:italic;color:#39bae6;">module</span><span style="font-style:italic;color:#f29668;">.</span><span style="font-style:italic;color:#39bae6;">exports </span><span style="color:#f29668;">= </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+  </span><span style="color:#bfbab0;">module</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+    rules</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#bfbab0;">
+      </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+      </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+        test</span><span style="color:#bfbab0cc;">: </span><span style="color:#95e6cb;">/\.css</span><span style="color:#ff7733;">$</span><span style="color:#95e6cb;">/</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+        exclude</span><span style="color:#bfbab0cc;">: </span><span style="color:#95e6cb;">/node_modules/</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+        use</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#c2d94c;">&quot;style-loader&quot;</span><span style="color:#bfbab0cc;">, </span><span style="color:#c2d94c;">&quot;css-loader&quot;</span><span style="color:#bfbab0;">]</span><span style="color:#bfbab0;">
+      }</span><span style="color:#bfbab0;">
+    ]</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+</span><span style="color:#bfbab0;">}</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Remember, the loaders are always resolved from <em>right</em> to <em>left</em>, so we want it to parse the css first with <code>css-loader</code>, and then that css will be injected into the DOM with <code>style-loader</code>, so this order is important!</p>
+<p>Alright, let's give it a whirl. If everything went right you should now notice less padding on our elements. If you want to be sure it's working, feel free to edit the CSS (and thanks to hot reloading, it's automatically applied, and we don't lose any state!)</p>
+<p>Let's make a commit here:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">git add .</span><span style="color:#bfbab0;">
+git commit -m &quot;added css support&quot;</span><span style="color:#bfbab0;">
+</span></pre>
+<p><a href="https://gitlab.com/Worble/react-webpack-tutorial/commit/baad310375c5c3282dc130a037f88803da9045c1">You can view the commit here</a> (there are a couple of extra changes in this commit as I was playing around with things and forgot to revert them. Don't worry about adding these in or not, they won't matter).</p>
+<h1 id="extracting-css">Extracting CSS</h1>
+<p>Now this is all well and good for development purposes, however if you do a dev or production build you'll see that we aren't getting any <code>.css</code> files out of it, just JavaScript. Well, what <code>style-loader</code> does is create some JavaScript that injects the style into the DOM on load. While this works for development, in production there are many benefits to having actual <code>.css</code> files that are referenced in the base HTML. For starters, it'll load quicker since the browser won't need to parse, execute JavaScript and modify the DOM before getting any of the styles. It also means it can be cached by the browser.</p>
+<p>So, how do we get our <code>.css</code> out of the <code>.js</code> file? Well, we can use a different loader for production: <code>mini-css-extract-plugin</code> (<a href="https://webpack.js.org/plugins/mini-css-extract-plugin/">documentation</a>). As the documentation page says, it:</p>
+<blockquote>
+<p>This plugin extracts CSS into separate files. It creates a CSS file per JS file which contains CSS. It supports On-Demand-Loading of CSS and SourceMaps.</p>
+</blockquote>
+<p>So this allows us to extract our CSS into seperate files, let's install it:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">yarn add --dev mini-css-extract-plugin</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Now, we only want to do this in production builds, where it will replace <code>style-loader</code>. We want to keep <code>style-loader</code> for development builds however, since it facilitates hot module reloading. So let's quickly extract what we put in out <code>./webpack.common.js</code> to our <code>./webpack.dev.js</code>:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#ff7733;">const </span><span style="color:#bfbab0;">merge </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">require</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;webpack-merge&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#ff7733;">const </span><span style="color:#bfbab0;">common </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">require</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;./webpack.common.js&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+</span><span style="font-style:italic;color:#39bae6;">module</span><span style="font-style:italic;color:#f29668;">.</span><span style="font-style:italic;color:#39bae6;">exports </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">merge</span><span style="color:#bfbab0;">(common</span><span style="color:#bfbab0cc;">, </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  mode</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;development&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+  devtool</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;eval-source-map&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+  devServer</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+    hot</span><span style="color:#bfbab0cc;">: </span><span style="color:#f29718;">true</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+  module</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+    rules</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#bfbab0;">
+      {</span><span style="color:#bfbab0;">
+        test</span><span style="color:#bfbab0cc;">: </span><span style="color:#95e6cb;">/\.css</span><span style="color:#ff7733;">$</span><span style="color:#95e6cb;">/</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+        exclude</span><span style="color:#bfbab0cc;">: </span><span style="color:#95e6cb;">/node_modules/</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+        use</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#c2d94c;">&quot;style-loader&quot;</span><span style="color:#bfbab0cc;">, </span><span style="color:#c2d94c;">&quot;css-loader&quot;</span><span style="color:#bfbab0;">]</span><span style="color:#bfbab0;">
+      }</span><span style="color:#bfbab0;">
+    ]</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0;">
+})</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>And now we'll modify our <code>./webpack.prod.js</code> to use <code>MiniCssExtractPlugin</code> instead:</p>
+<pre style="background-color:#0f1419;">
+<span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+</span><span style="color:#ff7733;">const </span><span style="color:#bfbab0;">MiniCssExtractPlugin </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">require</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;mini-css-extract-plugin&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+</span><span style="font-style:italic;color:#39bae6;">module</span><span style="font-style:italic;color:#f29668;">.</span><span style="font-style:italic;color:#39bae6;">exports </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">merge</span><span style="color:#bfbab0;">(common</span><span style="color:#bfbab0cc;">, </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+  </span><span style="color:#bfbab0;">module</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+    rules</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#bfbab0;">
+      {</span><span style="color:#bfbab0;">
+        test</span><span style="color:#bfbab0cc;">: </span><span style="color:#95e6cb;">/\.css</span><span style="color:#ff7733;">$</span><span style="color:#95e6cb;">/</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+        exclude</span><span style="color:#bfbab0cc;">: </span><span style="color:#95e6cb;">/node_modules/</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+        use</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#bfbab0;">
+          {</span><span style="color:#bfbab0;">
+            loader</span><span style="color:#bfbab0cc;">: </span><span style="font-style:italic;color:#39bae6;">MiniCssExtractPlugin</span><span style="color:#f29668;">.</span><span style="color:#bfbab0;">loader</span><span style="color:#bfbab0;">
+          }</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+          </span><span style="color:#c2d94c;">&quot;css-loader&quot;</span><span style="color:#bfbab0;">
+        ]</span><span style="color:#bfbab0;">
+      }</span><span style="color:#bfbab0;">
+    ]</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+  plugins</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#bfbab0;">
+    </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+    </span><span style="color:#ff7733;">new </span><span style="color:#bfbab0;">MiniCssExtractPlugin({</span><span style="color:#bfbab0;">
+      filename</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;[name].[hash].css&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+      chunkFilename</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;[id].[hash].css&quot;</span><span style="color:#bfbab0;">
+    })</span><span style="color:#bfbab0;">
+  ]</span><span style="color:#bfbab0;">
+})</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>So here, we give it the new loader, and also setup the plugin itself, just giving names for our output for now. The plugin must be setup for the loader to work.</p>
+<p>And if we give it a spin with a <code>yarn prod</code>, you should see your new <code>.css</code> files are generated! Even better, our HTML plugin recognises it and immediately places it in the head of our <code>./dist/index.html</code>. Just magic.</p>
+<p>Now we're almost ready to deploy to production, but there's another small problem; our CSS isn't minimised! Well, if we check our old friend <a href="https://webpack.js.org/plugins/mini-css-extract-plugin/#minimizing-for-production">the docs</a> once again, this is an easy problem to solve. We'll need another plugin: <code>optimize-css-assets-webpack-plugin</code> (<a href="https://github.com/NMFR/optimize-css-assets-webpack-plugin">documentation</a>) so let's install that:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">yarn add --dev optimize-css-assets-webpack-plugin</span><span style="color:#bfbab0;">
+</span></pre>
+<p>And update our <code>./webpack.prod.js</code> again:</p>
+<pre style="background-color:#0f1419;">
+<span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+</span><span style="color:#ff7733;">const </span><span style="color:#bfbab0;">TerserJSPlugin </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">require</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;terser-webpack-plugin&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#ff7733;">const </span><span style="color:#bfbab0;">OptimizeCSSAssetsPlugin </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">require</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;optimize-css-assets-webpack-plugin&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+</span><span style="font-style:italic;color:#39bae6;">module</span><span style="font-style:italic;color:#f29668;">.</span><span style="font-style:italic;color:#39bae6;">exports </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">merge</span><span style="color:#bfbab0;">(common</span><span style="color:#bfbab0cc;">, </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+  </span><span style="color:#bfbab0;">optimization</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+    minimizer</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#ff7733;">new </span><span style="color:#bfbab0;">TerserJSPlugin({})</span><span style="color:#bfbab0cc;">, </span><span style="color:#ff7733;">new </span><span style="color:#bfbab0;">OptimizeCSSAssetsPlugin({})]</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+</span><span style="color:#bfbab0;">})</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>TerserJS is the default minimizer in Webpack, we just have to respecify it here if we're applying the <code>optimization.minimizer</code> property. And if we run <code>yarn prod</code> yet again, we can now see our CSS is nicely minimized! Huzzah. Unfortunately however, it seems we've lost source mapping on our <code>.js</code> files, and our <code>.css</code> file doesn't have one either. Luckily, these are easy fixes, we just need to specify the right options to the minimizer plugins. As always you can view all the options and documentation on their relevant pages (<a href="https://webpack.js.org/plugins/terser-webpack-plugin/">Terser</a>, <a href="https://github.com/NMFR/optimize-css-assets-webpack-plugin">OptimizeCssAssets</a>), but it isn't too hard to figure out what to do:</p>
+<pre style="background-color:#0f1419;">
+<span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+</span><span style="font-style:italic;color:#39bae6;">module</span><span style="font-style:italic;color:#f29668;">.</span><span style="font-style:italic;color:#39bae6;">exports </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">merge</span><span style="color:#bfbab0;">(common</span><span style="color:#bfbab0cc;">, </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+  </span><span style="color:#bfbab0;">optimization</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+    minimizer</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#bfbab0;">
+      </span><span style="color:#ff7733;">new </span><span style="color:#bfbab0;">TerserJSPlugin({ sourceMap</span><span style="color:#bfbab0cc;">: </span><span style="color:#f29718;">true </span><span style="color:#bfbab0;">})</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+      </span><span style="color:#ff7733;">new </span><span style="color:#bfbab0;">OptimizeCSSAssetsPlugin({</span><span style="color:#bfbab0;">
+        cssProcessorOptions</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+          sourceMap</span><span style="color:#bfbab0cc;">: </span><span style="color:#f29718;">true</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+          map</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+            inline</span><span style="color:#bfbab0cc;">: </span><span style="color:#f29718;">false</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+            annotation</span><span style="color:#bfbab0cc;">: </span><span style="color:#f29718;">true</span><span style="color:#bfbab0;">
+          }</span><span style="color:#bfbab0;">
+        }</span><span style="color:#bfbab0;">
+      })</span><span style="color:#bfbab0;">
+    ]</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+</span><span style="color:#bfbab0;">})</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Alright, let's run <code>yarn prod</code> one last time, and presto! Source maps! Let's make a commit here to commemorate:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">git add .</span><span style="color:#bfbab0;">
+git commit -m &quot;css now extracts and minifies in production&quot;</span><span style="color:#bfbab0;">
+</span></pre>
+<p><a href="https://gitlab.com/Worble/react-webpack-tutorial/commit/611401b5cbefae47c0909ec14fc5e7a0c389d0ad">You can view the commit here</a>.</p>
+<h1 id="sass">SASS</h1>
+<p>Alright, this one should be quick; you should know the drill by now. Let's change our <code>./src/css</code> folder to <code>./src/scss</code>, and change our <code>reset.css</code> file to <code>reset.scss</code>, and then update our <code>./src/index.tsx</code> to point at the new file:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#ff7733;">import </span><span style="color:#c2d94c;">&quot;./scss/reset.scss&quot;</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Running Webpack will, you guessed it, tell us we need a new loader. We're going to be using <code>sass-loader</code> (<a href="https://webpack.js.org/loaders/sass-loader/">documentation</a>). With <code>sass-loader</code>, we'll also need <code>node-sass</code> which will actually do the compilation from SASS to CSS.</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">yarn add --dev sass-loader node-sass</span><span style="color:#bfbab0;">
+</span></pre>
+<p>And let's configure it to run in out <code>./webpack.dev.js</code>:</p>
+<pre style="background-color:#0f1419;">
+<span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+</span><span style="font-style:italic;color:#39bae6;">module</span><span style="font-style:italic;color:#f29668;">.</span><span style="font-style:italic;color:#39bae6;">exports </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">merge</span><span style="color:#bfbab0;">(common</span><span style="color:#bfbab0cc;">, </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+  </span><span style="color:#bfbab0;">module</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+    rules</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#bfbab0;">
+      {</span><span style="color:#bfbab0;">
+        test</span><span style="color:#bfbab0cc;">: </span><span style="color:#95e6cb;">/\.(css</span><span style="color:#f29668;">|</span><span style="color:#95e6cb;">s</span><span style="color:#f29718;">[ac]</span><span style="color:#95e6cb;">ss)</span><span style="color:#ff7733;">$</span><span style="color:#95e6cb;">/</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+        exclude</span><span style="color:#bfbab0cc;">: </span><span style="color:#95e6cb;">/node_modules/</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+        use</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#c2d94c;">&quot;style-loader&quot;</span><span style="color:#bfbab0cc;">, </span><span style="color:#c2d94c;">&quot;css-loader&quot;</span><span style="color:#bfbab0cc;">, </span><span style="color:#c2d94c;">&quot;sass-loader&quot;</span><span style="color:#bfbab0;">]</span><span style="color:#bfbab0;">
+      }</span><span style="color:#bfbab0;">
+    ]</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0;">
+})</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>We update the test so this matches <code>.scss</code>, <code>.sass</code> and <code>.css</code> files, and put <code>sass-loader</code> at the end. Remember, loaders go right to left! Running <code>yarn dev</code> here should work fine, so let's update <code>./webpack.prod.js</code>:</p>
+<pre style="background-color:#0f1419;">
+<span style="font-style:italic;color:#5c6773;">///...</span><span style="font-style:italic;color:#5c6773;">
+</span><span style="font-style:italic;color:#39bae6;">module</span><span style="font-style:italic;color:#f29668;">.</span><span style="font-style:italic;color:#39bae6;">exports </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">merge</span><span style="color:#bfbab0;">(common</span><span style="color:#bfbab0cc;">, </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+  </span><span style="color:#bfbab0;">module</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+    rules</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#bfbab0;">
+      {</span><span style="color:#bfbab0;">
+        test</span><span style="color:#bfbab0cc;">: </span><span style="color:#95e6cb;">/\.(css</span><span style="color:#f29668;">|</span><span style="color:#95e6cb;">s</span><span style="color:#f29718;">[ac]</span><span style="color:#95e6cb;">ss)</span><span style="color:#ff7733;">$</span><span style="color:#95e6cb;">/</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+        exclude</span><span style="color:#bfbab0cc;">: </span><span style="color:#95e6cb;">/node_modules/</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+        use</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#bfbab0;">
+          {</span><span style="color:#bfbab0;">
+            loader</span><span style="color:#bfbab0cc;">: </span><span style="font-style:italic;color:#39bae6;">MiniCssExtractPlugin</span><span style="color:#f29668;">.</span><span style="color:#bfbab0;">loader</span><span style="color:#bfbab0;">
+          }</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+          </span><span style="color:#c2d94c;">&quot;css-loader&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+          </span><span style="color:#c2d94c;">&quot;sass-loader&quot;</span><span style="color:#bfbab0;">
+        ]</span><span style="color:#bfbab0;">
+      }</span><span style="color:#bfbab0;">
+    ]</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+</span><span style="color:#bfbab0;">})</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>And its the same thing again. Run <code>yarn prod</code> just to make sure everything works ok. And we're done! SASS added to project. Let's commit here:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">git add .</span><span style="color:#bfbab0;">
+git commit -m &quot;added sass compilation&quot;</span><span style="color:#bfbab0;">
+</span></pre>
+<p><a href="https://gitlab.com/Worble/react-webpack-tutorial/commit/242ded4f1c9665e376a5e7b2d43b1103c00594a0">You can view the commit here</a>.</p>
+<h1 id="compression">Compression</h1>
+<p>Alright, last topic: compression! Most webservers and clients these days offer compression out of the box. This cuts down on asset size (sometimes dramatically), so let's go ahead and add that to the project as a final touch. Once again, if you're using an application server, this will probably do this for you, so there's probably no need fo Webpack here, make sure to check your Web frameworks documentation.</p>
+<p>We're going to be using <code>CompressionWebpackPlugin</code> (<a href="https://webpack.js.org/plugins/compression-webpack-plugin/">documentation</a>) to compress our assets.</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">yarn add --dev compression-webpack-plugin</span><span style="color:#bfbab0;">
+</span></pre>
+<p>And since we'll only need this for production builds, let's edit <code>./webpack.prod.js</code> to use it:</p>
+<pre style="background-color:#0f1419;">
+<span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+</span><span style="color:#ff7733;">const </span><span style="color:#bfbab0;">CompressionPlugin </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">require</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;compression-webpack-plugin&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+</span><span style="font-style:italic;color:#39bae6;">module</span><span style="font-style:italic;color:#f29668;">.</span><span style="font-style:italic;color:#39bae6;">exports </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">merge</span><span style="color:#bfbab0;">(common</span><span style="color:#bfbab0cc;">, </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+  </span><span style="color:#bfbab0;">plugins</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#bfbab0;">
+    </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+    </span><span style="color:#ff7733;">new </span><span style="color:#bfbab0;">CompressionPlugin()</span><span style="color:#bfbab0;">
+  ]</span><span style="color:#bfbab0;">
+})</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>That should be all we need, run <code>yarn prod</code> and you should see your build files, plus a copy of all of them gzipped. Creating every file and also having a gzipped copy seems a little redundant, so let's setup the plugin so it removes the original files:</p>
+<pre style="background-color:#0f1419;">
+<span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+</span><span style="color:#ff7733;">const </span><span style="color:#bfbab0;">CompressionPlugin </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">require</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;compression-webpack-plugin&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+</span><span style="font-style:italic;color:#39bae6;">module</span><span style="font-style:italic;color:#f29668;">.</span><span style="font-style:italic;color:#39bae6;">exports </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">merge</span><span style="color:#bfbab0;">(common</span><span style="color:#bfbab0cc;">, </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+  </span><span style="color:#bfbab0;">plugins</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#bfbab0;">
+    </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+    </span><span style="color:#ff7733;">new </span><span style="color:#bfbab0;">CompressionPlugin({</span><span style="color:#bfbab0;">
+      deleteOriginalAssets</span><span style="color:#bfbab0cc;">: </span><span style="color:#f29718;">true</span><span style="color:#bfbab0;">
+    })</span><span style="color:#bfbab0;">
+  ]</span><span style="color:#bfbab0;">
+})</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>By default it uses zlib to gzip the files, however if your webserver and clients support it, and you're running Node &gt;= 11.7.0, you can use Brotli which offers superior compression quality.</p>
+<pre style="background-color:#0f1419;">
+<span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+</span><span style="color:#ff7733;">const </span><span style="color:#bfbab0;">CompressionPlugin </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">require</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;compression-webpack-plugin&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+</span><span style="font-style:italic;color:#39bae6;">module</span><span style="font-style:italic;color:#f29668;">.</span><span style="font-style:italic;color:#39bae6;">exports </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">merge</span><span style="color:#bfbab0;">(common</span><span style="color:#bfbab0cc;">, </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+  </span><span style="color:#bfbab0;">plugins</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#bfbab0;">
+    </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+    </span><span style="color:#ff7733;">new </span><span style="color:#bfbab0;">CompressionPlugin({</span><span style="color:#bfbab0;">
+      deleteOriginalAssets</span><span style="color:#bfbab0cc;">: </span><span style="color:#f29718;">true</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+      algorithm</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;brotliCompress&quot;</span><span style="color:#bfbab0;">
+    })</span><span style="color:#bfbab0;">
+  ]</span><span style="color:#bfbab0;">
+})</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Alright, we're just about done here, let's commit for a final time here:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">git add .</span><span style="color:#bfbab0;">
+git commit -m &quot;added compression to production builds&quot;</span><span style="color:#bfbab0;">
+</span></pre>
+<p><a href="https://gitlab.com/Worble/react-webpack-tutorial/commit/ef4cc7071eec8767d286a5bc79a572e8b38f8d2e">You can view the commit here</a>.</p>
+<p>Alright, we're in a pretty good spot now. We've got a project with TypeScript, React and SASS compilation that minifies, produces source maps and compresses itself. If you came all this way, well done! You should be a master at using Webpack by now. There's still plenty to cover though, such as creating JavaScript Workers and PWA's, and even creating your own Loaders and Plugins. Until next time!</p>
+
+                            </div>
+                        </div>
+                        
+                        
+<footer class="card-footer">
+    <div class="article-footer">
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                <p>
+                    Published
+                    
+    
+        <time datetime="2019-10-28">
+            2019-10-28
+        </time>
+    
+
+                    
+    
+
+                    
+    
+        
+        in <a href="https://www.robertclarke.tech/categories/react-webpack-tutorial/">
+            <span class="tag is-success">
+                React Webpack Tutorial
+            </span>
+        </a>
+    
+
+                    
+    
+        and tagged
+        
+        <a href="https://www.robertclarke.tech/tags/react/">
+            <span class="tag is-link">react </span>
+        </a>
+            
+                
+                    
+                        ,
+                    
+                
+            
+        
+        <a href="https://www.robertclarke.tech/tags/webpack/">
+            <span class="tag is-link">webpack </span>
+        </a>
+            
+                
+                    
+                        and
+                    
+                
+            
+        
+        <a href="https://www.robertclarke.tech/tags/sass/">
+            <span class="tag is-link">sass </span>
+        </a>
+            
+                
+            
+        
+    
+
+                </p>
+            </div>
+            <div class="column">
+                <a class="button is-pulled-right is-info" href="/blog">Back Home</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+                        
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+<script async type="text/javascript" src="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;search.js"></script>
+
+
+
+	</div>
+	<!-- Footer -->
+	<footer class="footer">
+		
+<div class="columns is-tablet">
+	<div class="column">
+		<div class="content">
+			Copyright &#169; 2020 Robert Clarke &nbsp;&nbsp;|&nbsp;&nbsp; 
+			<a class="has-text-info" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;sitemap.xml">
+				Site Map
+			</a>
+		</div>
+	</div>
+	<div class="column is-flex">
+		<div class="content is-flex footer-right">
+			<a aria-label="Bulma Homepage" href="https://bulma.io/" rel="noreferrer noopener" target="_blank">
+				<picture>
+					<source srcset="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;img&#x2F;made-with-bulma--dark.png" media="(prefers-color-scheme: dark)">
+					<img alt="Made with bulma" src="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;img&#x2F;made-with-bulma.png" width="128" height="24">
+				</picture>
+			</a>
+			<span>
+				&nbsp;and <a class="has-text-info" rel="noreferrer noopener" href="https://www.getzola.org/" target="_blank">Zola</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+	</footer>
+	<link rel="stylesheet" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;icomoon&#x2F;style.css" />
+	<script async src="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;site.js"></script>
+</body>
+
+</html>

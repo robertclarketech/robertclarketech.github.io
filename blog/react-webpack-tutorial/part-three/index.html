@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	
+
+		
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;favicon-16x16.png" />
+<link rel="manifest" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;site.webmanifest" />
+<link rel="stylesheet" media="(prefers-color-scheme: dark)" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;site-dark.css" />
+<link rel="stylesheet" media="screen and (prefers-color-scheme: no-preference), (prefers-color-scheme: light)"
+	href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;site-light.css" />
+<noscript>
+	<link rel="stylesheet" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;noscript.css" />
+</noscript>
+
+		<title>React And Webpack Tutorial - Part 3 - Robert Clarke&#x27;s Blog</title>
+		<meta name="description" content="A React and Webpack tutorial, starting from the very bottom." />
+		<meta name="author" content="Robert Clarke" />
+	
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="https://www.robertclarke.tech/rss.xml">
+
+
+<script defer type="text/javascript" src="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;elasticlunr.min.js"></script>
+<script defer type="text/javascript" src="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;search_index.en.js"></script>
+
+
+</head>
+
+<body>
+	<div class="body">
+		
+<!-- Navigation bar -->
+<nav class="navbar is-primary is-fixed-top">
+	<div class="navbar-brand">
+		
+
+<a class="navbar-item" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;blog">
+    <span aria-hidden="true" class="icon">
+        <i class="icon-blog"></i>
+    </span>
+    <span>Home</span>
+</a>
+
+
+		<div class="navbar-burger burger" data-target="nav-menu">
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</div>
+	<div id="nav-menu" class="navbar-menu">
+		
+<div class="navbar-start">
+	<a class="navbar-item" href="https:&#x2F;&#x2F;www.robertclarke.tech">
+		<span aria-hidden="true" class="icon">
+			<i class="icon-info"></i>
+		</span>
+		<span>About Me</span>
+	</a>
+</div>
+
+		
+<div class="navbar-end">
+	
+	
+	
+	
+	<a itemprop="url" class="navbar-item "
+		href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;categories">
+		<span itemprop="name">Categories
+		</span>
+	</a>
+	
+	
+	
+	<a itemprop="url" class="navbar-item "
+		href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;tags">
+		<span itemprop="name">Tags
+		</span>
+	</a>
+	
+	
+	
+	<div class="navbar-item search-container js-only">
+		<input class="input" id="search" type="search" placeholder="Search">
+		<div class="search-results box">
+			<div class="search-results__items"></div>
+		</div>
+	</div>
+	
+</div>
+
+	</div>
+</nav>
+
+
+<main class="pad-nav">
+    <section class="section">
+        <div class="columns is-desktop">
+            <div class="column is-10-desktop is-offset-1-desktop">
+                <article itemscope itemtype="http://schema.org/BlogPosting">
+                    <div class="card article">
+                        <div class="card-content">
+                            
+<header>
+    <div class="has-text-centered">
+        <a href="https://www.robertclarke.tech/blog/react-webpack-tutorial/part-three/">
+            <h4 class="title is-3">React And Webpack Tutorial - Part 3
+            </h4>
+        </a>
+        <div class="tags has-addons level-item">
+            <span class="tag is-rounded">2019-10-23</span>
+                       
+            <span class="tag is-rounded">
+<svg class="i-clock" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round"
+    stroke-linejoin="round" stroke-width="6.25%">
+    <circle cx="16" cy="16" r="14" />
+    <path d="M16 8 L16 16 20 20" />
+</svg>
+<span>&nbsp;8 minute read</span>
+</span>
+        </div>
+    </div>
+</header>
+
+                            <div itemprop="articleBody" class="content article-body">
+                                <h1 id="previous">Previous</h1>
+<ul>
+<li><a href="https://www.robertclarke.tech/blog/react-webpack-tutorial/part-one/">Part 1</a></li>
+<li><a href="https://www.robertclarke.tech/blog/react-webpack-tutorial/part-two/">Part 2</a></li>
+</ul>
+<p>You can find the full repository and all previous commits by <a href="https://gitlab.com/Worble/react-webpack-tutorial">clicking here</a>.</p>
+<p>Alright, last time we had a working Webpack config and a single JSX file. Today we're going to work on making ourselves a dev environment, with an auto-reloading dev server.</p>
+<span id="continue-reading"></span>
+<h1 id="setting-up-a-development-webpack-config">Setting up a Development Webpack Config</h1>
+<p>First off, I'm basically going to be covering the very helpful <a href="https://webpack.js.org/guides/development/">development guide over at Webpack website</a>. At this point, you should understand the ecosystem well enough to be able to follow this yourself. You can <a href="https://www.robertclarke.tech/blog/react-webpack-tutorial/part-three/#hot-reloading">skip ahead to hot reloading</a> if you prefer to follow that one instead, but we're going to forge ahead here anyway.</p>
+<p>As an aside, you may notice at this point that we're going to spending most of our time setting up Webpack loaders and addons, and you'd be right. Once you're initially set up, that's all Webpack is - chaining together existing toolchains (such as typescript, sass and babel compilation, minification, and compression) into one pipeline.</p>
+<h1 id="mode">Mode</h1>
+<p>So first of all, since we're building for development, we're going to tell Webpack that that is our aim; add mode: 'development' to our webpack config:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#ff7733;">const </span><span style="color:#bfbab0;">path </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">require</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;path&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+</span><span style="font-style:italic;color:#39bae6;">module</span><span style="font-style:italic;color:#f29668;">.</span><span style="font-style:italic;color:#39bae6;">exports </span><span style="color:#f29668;">= </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  mode</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;development&quot;</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+</span><span style="color:#bfbab0;">}</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Essentially, this line is an alias for a number of Webpack optimizations, as well as letting any plugins we're using know what environment we're in so they can react accordingly as well. You can see the full list of changes that setting the mode changes at <a href="https://webpack.js.org/configuration/mode/">Webpack's documentation page</a>.</p>
+<h1 id="source-maps">Source Maps</h1>
+<p>Since we're compiling our code from ES2015+ syntax, when we view it when developing, it's going to be hard for anyone (including ourselves!) to understand and debug it. That's where source maps come in. Source maps &quot;map&quot; the code to what was originally written, and the browser will automatically show you the original code. To enable this, we'll add another option in our Webpack config <code>devtool: &quot;eval-source-map&quot;</code></p>
+<pre style="background-color:#0f1419;">
+<span style="color:#ff7733;">const </span><span style="color:#bfbab0;">path </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">require</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;path&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+</span><span style="font-style:italic;color:#39bae6;">module</span><span style="font-style:italic;color:#f29668;">.</span><span style="font-style:italic;color:#39bae6;">exports </span><span style="color:#f29668;">= </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+  </span><span style="color:#bfbab0;">devtool</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;eval-source-map&quot;</span><span style="color:#bfbab0;">
+}</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>There are a number of different mapping schemes you can use: some are recommended for development purposes, others for production. You can see the full list and their details on the <a href="https://webpack.js.org/configuration/devtool/">relevant Webpack configuration page</a>. For now, <code>eval-source-map</code> is satisfactory for us.</p>
+<h1 id="dev-server">Dev Server</h1>
+<p>If you read the above link, Webpack recommend three tools for testing development changes:</p>
+<ul>
+<li>webpack's Watch Mode</li>
+<li>webpack-dev-server</li>
+<li>webpack-dev-middleware</li>
+</ul>
+<p>The pros and cons are listed in the article, but we're just going to focus on webpack-dev-server since it's the most featureful while still being easy to setup.</p>
+<p>First, let's install it:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">&gt; yarn add --dev webpack-dev-server</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Then we'll edit our <code>./webpack.config.js</code> to use it, telling it where it should serve our built files from:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#ff7733;">const </span><span style="color:#bfbab0;">path </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">require</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;path&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+</span><span style="font-style:italic;color:#39bae6;">module</span><span style="font-style:italic;color:#f29668;">.</span><span style="font-style:italic;color:#39bae6;">exports </span><span style="color:#f29668;">= </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+  </span><span style="color:#bfbab0;">devServer</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+    contentBase</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">path</span><span style="color:#f29668;">.</span><span style="color:#ffb454;">join</span><span style="color:#bfbab0;">(</span><span style="font-style:italic;color:#39bae6;">__dirname</span><span style="color:#bfbab0cc;">, </span><span style="color:#c2d94c;">&quot;dist&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0;">
+}</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p><strong>UPDATE 2019/10/28</strong> - This line isn't actually necessary, you can leave any devServer configuration off for now</p>
+<p>As always, there are a bunch of options here we aren't using, for a full reference of <code>devServer</code> see <a href="https://webpack.js.org/configuration/dev-server/">Webpacks documentation</a>. And now we can run:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">&gt;yarn webpack-dev-server --open</span><span style="color:#bfbab0;">
+</span></pre>
+<p>This should cause your browser to open, and run our code. You may notice that control of the terminal is not given back either; webpack-dev-server is still running, and watching our code. Go ahead and make a simple change in our <code>./src/index.jsx</code> file:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#ff7733;">import </span><span style="color:#bfbab0;">React </span><span style="color:#ff7733;">from </span><span style="color:#c2d94c;">&quot;react&quot;</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#ff7733;">import </span><span style="color:#bfbab0;">ReactDOM </span><span style="color:#ff7733;">from </span><span style="color:#c2d94c;">&quot;react-dom&quot;</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+</span><span style="font-style:italic;color:#5c6773;">//change anything in the tags here</span><span style="color:#bfbab0;">
+</span><span style="font-style:italic;color:#5c6773;">//                       ||</span><span style="color:#bfbab0;">
+</span><span style="font-style:italic;color:#5c6773;">//                       \/</span><span style="color:#bfbab0;">
+ReactDOM</span><span style="color:#f29668;">.</span><span style="color:#ffb454;">render</span><span style="color:#bfbab0;">(</span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">h1</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">Hello, worlds!</span><span style="color:#39bae690;">&lt;/</span><span style="color:#59c2ff;">h1</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0cc;">, </span><span style="color:#bfbab0;">document</span><span style="color:#f29668;">.</span><span style="color:#f07178;">getElementById</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;root&quot;</span><span style="color:#bfbab0;">))</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Save your file, and voila! You should notice your changes are picked up by the terminal, they will be rebuilt, and your browser will refresh to automatically reflect the changes.</p>
+<p>It's great that we no longer have to build every time, but it's a pain to write out <code>yarn webpack-dev-server --open</code> every time, and more importantly, how would someone joining our project know they have to run this line? To solve this, let's make a quick script in our <code>./package.json</code> file to alias this for us. Under &quot;scripts&quot;, add: <code>&quot;serve&quot;: &quot;webpack-dev-server --open&quot;</code> (note we don't need the <code>yarn</code> here, that's automatically inferred for us). Now we can simple call <code>yarn serve</code> and get the same effect. While we're here, we can also add a script for building without the dev server: <code>&quot;build&quot;: &quot;webpack&quot;</code>, and update our &quot;main&quot; to be &quot;index.jsx&quot;:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae6;">&quot;name&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;react-webpack-tutorial-part-one&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae6;">&quot;version&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;1.0.0&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae6;">&quot;main&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;index.jsx&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae6;">&quot;scripts&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+    </span><span style="color:#39bae6;">&quot;test&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;echo </span><span style="color:#95e6cb;">\&quot;</span><span style="color:#c2d94c;">Error: no test specified</span><span style="color:#95e6cb;">\&quot;</span><span style="color:#c2d94c;"> &amp;&amp; exit 1&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+    </span><span style="color:#39bae6;">&quot;serve&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;webpack-dev-server --open&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+    </span><span style="color:#39bae6;">&quot;build&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;webpack&quot;</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae6;">&quot;author&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae6;">&quot;license&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;ISC&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae6;">&quot;dependencies&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+    </span><span style="color:#39bae6;">&quot;react&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;^16.10.2&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+    </span><span style="color:#39bae6;">&quot;react-dom&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;^16.10.2&quot;</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae6;">&quot;devDependencies&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+    </span><span style="color:#39bae6;">&quot;@babel/core&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;^7.6.4&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+    </span><span style="color:#39bae6;">&quot;@babel/preset-env&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;^7.6.3&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+    </span><span style="color:#39bae6;">&quot;@babel/preset-react&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;^7.6.3&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+    </span><span style="color:#39bae6;">&quot;babel-loader&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;^8.0.6&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+    </span><span style="color:#39bae6;">&quot;webpack&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;^4.41.2&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+    </span><span style="color:#39bae6;">&quot;webpack-cli&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;^3.3.9&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+    </span><span style="color:#39bae6;">&quot;webpack-dev-server&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;^3.9.0&quot;</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae6;">&quot;keywords&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[]</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae6;">&quot;description&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;&quot;</span><span style="color:#bfbab0;">
+}</span><span style="color:#bfbab0;">
+</span></pre>
+<p>This seems like a good place for a commit, so let's do one here:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">&gt;git add .</span><span style="color:#bfbab0;">
+&gt;git commit -m &quot;setup development environment&quot;</span><span style="color:#bfbab0;">
+</span></pre>
+<p><a href="https://gitlab.com/Worble/react-webpack-tutorial/commit/e6c7cba3c6e17443a5867c22aade18403cba799c">View the commit here</a>.</p>
+<h1 id="hot-reloading">Hot Reloading</h1>
+<p>Having the browser refresh on code change is <em>nice enough</em>, but doesn't it still suck to lose all your stateful data? In order to demonstrate this, let's expand our React a little bit.</p>
+<p>Let's create a new component called <code>myComponent.jsx</code> in our src folder, and we'll just create a very simple component:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#ff7733;">import </span><span style="color:#bfbab0;">React </span><span style="color:#ff7733;">from </span><span style="color:#c2d94c;">&quot;react&quot;</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+</span><span style="color:#ff7733;">export default class </span><span style="color:#59c2ff;">MyComponent </span><span style="color:#ff7733;">extends </span><span style="color:#59c2ff;">React</span><span style="color:#f29668;">.</span><span style="text-decoration:underline;color:#59c2ff;">Component </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="color:#ff7733;">constructor</span><span style="color:#bfbab0;">(</span><span style="color:#f29718;">props</span><span style="color:#bfbab0;">) {</span><span style="color:#bfbab0;">
+    </span><span style="font-style:italic;color:#39bae6;">super</span><span style="color:#bfbab0;">(props)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+    </span><span style="font-style:italic;color:#39bae6;">this</span><span style="color:#f29668;">.</span><span style="color:#bfbab0;">state </span><span style="color:#f29668;">= </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+      name</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;&quot;</span><span style="color:#bfbab0;">
+    }</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0;">
+  </span><span style="color:#ffb454;">render</span><span style="color:#bfbab0;">() {</span><span style="color:#bfbab0;">
+    </span><span style="color:#ff7733;">return </span><span style="color:#bfbab0;">(</span><span style="color:#bfbab0;">
+      </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">div</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+        </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">div</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+          </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">label</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+            Name:</span><span style="color:#bfbab0;">
+            &lt;input</span><span style="color:#bfbab0;">
+              onChange={</span><span style="color:#f29718;">event </span><span style="color:#ff7733;">=&gt; </span><span style="font-style:italic;color:#39bae6;">this</span><span style="color:#f29668;">.</span><span style="color:#ffb454;">setState</span><span style="color:#bfbab0;">({ name</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">event</span><span style="color:#f29668;">.</span><span style="color:#bfbab0;">target</span><span style="color:#f29668;">.</span><span style="color:#bfbab0;">value })}</span><span style="color:#bfbab0;">
+            &gt;</span><span style="color:#39bae690;">&lt;/</span><span style="color:#59c2ff;">input</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+          </span><span style="color:#39bae690;">&lt;/</span><span style="color:#59c2ff;">label</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+        </span><span style="color:#39bae690;">&lt;/</span><span style="color:#59c2ff;">div</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+        </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">div</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">Hello {</span><span style="font-style:italic;color:#39bae6;">this</span><span style="color:#f29668;">.</span><span style="color:#bfbab0;">state</span><span style="color:#f29668;">.</span><span style="color:#bfbab0;">name}!</span><span style="color:#39bae690;">&lt;/</span><span style="color:#59c2ff;">div</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+      </span><span style="color:#f29668;">&lt;/</span><span style="color:#bfbab0;">div</span><span style="color:#f29668;">&gt;</span><span style="color:#bfbab0;">
+    )</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0;">
+}</span><span style="color:#bfbab0;">
+</span></pre>
+<p>And let's add this to our <code>index.jsx</code>:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#ff7733;">import </span><span style="color:#bfbab0;">React </span><span style="color:#ff7733;">from </span><span style="color:#c2d94c;">&quot;react&quot;</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#ff7733;">import </span><span style="color:#bfbab0;">ReactDOM </span><span style="color:#ff7733;">from </span><span style="color:#c2d94c;">&quot;react-dom&quot;</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#ff7733;">import </span><span style="color:#bfbab0;">MyComponent </span><span style="color:#ff7733;">from </span><span style="color:#c2d94c;">&quot;./myComponent.jsx&quot;</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+ReactDOM</span><span style="color:#f29668;">.</span><span style="color:#ffb454;">render</span><span style="color:#bfbab0;">(</span><span style="color:#39bae690;">&lt;</span><span style="font-style:italic;color:#39bae6;">MyComponent </span><span style="color:#39bae690;">/&gt;</span><span style="color:#bfbab0cc;">, </span><span style="color:#bfbab0;">document</span><span style="color:#f29668;">.</span><span style="color:#f07178;">getElementById</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;root&quot;</span><span style="color:#bfbab0;">))</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>And let's start up our dev server with <code>yarn serve</code>. Playing with our new component, you can see that as we type, the text gets saved to Reacts state, and is then inserted to the line below as &quot;Hello <name>!&quot;. But, if we decide to change our file, for example if we change &quot;Name:&quot; to &quot;Names:&quot;, lo and behold, our dev server picks up the changes, refreshes the browser, and our input is gone. Very annoying. Well, thanks to <a href="https://github.com/gaearon/react-hot-loader">react-hot-reloader</a>, we can avoid this!</p>
+<p>First of all, let's install the necessary dependencies:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">&gt;yarn add react-hot-loader</span><span style="color:#bfbab0;">
+&gt;yarn add --dev @hot-loader/react-dom</span><span style="color:#bfbab0;">
+</span></pre>
+<p>And update our <code>.babelrc</code> file with <code>&quot;plugins&quot;: [&quot;react-hot-loader/babel&quot;]</code>:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae6;">&quot;presets&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#c2d94c;">&quot;@babel/preset-env&quot;</span><span style="color:#bfbab0cc;">, </span><span style="color:#c2d94c;">&quot;@babel/preset-react&quot;</span><span style="color:#bfbab0;">]</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae6;">&quot;plugins&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#c2d94c;">&quot;react-hot-loader/babel&quot;</span><span style="color:#bfbab0;">]</span><span style="color:#bfbab0;">
+}</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Now, we need to mark our component that it should be hot reloaded. In <code>./src/myComponent.jsx</code>:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#ff7733;">import </span><span style="color:#bfbab0;">React </span><span style="color:#ff7733;">from </span><span style="color:#c2d94c;">&quot;react&quot;</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#ff7733;">import </span><span style="color:#bfbab0;">{ hot } </span><span style="color:#ff7733;">from </span><span style="color:#c2d94c;">&quot;react-hot-loader&quot;</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+</span><span style="color:#ff7733;">class </span><span style="color:#59c2ff;">MyComponent </span><span style="color:#ff7733;">extends </span><span style="color:#59c2ff;">React</span><span style="color:#f29668;">.</span><span style="text-decoration:underline;color:#59c2ff;">Component </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="color:#ff7733;">constructor</span><span style="color:#bfbab0;">(</span><span style="color:#f29718;">props</span><span style="color:#bfbab0;">) {</span><span style="color:#bfbab0;">
+    </span><span style="font-style:italic;color:#39bae6;">super</span><span style="color:#bfbab0;">(props)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+    </span><span style="font-style:italic;color:#39bae6;">this</span><span style="color:#f29668;">.</span><span style="color:#bfbab0;">state </span><span style="color:#f29668;">= </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+      name</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;&quot;</span><span style="color:#bfbab0;">
+    }</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0;">
+  </span><span style="color:#ffb454;">render</span><span style="color:#bfbab0;">() {</span><span style="color:#bfbab0;">
+    </span><span style="color:#ff7733;">return </span><span style="color:#bfbab0;">(</span><span style="color:#bfbab0;">
+      </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">div</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+        </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">div</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+          </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">label</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+            Name:</span><span style="color:#bfbab0;">
+            &lt;input</span><span style="color:#bfbab0;">
+              onChange={</span><span style="color:#f29718;">event </span><span style="color:#ff7733;">=&gt; </span><span style="font-style:italic;color:#39bae6;">this</span><span style="color:#f29668;">.</span><span style="color:#ffb454;">setState</span><span style="color:#bfbab0;">({ name</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">event</span><span style="color:#f29668;">.</span><span style="color:#bfbab0;">target</span><span style="color:#f29668;">.</span><span style="color:#bfbab0;">value })}</span><span style="color:#bfbab0;">
+            &gt;</span><span style="color:#39bae690;">&lt;/</span><span style="color:#59c2ff;">input</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+          </span><span style="color:#39bae690;">&lt;/</span><span style="color:#59c2ff;">label</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+        </span><span style="color:#39bae690;">&lt;/</span><span style="color:#59c2ff;">div</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+        </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">div</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">Hello {</span><span style="font-style:italic;color:#39bae6;">this</span><span style="color:#f29668;">.</span><span style="color:#bfbab0;">state</span><span style="color:#f29668;">.</span><span style="color:#bfbab0;">name}!</span><span style="color:#39bae690;">&lt;/</span><span style="color:#59c2ff;">div</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+      </span><span style="color:#f29668;">&lt;/</span><span style="color:#bfbab0;">div</span><span style="color:#f29668;">&gt;</span><span style="color:#bfbab0;">
+    )</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0;">
+}</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+</span><span style="color:#ff7733;">export default </span><span style="color:#ffb454;">hot</span><span style="color:#bfbab0;">(</span><span style="font-style:italic;color:#39bae6;">module</span><span style="color:#bfbab0;">)(MyComponent)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>We import the <code>hot</code> method, and instead of exporting the Component directly, we export <code>export default hot(module)(MyComponent);</code>. Note that this is the old syntax, the new syntax should allow us to direct export without the <code>module</code> word like so: <code>export default hot(MyComponent);</code> but I couldn't get this to work ¯\_(ツ)_/¯.</p>
+<p>Usually, most React projects will have a single root component that controls the flow of the entire application, and just making this component hot will make your entire application hot, so you only need to do this once.</p>
+<p>Next we update our <code>webpack.config.js</code>. First update your entry array to also take 'react-hot-loader/patch' like so:</p>
+<pre style="background-color:#0f1419;">
+<span style="font-style:italic;color:#39bae6;">module</span><span style="font-style:italic;color:#f29668;">.</span><span style="font-style:italic;color:#39bae6;">exports </span><span style="color:#f29668;">= </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  entry</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#c2d94c;">&quot;react-hot-loader/patch&quot;</span><span style="color:#bfbab0cc;">, </span><span style="color:#bfbab0;">path</span><span style="color:#f29668;">.</span><span style="color:#ffb454;">resolve</span><span style="color:#bfbab0;">(</span><span style="font-style:italic;color:#39bae6;">__dirname</span><span style="color:#bfbab0cc;">, </span><span style="color:#c2d94c;">&quot;src&quot;</span><span style="color:#bfbab0cc;">, </span><span style="color:#c2d94c;">&quot;index.jsx&quot;</span><span style="color:#bfbab0;">)]</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#5c6773;">// ...</span><span style="font-style:italic;color:#5c6773;">
+</span><span style="color:#bfbab0;">}</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>(in all honestly I have no idea what this does, just that react-hot-loader requires it). Next, add a new property called &quot;resolve&quot; and alias react-dom to the one we installed earlier:</p>
+<pre style="background-color:#0f1419;">
+<span style="font-style:italic;color:#39bae6;">module</span><span style="font-style:italic;color:#f29668;">.</span><span style="font-style:italic;color:#39bae6;">exports </span><span style="color:#f29668;">= </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#5c6773;">// ...</span><span style="font-style:italic;color:#5c6773;">
+  </span><span style="color:#bfbab0;">resolve</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+    alias</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+      </span><span style="color:#c2d94c;">&quot;react-dom&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;@hot-loader/react-dom&quot;</span><span style="color:#bfbab0;">
+    }</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0;">
+}</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>This replaces the &quot;react-dom&quot; package of the same version, but with additional patches to support hot reloading.</p>
+<p>And finally, update our devServer property so it runs in hot mode:</p>
+<pre style="background-color:#0f1419;">
+<span style="font-style:italic;color:#39bae6;">module</span><span style="font-style:italic;color:#f29668;">.</span><span style="font-style:italic;color:#39bae6;">exports </span><span style="color:#f29668;">= </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#5c6773;">// ...</span><span style="font-style:italic;color:#5c6773;">
+  </span><span style="color:#bfbab0;">devServer</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+    hot</span><span style="color:#bfbab0cc;">: </span><span style="color:#f29718;">true</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+    contentBase</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">path</span><span style="color:#f29668;">.</span><span style="color:#ffb454;">join</span><span style="color:#bfbab0;">(</span><span style="font-style:italic;color:#39bae6;">__dirname</span><span style="color:#bfbab0cc;">, </span><span style="color:#c2d94c;">&quot;dist&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0;">
+}</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>After all this, your <code>webpack.config.js</code> should look like this:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#ff7733;">const </span><span style="color:#bfbab0;">path </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">require</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;path&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+</span><span style="font-style:italic;color:#39bae6;">module</span><span style="font-style:italic;color:#f29668;">.</span><span style="font-style:italic;color:#39bae6;">exports </span><span style="color:#f29668;">= </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  mode</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;development&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+  entry</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#bfbab0;">
+    </span><span style="color:#c2d94c;">&quot;react-hot-loader/patch&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+    path</span><span style="color:#f29668;">.</span><span style="color:#ffb454;">resolve</span><span style="color:#bfbab0;">(</span><span style="font-style:italic;color:#39bae6;">__dirname</span><span style="color:#bfbab0cc;">, </span><span style="color:#c2d94c;">&quot;src&quot;</span><span style="color:#bfbab0cc;">, </span><span style="color:#c2d94c;">&quot;index.jsx&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0;">
+  ]</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+  devtool</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;eval-source-map&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+  output</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+    filename</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;main.js&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+    path</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">path</span><span style="color:#f29668;">.</span><span style="color:#ffb454;">join</span><span style="color:#bfbab0;">(</span><span style="font-style:italic;color:#39bae6;">__dirname</span><span style="color:#bfbab0cc;">, </span><span style="color:#c2d94c;">&quot;dist&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+  resolve</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+    alias</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+      </span><span style="color:#c2d94c;">&quot;react-dom&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;@hot-loader/react-dom&quot;</span><span style="color:#bfbab0;">
+    }</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+  devServer</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+    hot</span><span style="color:#bfbab0cc;">: </span><span style="color:#f29718;">true</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+    contentBase</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">path</span><span style="color:#f29668;">.</span><span style="color:#ffb454;">join</span><span style="color:#bfbab0;">(</span><span style="font-style:italic;color:#39bae6;">__dirname</span><span style="color:#bfbab0cc;">, </span><span style="color:#c2d94c;">&quot;dist&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+  module</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+    rules</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#bfbab0;">
+      {</span><span style="color:#bfbab0;">
+        test</span><span style="color:#bfbab0cc;">: </span><span style="color:#95e6cb;">/\.js(x</span><span style="color:#f29668;">?</span><span style="color:#95e6cb;">)</span><span style="color:#ff7733;">$</span><span style="color:#95e6cb;">/</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+        exclude</span><span style="color:#bfbab0cc;">: </span><span style="color:#95e6cb;">/node_modules/</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+        use</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#bfbab0;">
+          {</span><span style="color:#bfbab0;">
+            loader</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;babel-loader&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+            options</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+              cacheDirectory</span><span style="color:#bfbab0cc;">: </span><span style="color:#f29718;">true</span><span style="color:#bfbab0;">
+            }</span><span style="color:#bfbab0;">
+          }</span><span style="color:#bfbab0;">
+        ]</span><span style="color:#bfbab0;">
+      }</span><span style="color:#bfbab0;">
+    ]</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0;">
+}</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Alright, let's do another <code>yarn serve</code> and load up our app. You should now be able to type into the textbox, and despite any changes you make to the file, your state should be kept! Very cool.</p>
+<p>That's all for this time, let's make a quick commit:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">&gt;git add .</span><span style="color:#bfbab0;">
+&gt;git commit -m &quot;added hot reloading&quot;</span><span style="color:#bfbab0;">
+</span></pre>
+<p><a href="https://gitlab.com/Worble/react-webpack-tutorial/commit/238ea4f55357bb7e00f4d84af8d72137e78ee8cc">View the commit here</a>.</p>
+<p>Next time we'll look into getting TypeScript support for our JSX components, as well as setting up a Webpack config for our production environment.</p>
+<p><a href="https://www.robertclarke.tech/blog/react-webpack-tutorial/part-four/">Click here for Part 4!</a></p>
+
+                            </div>
+                        </div>
+                        
+                        
+<footer class="card-footer">
+    <div class="article-footer">
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                <p>
+                    Published
+                    
+    
+        <time datetime="2019-10-23">
+            2019-10-23
+        </time>
+    
+
+                    
+    
+
+                    
+    
+        
+        in <a href="https://www.robertclarke.tech/categories/react-webpack-tutorial/">
+            <span class="tag is-success">
+                React Webpack Tutorial
+            </span>
+        </a>
+    
+
+                    
+    
+        and tagged
+        
+        <a href="https://www.robertclarke.tech/tags/react/">
+            <span class="tag is-link">react </span>
+        </a>
+            
+                
+                    
+                        ,
+                    
+                
+            
+        
+        <a href="https://www.robertclarke.tech/tags/webpack/">
+            <span class="tag is-link">webpack </span>
+        </a>
+            
+                
+                    
+                        and
+                    
+                
+            
+        
+        <a href="https://www.robertclarke.tech/tags/babel/">
+            <span class="tag is-link">babel </span>
+        </a>
+            
+                
+            
+        
+    
+
+                </p>
+            </div>
+            <div class="column">
+                <a class="button is-pulled-right is-info" href="/blog">Back Home</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+                        
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+<script async type="text/javascript" src="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;search.js"></script>
+
+
+
+	</div>
+	<!-- Footer -->
+	<footer class="footer">
+		
+<div class="columns is-tablet">
+	<div class="column">
+		<div class="content">
+			Copyright &#169; 2020 Robert Clarke &nbsp;&nbsp;|&nbsp;&nbsp; 
+			<a class="has-text-info" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;sitemap.xml">
+				Site Map
+			</a>
+		</div>
+	</div>
+	<div class="column is-flex">
+		<div class="content is-flex footer-right">
+			<a aria-label="Bulma Homepage" href="https://bulma.io/" rel="noreferrer noopener" target="_blank">
+				<picture>
+					<source srcset="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;img&#x2F;made-with-bulma--dark.png" media="(prefers-color-scheme: dark)">
+					<img alt="Made with bulma" src="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;img&#x2F;made-with-bulma.png" width="128" height="24">
+				</picture>
+			</a>
+			<span>
+				&nbsp;and <a class="has-text-info" rel="noreferrer noopener" href="https://www.getzola.org/" target="_blank">Zola</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+	</footer>
+	<link rel="stylesheet" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;icomoon&#x2F;style.css" />
+	<script async src="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;site.js"></script>
+</body>
+
+</html>

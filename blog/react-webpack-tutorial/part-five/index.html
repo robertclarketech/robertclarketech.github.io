@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	
+
+		
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;favicon-16x16.png" />
+<link rel="manifest" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;site.webmanifest" />
+<link rel="stylesheet" media="(prefers-color-scheme: dark)" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;site-dark.css" />
+<link rel="stylesheet" media="screen and (prefers-color-scheme: no-preference), (prefers-color-scheme: light)"
+	href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;site-light.css" />
+<noscript>
+	<link rel="stylesheet" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;noscript.css" />
+</noscript>
+
+		<title>React And Webpack Tutorial - Part 5 - Robert Clarke&#x27;s Blog</title>
+		<meta name="description" content="A React and Webpack tutorial, starting from the very bottom." />
+		<meta name="author" content="Robert Clarke" />
+	
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="https://www.robertclarke.tech/rss.xml">
+
+
+<script defer type="text/javascript" src="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;elasticlunr.min.js"></script>
+<script defer type="text/javascript" src="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;search_index.en.js"></script>
+
+
+</head>
+
+<body>
+	<div class="body">
+		
+<!-- Navigation bar -->
+<nav class="navbar is-primary is-fixed-top">
+	<div class="navbar-brand">
+		
+
+<a class="navbar-item" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;blog">
+    <span aria-hidden="true" class="icon">
+        <i class="icon-blog"></i>
+    </span>
+    <span>Home</span>
+</a>
+
+
+		<div class="navbar-burger burger" data-target="nav-menu">
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</div>
+	<div id="nav-menu" class="navbar-menu">
+		
+<div class="navbar-start">
+	<a class="navbar-item" href="https:&#x2F;&#x2F;www.robertclarke.tech">
+		<span aria-hidden="true" class="icon">
+			<i class="icon-info"></i>
+		</span>
+		<span>About Me</span>
+	</a>
+</div>
+
+		
+<div class="navbar-end">
+	
+	
+	
+	
+	<a itemprop="url" class="navbar-item "
+		href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;categories">
+		<span itemprop="name">Categories
+		</span>
+	</a>
+	
+	
+	
+	<a itemprop="url" class="navbar-item "
+		href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;tags">
+		<span itemprop="name">Tags
+		</span>
+	</a>
+	
+	
+	
+	<div class="navbar-item search-container js-only">
+		<input class="input" id="search" type="search" placeholder="Search">
+		<div class="search-results box">
+			<div class="search-results__items"></div>
+		</div>
+	</div>
+	
+</div>
+
+	</div>
+</nav>
+
+
+<main class="pad-nav">
+    <section class="section">
+        <div class="columns is-desktop">
+            <div class="column is-10-desktop is-offset-1-desktop">
+                <article itemscope itemtype="http://schema.org/BlogPosting">
+                    <div class="card article">
+                        <div class="card-content">
+                            
+<header>
+    <div class="has-text-centered">
+        <a href="https://www.robertclarke.tech/blog/react-webpack-tutorial/part-five/">
+            <h4 class="title is-3">React And Webpack Tutorial - Part 5
+            </h4>
+        </a>
+        <div class="tags has-addons level-item">
+            <span class="tag is-rounded">2019-10-25</span>
+                       
+            <span class="tag is-rounded">
+<svg class="i-clock" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round"
+    stroke-linejoin="round" stroke-width="6.25%">
+    <circle cx="16" cy="16" r="14" />
+    <path d="M16 8 L16 16 20 20" />
+</svg>
+<span>&nbsp;11 minute read</span>
+</span>
+        </div>
+    </div>
+</header>
+
+                            <div itemprop="articleBody" class="content article-body">
+                                <h1 id="previous">Previous</h1>
+<ul>
+<li><a href="https://www.robertclarke.tech/blog/react-webpack-tutorial/part-one/">Part 1</a></li>
+<li><a href="https://www.robertclarke.tech/blog/react-webpack-tutorial/part-two/">Part 2</a></li>
+<li><a href="https://www.robertclarke.tech/blog/react-webpack-tutorial/part-three/">Part 3</a></li>
+<li><a href="https://www.robertclarke.tech/blog/react-webpack-tutorial/part-four/">Part 4</a></li>
+</ul>
+<p>You can find the full repository and all previous commits by <a href="https://gitlab.com/Worble/react-webpack-tutorial">clicking here</a>.</p>
+<p>Previously, we had just finished updating our project to have seperate development and production configurations. Today we're going to changing the way we create our <code>index.html</code> file, do some cache-busting, and look at serving static files. Let's get started.</p>
+<span id="continue-reading"></span>
+<h1 id="html-webpack-plugin">HTML Webpack Plugin</h1>
+<h2 id="development">Development</h2>
+<p>Up until now, whenever we wanted to preview our code without using the dev server, we had to use the <code>./dist/index.html</code> we created way back in part one. This sucks for a couple of reasons:</p>
+<ol>
+<li>We've placed it in dist, which means it isn't source controlled. Anyone new to the project cloning it will have to make their own.</li>
+<li>It had a hardcoded reference to the scriptname of <code>main.js</code>. If this changed in the future, we'd have to remember to change this too.</li>
+<li>The html we want to display may not necessarily be static; we may want to change what's displayed based on certain compile-time parameters.</li>
+<li>Anytime we add anything new, like extra scripts, or css, again we have to edit this file.</li>
+</ol>
+<p>So, in order to get around these problems, we can use the handy <a href="https://github.com/jantimon/html-webpack-plugin">html-webpack-plugin</a>. It's worth noting, if you're using an application server such as Express, ASP.NET, Spring, or PHP to serve your front end html, then you probably won't be using this to generate your html; those servers do that for you, usually with their own templating language. In those cases, Webpack is usually a build step for creating JavaScript, which you would then embed the normal way for those servers. The use-case for generating our html in Webpack is usually for a SPA backed by a simple web server, like NGINX or Apache.</p>
+<p>Anyway, let's get on with it. First, let's add the plugin:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">&gt;yarn add --dev html-webpack-plugin</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Then we'll import and call it in our dev webpack config (we'll worry about prod later):</p>
+<pre style="background-color:#0f1419;">
+<span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+</span><span style="color:#ff7733;">const </span><span style="color:#bfbab0;">HtmlWebpackPlugin </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">require</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;html-webpack-plugin&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+</span><span style="font-style:italic;color:#39bae6;">module</span><span style="font-style:italic;color:#f29668;">.</span><span style="font-style:italic;color:#39bae6;">exports </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">merge</span><span style="color:#bfbab0;">(common</span><span style="color:#bfbab0cc;">, </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+  </span><span style="color:#bfbab0;">plugins</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#ff7733;">new </span><span style="color:#bfbab0;">HtmlWebpackPlugin()]</span><span style="color:#bfbab0;">
+})</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Now we're setup, delete your <code>./dist</code> folder and run <code>yarn dev</code>. You should now see that it's created a <code>index.html</code> for us, that should look something like this:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#39bae690;">&lt;!</span><span style="color:#59c2ff;">DOCTYPE</span><span style="color:#39bae6;"> html</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+</span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">html</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">head</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+    </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">meta </span><span style="color:#ffb454;">charset</span><span style="color:#bfbab0cc;">=</span><span style="color:#c2d94c;">&quot;UTF-8&quot;</span><span style="color:#39bae690;"> /&gt;</span><span style="color:#bfbab0;">
+    </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">title</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">Webpack App</span><span style="color:#39bae690;">&lt;/</span><span style="color:#59c2ff;">title</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae690;">&lt;/</span><span style="color:#59c2ff;">head</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">body</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+    </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">script </span><span style="color:#ffb454;">type</span><span style="color:#bfbab0cc;">=</span><span style="color:#c2d94c;">&quot;text/javascript&quot; </span><span style="color:#ffb454;">src</span><span style="color:#bfbab0cc;">=</span><span style="color:#c2d94c;">&quot;main.js&quot;</span><span style="color:#39bae690;">&gt;&lt;/</span><span style="color:#59c2ff;">script</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae690;">&lt;/</span><span style="color:#59c2ff;">body</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+</span><span style="color:#39bae690;">&lt;/</span><span style="color:#59c2ff;">html</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>As you can see, it's automatically inserted our script into the body for us. But, if we try to open it in a browser, nothing will render! As I'm sure you'll have already noticed, our <code>./src/index.tsx</code> script has a hard dependancy on an element existing with an Id of &quot;root&quot; in order to render our React application. There's a couple of ways around this.</p>
+<p>We could, for instance, remove the dependency from the JavaScript, and have it create it's own element that it attaches to:</p>
+<pre style="background-color:#0f1419;">
+<span style="font-style:italic;color:#5c6773;">//...</span><span style="color:#bfbab0;">
+</span><span style="color:#ff7733;">const </span><span style="color:#bfbab0;">reactRootElement </span><span style="color:#f29668;">= </span><span style="color:#bfbab0;">document</span><span style="color:#f29668;">.</span><span style="color:#f07178;">createElement</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;div&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+document</span><span style="color:#f29668;">.</span><span style="color:#bfbab0;">body</span><span style="color:#f29668;">.</span><span style="color:#f07178;">append</span><span style="color:#bfbab0;">(reactRootElement)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+ReactDOM</span><span style="color:#f29668;">.</span><span style="color:#ffb454;">render</span><span style="color:#bfbab0;">(</span><span style="color:#39bae690;">&lt;</span><span style="font-style:italic;color:#39bae6;">MyComponent </span><span style="color:#39bae690;">/&gt;</span><span style="color:#bfbab0cc;">, </span><span style="color:#bfbab0;">reactRootElement)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>If we rerun Webpack, we can see this fixes the problem. But, if we take another look at the generated HTMl there's a number of other things wrong with it. Our html tag has no lang attribute, there's no meta viewport in the head, and the title is just &quot;Webpack App&quot;. Clearly we need some way to set these. Well luckily we can set a template to be used by <code>html-webpack-plugin</code>.</p>
+<p>First, let's make the template we want to use. Let's create <code>./src/index.html</code> and populate it with want we want:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#39bae690;">&lt;!</span><span style="color:#59c2ff;">DOCTYPE</span><span style="color:#39bae6;"> html</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+</span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">html </span><span style="color:#ffb454;">lang</span><span style="color:#bfbab0cc;">=</span><span style="color:#c2d94c;">&quot;en&quot;</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">head</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+    </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">meta </span><span style="color:#ffb454;">charset</span><span style="color:#bfbab0cc;">=</span><span style="color:#c2d94c;">&quot;UTF-8&quot;</span><span style="color:#39bae690;"> /&gt;</span><span style="color:#bfbab0;">
+    </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">meta </span><span style="color:#ffb454;">name</span><span style="color:#bfbab0cc;">=</span><span style="color:#c2d94c;">&quot;viewport&quot; </span><span style="color:#ffb454;">content</span><span style="color:#bfbab0cc;">=</span><span style="color:#c2d94c;">&quot;width=device-width, initial-scale=1.0&quot;</span><span style="color:#39bae690;"> /&gt;</span><span style="color:#bfbab0;">
+    </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">meta </span><span style="color:#ffb454;">http-equiv</span><span style="color:#bfbab0cc;">=</span><span style="color:#c2d94c;">&quot;X-UA-Compatible&quot; </span><span style="color:#ffb454;">content</span><span style="color:#bfbab0cc;">=</span><span style="color:#c2d94c;">&quot;ie=edge&quot;</span><span style="color:#39bae690;"> /&gt;</span><span style="color:#bfbab0;">
+    </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">title</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">My Awesome WebApp</span><span style="color:#39bae690;">&lt;/</span><span style="color:#59c2ff;">title</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae690;">&lt;/</span><span style="color:#59c2ff;">head</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">body</span><span style="color:#39bae690;">&gt;&lt;/</span><span style="color:#59c2ff;">body</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+</span><span style="color:#39bae690;">&lt;/</span><span style="color:#59c2ff;">html</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Then, back in our <code>webpack.dev.config</code>, let's edit our plugins so it takes our new template:</p>
+<pre style="background-color:#0f1419;">
+<span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+</span><span style="font-style:italic;color:#39bae6;">module</span><span style="font-style:italic;color:#f29668;">.</span><span style="font-style:italic;color:#39bae6;">exports </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">merge</span><span style="color:#bfbab0;">(common</span><span style="color:#bfbab0cc;">, </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+  </span><span style="color:#bfbab0;">plugins</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#bfbab0;">
+    </span><span style="color:#ff7733;">new </span><span style="color:#bfbab0;">HtmlWebpackPlugin({</span><span style="color:#bfbab0;">
+      template</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">path</span><span style="color:#f29668;">.</span><span style="color:#ffb454;">resolve</span><span style="color:#bfbab0;">(</span><span style="font-style:italic;color:#39bae6;">__dirname</span><span style="color:#bfbab0cc;">, </span><span style="color:#c2d94c;">&quot;src&quot;</span><span style="color:#bfbab0cc;">, </span><span style="color:#c2d94c;">&quot;index.html&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0;">
+    })</span><span style="color:#bfbab0;">
+  ]</span><span style="color:#bfbab0;">
+})</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>If we rerun our Webpack command, you can now see that our <code>./dist/index.html</code> file is created, using the template we specified, and appending our scripts onto the body. Let's make a commit here:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">&gt;git add .</span><span style="color:#bfbab0;">
+&gt;git commit -m &quot;added developer html-webpack-plugin&quot;</span><span style="color:#bfbab0;">
+</span></pre>
+<p><a href="https://gitlab.com/Worble/react-webpack-tutorial/commit/e5ddb796389f77c0551326cb953eb138e47ba23d">You can view the commit here</a>.</p>
+<p>Let's make the same thing but for our production build.</p>
+<h2 id="production">Production</h2>
+<p>So, we'll start off much the same way as we did for Development: we need to add the template path to our <code>./webpack.prod.js</code>. Instead of repeating code between the two, we'll move what we added from <code>./webpack.dev.js</code> to <code>./webpack.common.js</code>. Now we probably <em>could</em> leave it at that for production: it would still produce what we want, but if we take a look at the <a href="https://github.com/jantimon/html-webpack-plugin#options">options</a> available, there's some great extras we can use here, especially around <a href="https://github.com/jantimon/html-webpack-plugin#minification">minification</a>, so let's use those (I know it claims that these should be used automatically when the mode is set to &quot;production&quot;, but I found this isn't the case).</p>
+<p>So let's add it to our <code>./webpack.prod.js</code>:</p>
+<pre style="background-color:#0f1419;">
+<span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+</span><span style="color:#ff7733;">const </span><span style="color:#bfbab0;">HtmlWebpackPlugin </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">require</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;html-webpack-plugin&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+</span><span style="font-style:italic;color:#39bae6;">module</span><span style="font-style:italic;color:#f29668;">.</span><span style="font-style:italic;color:#39bae6;">exports </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">merge</span><span style="color:#bfbab0;">(common</span><span style="color:#bfbab0cc;">, </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+  </span><span style="color:#bfbab0;">plugins</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#bfbab0;">
+    </span><span style="color:#ff7733;">new </span><span style="color:#bfbab0;">HtmlWebpackPlugin({</span><span style="color:#bfbab0;">
+      minify</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+        collapseWhitespace</span><span style="color:#bfbab0cc;">: </span><span style="color:#f29718;">true</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+        removeComments</span><span style="color:#bfbab0cc;">: </span><span style="color:#f29718;">true</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+        removeRedundantAttributes</span><span style="color:#bfbab0cc;">: </span><span style="color:#f29718;">true</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+        removeScriptTypeAttributes</span><span style="color:#bfbab0cc;">: </span><span style="color:#f29718;">true</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+        removeStyleLinkTypeAttributes</span><span style="color:#bfbab0cc;">: </span><span style="color:#f29718;">true</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+        useShortDoctype</span><span style="color:#bfbab0cc;">: </span><span style="color:#f29718;">true</span><span style="color:#bfbab0;">
+      }</span><span style="color:#bfbab0;">
+    })</span><span style="color:#bfbab0;">
+  ]</span><span style="color:#bfbab0;">
+})</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Although we do have to define the plugin again, since we already told it the template to use in the common config, we can safely leave that out here.</p>
+<p>Alright, if you build for prod now, you'll be able to see
+that we also have minified html. It might not be saving much space right now, but every byte counts!</p>
+<p>Let's commit this up too:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">&gt;git add .</span><span style="color:#bfbab0;">
+&gt;git commit -m &quot;added production html-webpack-plugin&quot;</span><span style="color:#bfbab0;">
+</span></pre>
+<p><a href="https://gitlab.com/Worble/react-webpack-tutorial/commit/49c17e5acb57b92a3701c91886a4259f7c0988db">You can view the commit here</a>.</p>
+<h1 id="cache-busting">Cache Busting</h1>
+<p>If you take a look at the <a href="https://github.com/jantimon/html-webpack-plugin#options">html-webpack-options</a> you'll notice that one of them is called &quot;hash&quot;. If you turn this on and build your project, you'll notice that the reference to the script in <code>./dist/index.html</code> looks something similar to this:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">script </span><span style="color:#ffb454;">type</span><span style="color:#bfbab0cc;">=</span><span style="color:#c2d94c;">&quot;text/javascript&quot; </span><span style="color:#ffb454;">src</span><span style="color:#bfbab0cc;">=</span><span style="color:#c2d94c;">&quot;main.js?34e8366ba7b24f3fdeab&quot;</span><span style="color:#39bae690;">&gt;&lt;/</span><span style="color:#59c2ff;">script</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Those letters and numbers after the &quot;?&quot; are hash of the contents of the file: if you keep rebuilding without changing any of the source files, that hash will never change. If you do make a change however, it will be a new id. So what's the point of this? Well, the browser will cache certain files so the subsequent page loads for users are shorter. This is great for users, but not so great when we have changes we want to be pushed down. By adding a unique identifier that changes, the browser will always download the newest file.</p>
+<p>Now, we could do this by using this option in <code>html-webpack-plugin</code>, however Webpack exposes this functionality directly to us. We can modify our <code>output</code> property in <code>./webpack.common.js</code> to use these hashes:</p>
+<pre style="background-color:#0f1419;">
+<span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+</span><span style="font-style:italic;color:#39bae6;">module</span><span style="font-style:italic;color:#f29668;">.</span><span style="font-style:italic;color:#39bae6;">exports </span><span style="color:#f29668;">= </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+  </span><span style="color:#bfbab0;">output</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+    filename</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;[id].[hash].js&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+    path</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">path</span><span style="color:#f29668;">.</span><span style="color:#ffb454;">join</span><span style="color:#bfbab0;">(</span><span style="font-style:italic;color:#39bae6;">__dirname</span><span style="color:#bfbab0cc;">, </span><span style="color:#c2d94c;">&quot;dist&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+</span><span style="color:#bfbab0;">}</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>If you build now, you'll see that the <code>./dist/main.js</code> filename itself has changed to a hash (and if you forgot to turn off hashing on <code>html-webpack-plugin</code>, you'll see the hash in the <code>./dist/index.html</code> twice!). I personally prefer this approach, since it means we could switch to a different html plugin, or even switch to an application server, and still retain this functionality. Less coupling is always good!</p>
+<p>It was only a small change, but let's do another commit here:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">&gt;git add .</span><span style="color:#bfbab0;">
+&gt;git commit -m &quot;changed output to id and hash&quot;</span><span style="color:#bfbab0;">
+</span></pre>
+<p><a href="https://gitlab.com/Worble/react-webpack-tutorial/commit/7a877760bb6282f2f0d141ac084c9afcd630091d">You can view the commit here</a>.</p>
+<h1 id="clean-webpack-plugin">Clean Webpack Plugin</h1>
+<p>One thing you might have noticed, is that when we changed the output name of our bundle, the old bundle still remained! Webpack does not clean out our distribution folder before adding new files to it. This is potentially helpful as it allows you to place static files in there that don't need building. However, without maintenence it also means that stale assets could build up. What if we just placed the entire distribution folder on our web server? At best this would just make deploy times longer, at worst it could be a security risk!</p>
+<p>Again, there are a number of ways to manage this, for example, you could change the npm script in our <code>./package.json</code> to remove the directory before running Webpack. We're going to use a Webpack plugin, however, for the extra flexibility it provides, and the fact it helps keep all of our configuration in one place.</p>
+<p>We're going to be using <code>clean-webpack-plugin</code> (<a href="https://github.com/johnagan/clean-webpack-plugin">documentation</a>). This one couldn't be simpler. First, let's install:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">&gt;yarn add --dev clean-webpack-plugin</span><span style="color:#bfbab0;">
+</span></pre>
+<p>And edit our <code>./webpack.common.js</code>:</p>
+<pre style="background-color:#0f1419;">
+<span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+</span><span style="color:#ff7733;">const </span><span style="color:#bfbab0;">{ CleanWebpackPlugin } </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">require</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;clean-webpack-plugin&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+</span><span style="font-style:italic;color:#39bae6;">module</span><span style="font-style:italic;color:#f29668;">.</span><span style="font-style:italic;color:#39bae6;">exports </span><span style="color:#f29668;">= </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+  </span><span style="color:#bfbab0;">plugins</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#bfbab0;">
+    </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+    </span><span style="color:#ff7733;">new </span><span style="color:#bfbab0;">CleanWebpackPlugin()</span><span style="color:#bfbab0;">
+  ]</span><span style="color:#bfbab0;">
+}</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>And we're done! Run a new build and ensure the old <code>./dist/main.js</code> file is removed (if you've already removed it, just create any new file and watch it get removed). As always, there are <a href="https://github.com/johnagan/clean-webpack-plugin#options-and-defaults-optional">a bunch of options you can set</a> but we don't need to set any of them for our use-case.</p>
+<p>Again, it may not feel like we've done much, but let's do a new commit here:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">&gt;git add .</span><span style="color:#bfbab0;">
+&gt;git commit -m &quot;added clean-webpack-plugin&quot;</span><span style="color:#bfbab0;">
+</span></pre>
+<p><a href="https://gitlab.com/Worble/react-webpack-tutorial/commit/e01f93c88051ca9219d4a4da257f38cdbbf23175">You can view the commit here</a>.</p>
+<h1 id="static-files">Static Files</h1>
+<p>So, if we are deleting the contents of our distribution folder every time we deploy, just how do we handle static files? First of all, let's mock out what we want to achieve.</p>
+<p>Say for instance, we want to add an image to show in <code>./src/myComponent.tsx</code>:</p>
+<pre style="background-color:#0f1419;">
+<span style="font-style:italic;color:#5c6773;">//...</span><span style="color:#bfbab0;">
+</span><span style="color:#ff7733;">class </span><span style="color:#59c2ff;">MyComponent </span><span style="color:#ff7733;">extends </span><span style="color:#59c2ff;">React</span><span style="color:#f29668;">.</span><span style="text-decoration:underline;color:#59c2ff;">Component</span><span style="color:#bfbab0;">&lt;{}</span><span style="color:#bfbab0cc;">, </span><span style="color:#59c2ff;">IMyComponentState</span><span style="color:#bfbab0;">&gt; {</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="color:#bfbab0;">
+  </span><span style="color:#ffb454;">render</span><span style="color:#bfbab0;">() {</span><span style="color:#bfbab0;">
+    </span><span style="color:#ff7733;">return </span><span style="color:#bfbab0;">(</span><span style="color:#bfbab0;">
+      </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">div</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+        ...</span><span style="color:#bfbab0;">
+        </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">img </span><span style="color:#ffb454;">src</span><span style="color:#f29668;">=</span><span style="color:#c2d94c;">&quot;my_image.jpg&quot;</span><span style="color:#39bae690;">&gt;&lt;/</span><span style="color:#59c2ff;">img</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+      </span><span style="color:#39bae690;">&lt;/</span><span style="color:#59c2ff;">div</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+    )</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0;">
+}</span><span style="color:#bfbab0;">
+</span><span style="font-style:italic;color:#5c6773;">//...</span><span style="color:#bfbab0;">
+</span></pre>
+<p>For demonstration purposes, we're going to be using a free image taken from <a href="https://www.pexels.com">Pexels</a> (although I did make it smaller for size reasons).</p>
+<figure>
+  <img src="/img/animal-creature-cute-47547.jpg" alt="cute squirrel eating"/>
+  <figcaption>Free image from <a href="https://www.pexels.com/photo/brown-squirrel-47547/">Pexels</a></figcaption>
+</figure>
+<p>To begin with, we're going to place this image into a new folder in the root of our project, which we'll call <code>static</code>. Now we need to make Webpack aware of the files within this folder, so it can know to move them into the <code>./dist</code> folder. The way Webpack knows about most files is that it starts from our entrypoint and looks at it's imports, and then looks at the imports of those imports, etc, etc. However, that also mean that Webpack will try to read and process them, and we just want them moving into dist as-is, so how do we achieve that? Well, like with our <code>./src/index.html</code>, it's with a plugin.</p>
+<p>We're going to be using <code>copy-webpack-plugin</code> (<a href="https://github.com/webpack-contrib/copy-webpack-plugin">documentation</a>) to move everything within our <code>./static</code> folder to the <code>./dist</code> folder.</p>
+<p>So as always, let's install it:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">&gt;yarn add --dev copy-webpack-plugin</span><span style="color:#bfbab0;">
+</span></pre>
+<p>And let's configure it:</p>
+<pre style="background-color:#0f1419;">
+<span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+</span><span style="color:#ff7733;">const </span><span style="color:#bfbab0;">CopyWebpackPlugin </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">require</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;copy-webpack-plugin&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+</span><span style="font-style:italic;color:#39bae6;">module</span><span style="font-style:italic;color:#f29668;">.</span><span style="font-style:italic;color:#39bae6;">exports </span><span style="color:#f29668;">= </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+  </span><span style="color:#bfbab0;">plugins</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#bfbab0;">
+    </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+    </span><span style="color:#ff7733;">new </span><span style="color:#bfbab0;">CopyWebpackPlugin([</span><span style="color:#bfbab0;">
+      {</span><span style="color:#bfbab0;">
+        from</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">path</span><span style="color:#f29668;">.</span><span style="color:#ffb454;">join</span><span style="color:#bfbab0;">(</span><span style="font-style:italic;color:#39bae6;">__dirname</span><span style="color:#bfbab0cc;">, </span><span style="color:#c2d94c;">&quot;static&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0;">
+      }</span><span style="color:#bfbab0;">
+    ])</span><span style="color:#bfbab0;">
+  ]</span><span style="color:#bfbab0;">
+}</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>If we do a build now, you should see the file getting copied across, and after opening our <code>./dist/index.html</code>, you should be able to see the image! Hurray! It even works out of the box with our dev server too!</p>
+<p>It's also at this point that I realised that the <code>content-base</code> option in our devServer wasn't needed, whoops. Sorry about that everyone. You can remove that now, and your <code>./webpack.dev.js</code> should look like this:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#ff7733;">const </span><span style="color:#bfbab0;">merge </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">require</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;webpack-merge&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#ff7733;">const </span><span style="color:#bfbab0;">common </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">require</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;./webpack.common.js&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#ff7733;">const </span><span style="color:#bfbab0;">path </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">require</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;path&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+</span><span style="font-style:italic;color:#39bae6;">module</span><span style="font-style:italic;color:#f29668;">.</span><span style="font-style:italic;color:#39bae6;">exports </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">merge</span><span style="color:#bfbab0;">(common</span><span style="color:#bfbab0cc;">, </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  mode</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;development&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+  devtool</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;eval-source-map&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+  devServer</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+    hot</span><span style="color:#bfbab0cc;">: </span><span style="color:#f29718;">true</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0;">
+})</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Alright, let's commit this one up too:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">&gt;git add .</span><span style="color:#bfbab0;">
+&gt;git commit -m &quot;added static files and copy-webpack-plugin&quot;</span><span style="color:#bfbab0;">
+</span></pre>
+<p><a href="https://gitlab.com/Worble/react-webpack-tutorial/commit/34ab50c5d1219ae97b193b10c070035561fdbb3f">You can view the commit here</a>.</p>
+<p>That's all for today, folks. Next time we'll cover SASS compilation, as well as file compression!</p>
+<p><a href="https://www.robertclarke.tech/blog/react-webpack-tutorial/part-six/">Click here for Part 6!</a></p>
+
+                            </div>
+                        </div>
+                        
+                        
+<footer class="card-footer">
+    <div class="article-footer">
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                <p>
+                    Published
+                    
+    
+        <time datetime="2019-10-25">
+            2019-10-25
+        </time>
+    
+
+                    
+    
+
+                    
+    
+        
+        in <a href="https://www.robertclarke.tech/categories/react-webpack-tutorial/">
+            <span class="tag is-success">
+                React Webpack Tutorial
+            </span>
+        </a>
+    
+
+                    
+    
+        and tagged
+        
+        <a href="https://www.robertclarke.tech/tags/react/">
+            <span class="tag is-link">react </span>
+        </a>
+            
+                
+                    
+                        and
+                    
+                
+            
+        
+        <a href="https://www.robertclarke.tech/tags/webpack/">
+            <span class="tag is-link">webpack </span>
+        </a>
+            
+                
+            
+        
+    
+
+                </p>
+            </div>
+            <div class="column">
+                <a class="button is-pulled-right is-info" href="/blog">Back Home</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+                        
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+<script async type="text/javascript" src="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;search.js"></script>
+
+
+
+	</div>
+	<!-- Footer -->
+	<footer class="footer">
+		
+<div class="columns is-tablet">
+	<div class="column">
+		<div class="content">
+			Copyright &#169; 2020 Robert Clarke &nbsp;&nbsp;|&nbsp;&nbsp; 
+			<a class="has-text-info" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;sitemap.xml">
+				Site Map
+			</a>
+		</div>
+	</div>
+	<div class="column is-flex">
+		<div class="content is-flex footer-right">
+			<a aria-label="Bulma Homepage" href="https://bulma.io/" rel="noreferrer noopener" target="_blank">
+				<picture>
+					<source srcset="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;img&#x2F;made-with-bulma--dark.png" media="(prefers-color-scheme: dark)">
+					<img alt="Made with bulma" src="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;img&#x2F;made-with-bulma.png" width="128" height="24">
+				</picture>
+			</a>
+			<span>
+				&nbsp;and <a class="has-text-info" rel="noreferrer noopener" href="https://www.getzola.org/" target="_blank">Zola</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+	</footer>
+	<link rel="stylesheet" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;icomoon&#x2F;style.css" />
+	<script async src="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;site.js"></script>
+</body>
+
+</html>

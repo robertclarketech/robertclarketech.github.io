@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	
+
+		
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;favicon-16x16.png" />
+<link rel="manifest" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;site.webmanifest" />
+<link rel="stylesheet" media="(prefers-color-scheme: dark)" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;site-dark.css" />
+<link rel="stylesheet" media="screen and (prefers-color-scheme: no-preference), (prefers-color-scheme: light)"
+	href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;site-light.css" />
+<noscript>
+	<link rel="stylesheet" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;noscript.css" />
+</noscript>
+
+		<title>React And Webpack Tutorial - Part 2 - Robert Clarke&#x27;s Blog</title>
+		<meta name="description" content="A React and Webpack tutorial, starting from the very bottom." />
+		<meta name="author" content="Robert Clarke" />
+	
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="https://www.robertclarke.tech/rss.xml">
+
+
+<script defer type="text/javascript" src="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;elasticlunr.min.js"></script>
+<script defer type="text/javascript" src="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;search_index.en.js"></script>
+
+
+</head>
+
+<body>
+	<div class="body">
+		
+<!-- Navigation bar -->
+<nav class="navbar is-primary is-fixed-top">
+	<div class="navbar-brand">
+		
+
+<a class="navbar-item" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;blog">
+    <span aria-hidden="true" class="icon">
+        <i class="icon-blog"></i>
+    </span>
+    <span>Home</span>
+</a>
+
+
+		<div class="navbar-burger burger" data-target="nav-menu">
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</div>
+	<div id="nav-menu" class="navbar-menu">
+		
+<div class="navbar-start">
+	<a class="navbar-item" href="https:&#x2F;&#x2F;www.robertclarke.tech">
+		<span aria-hidden="true" class="icon">
+			<i class="icon-info"></i>
+		</span>
+		<span>About Me</span>
+	</a>
+</div>
+
+		
+<div class="navbar-end">
+	
+	
+	
+	
+	<a itemprop="url" class="navbar-item "
+		href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;categories">
+		<span itemprop="name">Categories
+		</span>
+	</a>
+	
+	
+	
+	<a itemprop="url" class="navbar-item "
+		href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;tags">
+		<span itemprop="name">Tags
+		</span>
+	</a>
+	
+	
+	
+	<div class="navbar-item search-container js-only">
+		<input class="input" id="search" type="search" placeholder="Search">
+		<div class="search-results box">
+			<div class="search-results__items"></div>
+		</div>
+	</div>
+	
+</div>
+
+	</div>
+</nav>
+
+
+<main class="pad-nav">
+    <section class="section">
+        <div class="columns is-desktop">
+            <div class="column is-10-desktop is-offset-1-desktop">
+                <article itemscope itemtype="http://schema.org/BlogPosting">
+                    <div class="card article">
+                        <div class="card-content">
+                            
+<header>
+    <div class="has-text-centered">
+        <a href="https://www.robertclarke.tech/blog/react-webpack-tutorial/part-two/">
+            <h4 class="title is-3">React And Webpack Tutorial - Part 2
+            </h4>
+        </a>
+        <div class="tags has-addons level-item">
+            <span class="tag is-rounded">2019-10-22</span>
+                       
+            <span class="tag is-rounded">
+<svg class="i-clock" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round"
+    stroke-linejoin="round" stroke-width="6.25%">
+    <circle cx="16" cy="16" r="14" />
+    <path d="M16 8 L16 16 20 20" />
+</svg>
+<span>&nbsp;9 minute read</span>
+</span>
+        </div>
+    </div>
+</header>
+
+                            <div itemprop="articleBody" class="content article-body">
+                                <h1 id="previous">Previous</h1>
+<ul>
+<li><a href="https://www.robertclarke.tech/blog/react-webpack-tutorial/part-one/">Part 1</a></li>
+</ul>
+<p>You can find the full repository and all previous commits by <a href="https://gitlab.com/Worble/react-webpack-tutorial">clicking here</a>.</p>
+<p>Welcome back. Last time, we left off with a basic Hello World React app that we had just gotten working by using Webpack to bundle it. Today we're going to convert that to a JSX file and setup a Webpack configuration file.</p>
+<span id="continue-reading"></span>
+<h1 id="jsx-and-webpack-config">JSX and Webpack config</h1>
+<p>If you remember last time, when we took Reacts basic example, it looked like this:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">ReactDOM</span><span style="color:#f29668;">.</span><span style="color:#ffb454;">render</span><span style="color:#bfbab0;">(</span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">h1</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">Hello, world!</span><span style="color:#39bae690;">&lt;/</span><span style="color:#59c2ff;">h1</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0cc;">, </span><span style="color:#bfbab0;">document</span><span style="color:#f29668;">.</span><span style="color:#f07178;">getElementById</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;root&quot;</span><span style="color:#bfbab0;">))</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>This is Reacts JSX templating language, which allows you to define HTML inside of your JavaScript. Let's change our current file back to this version.</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#ff7733;">import </span><span style="color:#bfbab0;">ReactDOM </span><span style="color:#ff7733;">from </span><span style="color:#c2d94c;">&quot;react-dom&quot;</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#ff7733;">import </span><span style="color:#bfbab0;">React </span><span style="color:#ff7733;">from </span><span style="color:#c2d94c;">&quot;react&quot;</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+ReactDOM</span><span style="color:#f29668;">.</span><span style="color:#ffb454;">render</span><span style="color:#bfbab0;">(</span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">h1</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">Hello, world!</span><span style="color:#39bae690;">&lt;/</span><span style="color:#59c2ff;">h1</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0cc;">, </span><span style="color:#bfbab0;">document</span><span style="color:#f29668;">.</span><span style="color:#f07178;">getElementById</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;root&quot;</span><span style="color:#bfbab0;">))</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>And if we try to run <code>yarn webpack</code> like previously, we get an error:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">&gt;yarn webpack</span><span style="color:#bfbab0;">
+yarn run v1.17.3</span><span style="color:#bfbab0;">
+$ &lt;folder&gt;\node_modules\.bin\webpack</span><span style="color:#bfbab0;">
+Hash: 1862c125716c06df2a51</span><span style="color:#bfbab0;">
+Version: webpack 4.41.2</span><span style="color:#bfbab0;">
+Time: 338ms</span><span style="color:#bfbab0;">
+Built at: 10/22/2019 4:27:18 PM</span><span style="color:#bfbab0;">
+ 1 asset</span><span style="color:#bfbab0;">
+Entrypoint main = main.js</span><span style="color:#bfbab0;">
+[0] ./src/index.js 354 bytes {0} [built] [failed] [1 error]</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+WARNING in configuration</span><span style="color:#bfbab0;">
+The &#39;mode&#39; option has not been set, webpack will fallback to &#39;production&#39; for this value. Set &#39;mode&#39; option to &#39;development&#39; or &#39;production&#39; to enable defaults for each environment.</span><span style="color:#bfbab0;">
+You can also set it to &#39;none&#39; to disable any default behavior. Learn more: https://webpack.js.org/configuration/mode/</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+ERROR in ./src/index.js 3:16</span><span style="color:#bfbab0;">
+Module parse failed: Unexpected token (3:16)</span><span style="color:#bfbab0;">
+You may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders</span><span style="color:#bfbab0;">
+| import ReactDOM from &quot;react-dom&quot;;</span><span style="color:#bfbab0;">
+|</span><span style="color:#bfbab0;">
+&gt; ReactDOM.render(&lt;h1&gt;Hello, world!&lt;/h1&gt;, document.getElementById(&quot;root&quot;));</span><span style="color:#bfbab0;">
+|</span><span style="color:#bfbab0;">
+error Command failed with exit code 2.</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Webpack nicely tells us exactly where it errored (<code>./src/index.js 3:16</code>) and what happened (<code>Module parse failed: Unexpected token (3:16)</code>). Basically, this is Webpack telling us it encountered something strange and it didn't know how to parse it. This makes sense, since although we passed it a <code>.js</code> file, the contents were not valid JavaScript.</p>
+<p>So to start solving this problem, let's make our intentions clearer. First, let's rename our <code>src/index.js</code> to <code>index.jsx</code>. This doesn't actually fix anything, but let's anyone looking at it know it's a JSX file. If you happen to run <code>yarn webpack</code> again you'll now notice it gives the error <code>Insufficient number of arguments or no entry found.</code> and <code>ERROR in Entry module not found: Error: Can't resolve './src' in &lt;folder&gt;</code>. This is because the <code>src/index.js</code> file it was previously looking for is now gone, and Webpack doesn't know where our entrypoint is.</p>
+<p>Now, create a <code>webpack.config.js</code> in your folders root directory and populate it like so:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#ff7733;">const </span><span style="color:#bfbab0;">path </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">require</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;path&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+</span><span style="font-style:italic;color:#39bae6;">module</span><span style="font-style:italic;color:#f29668;">.</span><span style="font-style:italic;color:#39bae6;">exports </span><span style="color:#f29668;">= </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  entry</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">path</span><span style="color:#f29668;">.</span><span style="color:#ffb454;">resolve</span><span style="color:#bfbab0;">(</span><span style="font-style:italic;color:#39bae6;">__dirname</span><span style="color:#bfbab0cc;">, </span><span style="color:#c2d94c;">&quot;src&quot;</span><span style="color:#bfbab0cc;">, </span><span style="color:#c2d94c;">&quot;index.jsx&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+  output</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+    filename</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;main.js&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+    path</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">path</span><span style="color:#f29668;">.</span><span style="color:#ffb454;">join</span><span style="color:#bfbab0;">(</span><span style="font-style:italic;color:#39bae6;">__dirname</span><span style="color:#bfbab0cc;">, </span><span style="color:#c2d94c;">&quot;dist&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0;">
+}</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Let's break this file down a bit now. The top line is a NodeJS import. Using Node libraries in frontend development may seem a little strange, but since Webpack is a build tool build with Node, we have access to these. We're going to be using the <code>path</code> library to ensure we have clean, sanitized folder paths.</p>
+<p>Next we have the <code>module.exports</code> line. All Webpack configuration files will have this line, and it is essentially an object defining our custom Webpack configuration. Everything else in this file will be a property on <code>module.exports</code>.</p>
+<p>Then we have the <code>entry</code> property, this defines our entrypoint, and after that we have the <code>output</code>, which defines where to place our Webpackified files and what to call the final bundle. Within both of these we're using the Node library <code>path</code>, just to make sure that whatever we pass here is appropriate for the operating system ('/' instead of '\' for example). Together, this webpack configuration is the equivalent of doing <code>yarn webpack ./src/index.jsx -o ./dist</code>.</p>
+<p>We can run Webpack with our newly created configuration file by doing <code>yarn webpack</code>. If there is any file called <code>webpack.config.js</code>, then Webpack will automatically pick it up, and use that for it's configuration. If your config file is called something else, you can use <code>yarn webpack --config &lt;config_name&gt;</code> to specify the filename.</p>
+<p>So we have a Webpack configuration file, but even if we run it, we still get the same error! So what's the point? Well, now we can move onto some of the real meat of Webpack, <em>loaders</em>.</p>
+<h1 id="loaders-and-babel">Loaders and Babel</h1>
+<p>To quote <a href="https://webpack.js.org/concepts/#loaders">Webpack's website</a></p>
+<blockquote>
+<p>Out of the box, webpack only understands JavaScript and JSON files. Loaders allow webpack to process other types of files and convert them into valid modules that can be consumed by your application and added to the dependency graph.</p>
+</blockquote>
+<p>Basically, loaders allow us to use filetypes other than JSON and JavaScript with our application. There are hundreds of these available on npm for whatever filetype you might want to use, or you can create your own if one doesn't already exist.</p>
+<p>In order to use JSX syntax, we're going use Babel in order to compile it into JavaScript, which can then be understood by Webpack. Babel will also gives us some other fringe benefits, such as the ability to use ES2015+ syntax in browsers that don't support it.</p>
+<p>In order to use Babel, we will need to download the <code>core</code>, the <code>react-preset</code> for react support, <code>preset-env</code> so we can use ES2015+ features, and the <code>babel-loader</code> so Webpack can use it.</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">&gt;yarn add --dev @babel/core @babel/preset-react @babel/preset-env babel-loader</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Again, these are all dev dependencies, we won't be including any of these packages in our final build.</p>
+<p>Now we've installed the loader, we need to tell Webpack when to use it. Update your <code>webpack.config.js</code> to look like the below:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#ff7733;">const </span><span style="color:#bfbab0;">path </span><span style="color:#f29668;">= </span><span style="color:#ffb454;">require</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;path&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+</span><span style="font-style:italic;color:#39bae6;">module</span><span style="font-style:italic;color:#f29668;">.</span><span style="font-style:italic;color:#39bae6;">exports </span><span style="color:#f29668;">= </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  entry</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">path</span><span style="color:#f29668;">.</span><span style="color:#ffb454;">resolve</span><span style="color:#bfbab0;">(</span><span style="font-style:italic;color:#39bae6;">__dirname</span><span style="color:#bfbab0cc;">, </span><span style="color:#c2d94c;">&quot;src&quot;</span><span style="color:#bfbab0cc;">, </span><span style="color:#c2d94c;">&quot;index.jsx&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+  output</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+    filename</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;main.js&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+    path</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">path</span><span style="color:#f29668;">.</span><span style="color:#ffb454;">join</span><span style="color:#bfbab0;">(</span><span style="font-style:italic;color:#39bae6;">__dirname</span><span style="color:#bfbab0cc;">, </span><span style="color:#c2d94c;">&quot;dist&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+  module</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+    rules</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#bfbab0;">
+      {</span><span style="color:#bfbab0;">
+        test</span><span style="color:#bfbab0cc;">: </span><span style="color:#95e6cb;">/\.js(x</span><span style="color:#f29668;">?</span><span style="color:#95e6cb;">)</span><span style="color:#ff7733;">$</span><span style="color:#95e6cb;">/</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+        exclude</span><span style="color:#bfbab0cc;">: </span><span style="color:#95e6cb;">/node_modules/</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+        use</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#bfbab0;">
+          {</span><span style="color:#bfbab0;">
+            loader</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;babel-loader&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+            options</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+              cacheDirectory</span><span style="color:#bfbab0cc;">: </span><span style="color:#f29718;">true</span><span style="color:#bfbab0;">
+            }</span><span style="color:#bfbab0;">
+          }</span><span style="color:#bfbab0;">
+        ]</span><span style="color:#bfbab0;">
+      }</span><span style="color:#bfbab0;">
+    ]</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0;">
+}</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>As you can see, we've added a new property called <code>module</code>, and underneath module we've added <code>rules</code>. Rules are an array of objects that tell Webpack &quot;Hey, when you meet a file that matches these conditions, use this loader with this configuration&quot;. As you can see here, we currently only have one object under <code>rules</code>. The first property this object has is <code>test</code>: this is a pattern to match on the filename. Here, we're telling it to match every file which ends in <code>.js</code>, and optionally <code>x</code> so it matches our <code>.jsx</code> file as well. This means all of our JavaScript and JSX files will be compiled by Babel, allowing us to both compile JSX and use ES2015+ syntax in any <code>.js</code> file in one rule.</p>
+<p>After that we have the property <code>use</code>, which is an array of loaders that should be used on any matched file. You can have multiple loaders for a single file, and note that they will always be called from right to left. For now however, we just have the one loader. Some loaders will also have options you can specify, for example here we are telling <code>babel-loader</code> to use a cache, so that we can avoid needing to run the potentially expensive Babel recompilation process on each run. You can see all the <code>babel-loader</code> options on it's <a href="https://github.com/babel/babel-loader#options">GitHub page</a>.</p>
+<p>You might try now to run webpack again, except we'll be greeted with a new error:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">ERROR in ./src/index.jsx</span><span style="color:#bfbab0;">
+Module build failed (from ./node_modules/babel-loader/lib/index.js):</span><span style="color:#bfbab0;">
+SyntaxError: &lt;snip&gt; Unexpected token (3:16)</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+  1 | import ReactDOM from &quot;react-dom&quot;;</span><span style="color:#bfbab0;">
+  2 |</span><span style="color:#bfbab0;">
+&gt; 3 | ReactDOM.render(&lt;h1&gt;Hello, world!&lt;/h1&gt;, document.getElementById(&quot;root&quot;));</span><span style="color:#bfbab0;">
+    |                 ^</span><span style="color:#bfbab0;">
+  4 |</span><span style="color:#bfbab0;">
+</span></pre>
+<p>It's still erroring! And in the same place! Well, this is because we still haven't told Babel to use the presets we installed, and without knowing about <code>@babel/preset-react</code>, Babel still doesn't know how to consume our JSX file. So, in the root of your project create a file called <code>.babelrc</code>. Inside of here, we're simply going to specify what presets Babel should use:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae6;">&quot;presets&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#c2d94c;">&quot;@babel/preset-env&quot;</span><span style="color:#bfbab0cc;">, </span><span style="color:#c2d94c;">&quot;@babel/preset-react&quot;</span><span style="color:#bfbab0;">]</span><span style="color:#bfbab0;">
+}</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Now if you looked on <code>babel-loader</code>'s GitHub page, you might notice that we could specify the presets there under <code>options</code>:</p>
+<pre style="background-color:#0f1419;">
+<span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+</span><span style="font-style:italic;color:#39bae6;">module</span><span style="font-style:italic;color:#f29668;">.</span><span style="font-style:italic;color:#39bae6;">exports </span><span style="color:#f29668;">= </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#5c6773;">//...</span><span style="font-style:italic;color:#5c6773;">
+  </span><span style="color:#bfbab0;">use</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+    loader</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;babel-loader&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+    options</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+      presets</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#c2d94c;">&quot;@babel/preset-env&quot;</span><span style="color:#bfbab0;">]</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+      plugins</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#c2d94c;">&quot;@babel/plugin-proposal-object-rest-spread&quot;</span><span style="color:#bfbab0;">]</span><span style="color:#bfbab0;">
+    }</span><span style="color:#bfbab0;">
+  }</span><span style="color:#bfbab0;">
+}</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Now, again this isn't necessarily <em>wrong</em>, however this approach has a couple of disadvantages</p>
+<ol>
+<li>If we want to change it, we have to dive into our webpack file. Later on, when we have many loaders, this could be somewhat of a pain</li>
+<li>If we wanted to use babel for other filetypes, we'd have to copy it every time</li>
+<li>And most importantly, this means this information is only available to Webpack. If we wanted to change to Parcel, or use the Babel CLI for exmaple, then we'd have to pull these out regardless</li>
+</ol>
+<p>Putting this information in a seperate <code>.babelrc</code> file makes it more accessible, reusable and easier to edit.</p>
+<p>It's also worth noting that while this <code>.babelrc</code> file works for our purposes, there's lots of configuration options you can set. For example, <a href="https://babeljs.io/docs/en/babel-preset-env">babel-preset-env's documentation page</a> recommends that you specify which browsers you wish to support like so:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae6;">&quot;presets&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">[</span><span style="color:#bfbab0;">
+    [</span><span style="color:#bfbab0;">
+      </span><span style="color:#c2d94c;">&quot;@babel/env&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+      {</span><span style="color:#bfbab0;">
+        </span><span style="color:#39bae6;">&quot;targets&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#bfbab0;">{</span><span style="color:#bfbab0;">
+          </span><span style="color:#39bae6;">&quot;edge&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;17&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+          </span><span style="color:#39bae6;">&quot;firefox&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;60&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+          </span><span style="color:#39bae6;">&quot;chrome&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;67&quot;</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+          </span><span style="color:#39bae6;">&quot;safari&quot;</span><span style="color:#bfbab0cc;">: </span><span style="color:#c2d94c;">&quot;11.1&quot;</span><span style="color:#bfbab0;">
+        }</span><span style="color:#bfbab0;">
+      }</span><span style="color:#bfbab0;">
+    ]</span><span style="color:#bfbab0;">
+  ]</span><span style="color:#bfbab0;">
+}</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Without this, it will just compile all ES2015+ code, which is probably a little inefficient. For now we don't care, but it's definitely worth checking all your Babel presets and plugins to make sure it's being set up right before shipping to production!</p>
+<h1 id="finishing-up">Finishing Up</h1>
+<p>So, now that we're finally finished with all that, you can run <code>yarn webpack</code> again and... presto! We've finally managed to compile our <code>.jsx</code> file into something that can be understood by browsers.</p>
+<p>This seems like another good point for a commit, so we'll do just that:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">&gt;git add .</span><span style="color:#bfbab0;">
+&gt;git commit -m &quot;Changed to use JSX, added Webpack config, and setup Babel&quot;</span><span style="color:#bfbab0;">
+</span></pre>
+<p><a href="https://gitlab.com/Worble/react-webpack-tutorial/commit/5fe267ba76972a21a33dae07c7143dfb3f0b5f9a">You can view this commit here</a>.</p>
+<p>Tune in next time where we'll set up a dev server to view changes as we make them, including hot reloading!</p>
+<p><a href="https://www.robertclarke.tech/blog/react-webpack-tutorial/part-three/">Click here for Part 3!</a></p>
+
+                            </div>
+                        </div>
+                        
+                        
+<footer class="card-footer">
+    <div class="article-footer">
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                <p>
+                    Published
+                    
+    
+        <time datetime="2019-10-22">
+            2019-10-22
+        </time>
+    
+
+                    
+    
+
+                    
+    
+        
+        in <a href="https://www.robertclarke.tech/categories/react-webpack-tutorial/">
+            <span class="tag is-success">
+                React Webpack Tutorial
+            </span>
+        </a>
+    
+
+                    
+    
+        and tagged
+        
+        <a href="https://www.robertclarke.tech/tags/react/">
+            <span class="tag is-link">react </span>
+        </a>
+            
+                
+                    
+                        ,
+                    
+                
+            
+        
+        <a href="https://www.robertclarke.tech/tags/webpack/">
+            <span class="tag is-link">webpack </span>
+        </a>
+            
+                
+                    
+                        and
+                    
+                
+            
+        
+        <a href="https://www.robertclarke.tech/tags/babel/">
+            <span class="tag is-link">babel </span>
+        </a>
+            
+                
+            
+        
+    
+
+                </p>
+            </div>
+            <div class="column">
+                <a class="button is-pulled-right is-info" href="/blog">Back Home</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+                        
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+<script async type="text/javascript" src="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;search.js"></script>
+
+
+
+	</div>
+	<!-- Footer -->
+	<footer class="footer">
+		
+<div class="columns is-tablet">
+	<div class="column">
+		<div class="content">
+			Copyright &#169; 2020 Robert Clarke &nbsp;&nbsp;|&nbsp;&nbsp; 
+			<a class="has-text-info" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;sitemap.xml">
+				Site Map
+			</a>
+		</div>
+	</div>
+	<div class="column is-flex">
+		<div class="content is-flex footer-right">
+			<a aria-label="Bulma Homepage" href="https://bulma.io/" rel="noreferrer noopener" target="_blank">
+				<picture>
+					<source srcset="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;img&#x2F;made-with-bulma--dark.png" media="(prefers-color-scheme: dark)">
+					<img alt="Made with bulma" src="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;img&#x2F;made-with-bulma.png" width="128" height="24">
+				</picture>
+			</a>
+			<span>
+				&nbsp;and <a class="has-text-info" rel="noreferrer noopener" href="https://www.getzola.org/" target="_blank">Zola</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+	</footer>
+	<link rel="stylesheet" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;icomoon&#x2F;style.css" />
+	<script async src="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;site.js"></script>
+</body>
+
+</html>

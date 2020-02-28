@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	
+
+		
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;favicon-16x16.png" />
+<link rel="manifest" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;site.webmanifest" />
+<link rel="stylesheet" media="(prefers-color-scheme: dark)" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;site-dark.css" />
+<link rel="stylesheet" media="screen and (prefers-color-scheme: no-preference), (prefers-color-scheme: light)"
+	href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;site-light.css" />
+<noscript>
+	<link rel="stylesheet" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;noscript.css" />
+</noscript>
+
+		<title>React And Webpack Tutorial - Part 1 - Robert Clarke&#x27;s Blog</title>
+		<meta name="description" content="A React and Webpack tutorial, starting from the very bottom." />
+		<meta name="author" content="Robert Clarke" />
+	
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="https://www.robertclarke.tech/rss.xml">
+
+
+<script defer type="text/javascript" src="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;elasticlunr.min.js"></script>
+<script defer type="text/javascript" src="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;search_index.en.js"></script>
+
+
+</head>
+
+<body>
+	<div class="body">
+		
+<!-- Navigation bar -->
+<nav class="navbar is-primary is-fixed-top">
+	<div class="navbar-brand">
+		
+
+<a class="navbar-item" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;blog">
+    <span aria-hidden="true" class="icon">
+        <i class="icon-blog"></i>
+    </span>
+    <span>Home</span>
+</a>
+
+
+		<div class="navbar-burger burger" data-target="nav-menu">
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</div>
+	<div id="nav-menu" class="navbar-menu">
+		
+<div class="navbar-start">
+	<a class="navbar-item" href="https:&#x2F;&#x2F;www.robertclarke.tech">
+		<span aria-hidden="true" class="icon">
+			<i class="icon-info"></i>
+		</span>
+		<span>About Me</span>
+	</a>
+</div>
+
+		
+<div class="navbar-end">
+	
+	
+	
+	
+	<a itemprop="url" class="navbar-item "
+		href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;categories">
+		<span itemprop="name">Categories
+		</span>
+	</a>
+	
+	
+	
+	<a itemprop="url" class="navbar-item "
+		href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;tags">
+		<span itemprop="name">Tags
+		</span>
+	</a>
+	
+	
+	
+	<div class="navbar-item search-container js-only">
+		<input class="input" id="search" type="search" placeholder="Search">
+		<div class="search-results box">
+			<div class="search-results__items"></div>
+		</div>
+	</div>
+	
+</div>
+
+	</div>
+</nav>
+
+
+<main class="pad-nav">
+    <section class="section">
+        <div class="columns is-desktop">
+            <div class="column is-10-desktop is-offset-1-desktop">
+                <article itemscope itemtype="http://schema.org/BlogPosting">
+                    <div class="card article">
+                        <div class="card-content">
+                            
+<header>
+    <div class="has-text-centered">
+        <a href="https://www.robertclarke.tech/blog/react-webpack-tutorial/part-one/">
+            <h4 class="title is-3">React And Webpack Tutorial - Part 1
+            </h4>
+        </a>
+        <div class="tags has-addons level-item">
+            <span class="tag is-rounded">2019-10-21</span>
+                       
+            <span class="tag is-rounded">
+<svg class="i-clock" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round"
+    stroke-linejoin="round" stroke-width="6.25%">
+    <circle cx="16" cy="16" r="14" />
+    <path d="M16 8 L16 16 20 20" />
+</svg>
+<span>&nbsp;9 minute read</span>
+</span>
+        </div>
+    </div>
+</header>
+
+                            <div itemprop="articleBody" class="content article-body">
+                                <h1 id="introduction">Introduction</h1>
+<p>When you're first starting to learn React, many tutorials will tell you to use create-react-app. This handy tool allows you focus on learning React, without getting bogged down in Webpack or the additional JavaScript tooling and ecosystem. This is great for people to get familiar with the language and SPA concepts, but chances are at some point you'll eventually need to dip down into webpack and make changes. The aim of this tutorial is to hopefully explain React and it's relationship with Webpack from the ground up. This tutorial (hopefully) makes few assumptions about the readers previous knowledge of React, Webpack and JavaScript tooling, but assumes a baseline knowledge of general front-end development and JavaScript.</p>
+<span id="continue-reading"></span>
+<h1 id="tooling">Tooling</h1>
+<ul>
+<li>Ensure you have <a href="https://nodejs.org/en/">node</a> installed.</li>
+<li>The above will install npm for you, nodes package manager. However, I strongly recommend you use <a href="https://yarnpkg.com/lang/en/">yarn</a> instead. All commands in the guide will use yarn, but there are npm equivalents for them all.</li>
+<li>(Optional) Ensure <a href="https://git-scm.com/">git</a> is installed. This isn't a prerequisite for developing, but it's good practice to always make regular commits while developing. As a bonus, you can download any given commit for a section if you get lost.</li>
+</ul>
+<h1 id="setup">Setup</h1>
+<p>To start with, we're going to do <code>git init</code> to create a repository in our directory. This should give the following output.</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">&gt;git init</span><span style="color:#bfbab0;">
+Initialized empty Git repository in &lt;directory&gt;/.git/</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Follow with an <code>npm init -y</code> to start our npm project. If all went well you should see something similar to the following in your command line.</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">&gt;npm init -y</span><span style="color:#bfbab0;">
+Wrote to &lt;folder&gt;\package.json:</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+{</span><span style="color:#bfbab0;">
+  &quot;name&quot;: &lt;folder&gt;,</span><span style="color:#bfbab0;">
+  &quot;version&quot;: &quot;1.0.0&quot;,</span><span style="color:#bfbab0;">
+  &quot;main&quot;: &quot;index.js&quot;,</span><span style="color:#bfbab0;">
+  &quot;scripts&quot;: {</span><span style="color:#bfbab0;">
+    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span><span style="color:#bfbab0;">
+  },</span><span style="color:#bfbab0;">
+  &quot;author&quot;: &quot;&quot;,</span><span style="color:#bfbab0;">
+  &quot;license&quot;: &quot;ISC&quot;,</span><span style="color:#bfbab0;">
+}</span><span style="color:#bfbab0;">
+</span></pre><h1 id="our-first-code">Our first code</h1>
+<p>Now we're all setup, we can make our first commit.</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">&gt;git add .</span><span style="color:#bfbab0;">
+&gt;git commit -m &quot;Initial Commit&quot;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Thanks to git you can follow along with the tutorial as we write code in case you get lost, or just want a point of reference. For example you can see the commit where we are right now by <a href="https://gitlab.com/Worble/react-webpack-tutorial/commit/bd64892e489001bd60ef4dc66ceb325f6660a5ba#7030d0b2f71b999ff89a343de08c414af32fc93a">clicking here</a>. The full repository can be seen by <a href="https://gitlab.com/Worble/react-webpack-tutorial">clicking here</a></p>
+<p>Ok, so it's time to start actually making your react project. For starters, we need a folder to place our source code. You could put this anywhere you wanted, including the root of our project, but this would be an organisational nightmare and make it a lot harder later on when we have a large amount of files. For now, we're going to place all of our source code in a folder called <code>src</code>.</p>
+<p>Inside that folder we can make our first file, <code>index.js</code>. This file will be known as our &quot;entrypoint&quot;: all code for the application will start here and flow down.</p>
+<p>So, let's go to Reacts website and steal their <a href="https://reactjs.org/docs/hello-world.html">smallest react example</a>. Let's place this in our <code>index.js</code>:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">ReactDOM</span><span style="color:#f29668;">.</span><span style="color:#ffb454;">render</span><span style="color:#bfbab0;">(</span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">h1</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">Hello, world!</span><span style="color:#39bae690;">&lt;/</span><span style="color:#59c2ff;">h1</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0cc;">, </span><span style="color:#bfbab0;">document</span><span style="color:#f29668;">.</span><span style="color:#f07178;">getElementById</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;root&quot;</span><span style="color:#bfbab0;">))</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Unfortunately for us, this is using <code>.jsx</code> syntax. We'll come onto that later, but this will need compiling into raw JavaScript for the browser to parse it (Webpack will take of that for us eventually). For now we'll make a small modification so we can run it.</p>
+<pre style="background-color:#0f1419;">
+<span style="font-style:italic;color:#39bae6;">ReactDOM</span><span style="color:#f29668;">.</span><span style="color:#ffb454;">render</span><span style="color:#bfbab0;">(</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#39bae6;">React</span><span style="color:#f29668;">.</span><span style="color:#f07178;">createElement</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;div&quot;</span><span style="color:#bfbab0cc;">, </span><span style="color:#f29718;">null</span><span style="color:#bfbab0cc;">, </span><span style="color:#c2d94c;">&quot;Hello World&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#39bae6;">document</span><span style="color:#f29668;">.</span><span style="color:#f07178;">getElementById</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;root&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0;">
+)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>We will also need to install <code>react</code> and <code>react-dom</code> as dependencies:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">&gt;yarn add react react-dom</span><span style="color:#bfbab0;">
+</span></pre>
+<p>And then import them into our <code>index.js</code> file:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#ff7733;">import </span><span style="color:#bfbab0;">React </span><span style="color:#ff7733;">from </span><span style="color:#c2d94c;">&quot;react&quot;</span><span style="color:#bfbab0cc;">; </span><span style="font-style:italic;color:#5c6773;">//new line</span><span style="font-style:italic;color:#5c6773;">
+</span><span style="color:#ff7733;">import </span><span style="color:#bfbab0;">ReactDOM </span><span style="color:#ff7733;">from </span><span style="color:#c2d94c;">&quot;react-dom&quot;</span><span style="color:#bfbab0cc;">; </span><span style="font-style:italic;color:#5c6773;">//new line</span><span style="font-style:italic;color:#5c6773;">
+</span><span style="color:#bfbab0;">
+</span><span style="font-style:italic;color:#39bae6;">ReactDOM</span><span style="color:#f29668;">.</span><span style="color:#ffb454;">render</span><span style="color:#bfbab0;">(</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#39bae6;">React</span><span style="color:#f29668;">.</span><span style="color:#f07178;">createElement</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;div&quot;</span><span style="color:#bfbab0cc;">, </span><span style="color:#f29718;">null</span><span style="color:#bfbab0cc;">, </span><span style="color:#c2d94c;">&quot;Hello World&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0cc;">,</span><span style="color:#bfbab0;">
+  </span><span style="font-style:italic;color:#39bae6;">document</span><span style="color:#f29668;">.</span><span style="color:#f07178;">getElementById</span><span style="color:#bfbab0;">(</span><span style="color:#c2d94c;">&quot;root&quot;</span><span style="color:#bfbab0;">)</span><span style="color:#bfbab0;">
+)</span><span style="color:#bfbab0cc;">;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Now you may be wondering how to actually execute this script we've made. Usually in front-end development, you would create a HTML file, and place any js within <script></script> tags and then simply view that in the browser. If you tried that here however, you'd likely get a <code>Uncaught SyntaxError: Cannot use import statement outside a module</code> error. Because we're going to making use of the compilation, minification and other -ations of webpack, we just write our JavaScript, and webpack will take care of the rest (you can and we will be making HTML files later, but for now this is the simplest example). So let's move onto that.</p>
+<h1 id="setting-up-webpack">Setting up Webpack</h1>
+<p>First of all, webpack is a npm package, so we'll add it as a dependency first. We will also need to add the CLI tool. We use --dev to signify it's a dependency only for development, and won't be needed in the final source.</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">&gt;yarn add webpack webpack-cli --dev</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Note that we could globally install webpack, which would mean we would not longer need to install it individually for each of our projects, however installing it as a dev dependency has a couple of advantages:</p>
+<ol>
+<li>The version is pinned: even if Webpack version 357 is released, our project will always resolve the version of webpack we know works, and any breaking changes won't affect us until we're ready to migrate</li>
+<li>Anyone can pick up the project, and with a <code>yarn</code> or <code>npm i</code> can work on it, without having to figure which external tools they do or don't have installed</li>
+</ol>
+<p>For our very first example, this is all we need to do. You can simply run <code>yarn webpack</code> in the command line from the root of your project and watch the magic.</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">&gt;yarn webpack</span><span style="color:#bfbab0;">
+yarn run v1.17.3</span><span style="color:#bfbab0;">
+$&lt;folder&gt;\node_modules\.bin\webpack</span><span style="color:#bfbab0;">
+Hash: 14370ea36c1d2d237762</span><span style="color:#bfbab0;">
+Version: webpack 4.41.2</span><span style="color:#bfbab0;">
+Time: 2399ms</span><span style="color:#bfbab0;">
+Built at: 10/22/2019 1:44:55 PM</span><span style="color:#bfbab0;">
+  Asset     Size  Chunks             Chunk Names</span><span style="color:#bfbab0;">
+main.js  129 KiB       0  [emitted]  main</span><span style="color:#bfbab0;">
+Entrypoint main = main.js</span><span style="color:#bfbab0;">
+[3] ./src/index.js 174 bytes {0} [built]</span><span style="color:#bfbab0;">
+    + 7 hidden modules</span><span style="color:#bfbab0;">
+</span><span style="color:#bfbab0;">
+WARNING in configuration</span><span style="color:#bfbab0;">
+The &#39;mode&#39; option has not been set, webpack will fallback to &#39;production&#39; for this value. Set &#39;mode&#39; option to &#39;development&#39; or &#39;production&#39; to enable defaults for each environment.</span><span style="color:#bfbab0;">
+You can also set it to &#39;none&#39; to disable any default behavior. Learn more: https://webpack.js.org/configuration/mode/</span><span style="color:#bfbab0;">
+Done in 6.10s.</span><span style="color:#bfbab0;">
+</span></pre>
+<p>You may have noticed after running webpack, a new folder has appeared called <code>dist</code> in the root of the project. Since we didn't specify an input or an output, webpack made a best guess that our code is in <code>src/index.js</code> and that it should output the compiled code to <code>dist</code>. Looking inside of <code>dist</code> you should be able to see a <code>main.js</code>. Again, since we didn't specify what to call it, Webpack just made a best guess.</p>
+<p>Looking inside of <code>dist/main.js</code> you should be able to see a large amount of rather ugly code. This is what we wrote, only minified to make the binary size as small as possible. It may look like there's far more code here than what was written in our <code>index.js</code>, but this minified code is a single bundle that contains all of our dependencies as well, which at this point is React and React-Dom. Since we didn't specify whether we wanted a production or a development build it assumed we wanted a production one and minified the contents.</p>
+<p>You can play with some of the options to get a feel for how webpack works, for example, you can pass <code>-o &lt;directory&gt;</code> to change the output directory, or pass <code>--mode development</code> to see an unoptimized development build. You can see a full list of commands with <code>yarn webpack --help</code>. Don't feel you have know the CLI intimately however; we will soon be passing off most of these options to a webpack config file we will create in the future, and simply point webpack to that.</p>
+<p>So what now? All we have is still just a <code>.js</code> file. Well, if we quickly create an <code>index.html</code> in our <code>dist</code> folder, and populate it like so:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#39bae690;">&lt;!</span><span style="color:#59c2ff;">DOCTYPE</span><span style="color:#39bae6;"> html</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+</span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">html </span><span style="color:#ffb454;">lang</span><span style="color:#bfbab0cc;">=</span><span style="color:#c2d94c;">&quot;en&quot;</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">head</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+    </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">meta </span><span style="color:#ffb454;">charset</span><span style="color:#bfbab0cc;">=</span><span style="color:#c2d94c;">&quot;UTF-8&quot;</span><span style="color:#39bae690;"> /&gt;</span><span style="color:#bfbab0;">
+    </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">meta </span><span style="color:#ffb454;">name</span><span style="color:#bfbab0cc;">=</span><span style="color:#c2d94c;">&quot;viewport&quot; </span><span style="color:#ffb454;">content</span><span style="color:#bfbab0cc;">=</span><span style="color:#c2d94c;">&quot;width=device-width, initial-scale=1.0&quot;</span><span style="color:#39bae690;"> /&gt;</span><span style="color:#bfbab0;">
+    </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">meta </span><span style="color:#ffb454;">http-equiv</span><span style="color:#bfbab0cc;">=</span><span style="color:#c2d94c;">&quot;X-UA-Compatible&quot; </span><span style="color:#ffb454;">content</span><span style="color:#bfbab0cc;">=</span><span style="color:#c2d94c;">&quot;ie=edge&quot;</span><span style="color:#39bae690;"> /&gt;</span><span style="color:#bfbab0;">
+    </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">title</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">Document</span><span style="color:#39bae690;">&lt;/</span><span style="color:#59c2ff;">title</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae690;">&lt;/</span><span style="color:#59c2ff;">head</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">body</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+    </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">div </span><span style="color:#ffb454;">id</span><span style="color:#bfbab0cc;">=</span><span style="color:#c2d94c;">&quot;root&quot;</span><span style="color:#39bae690;">&gt;&lt;/</span><span style="color:#59c2ff;">div</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+    </span><span style="color:#39bae690;">&lt;</span><span style="color:#59c2ff;">script </span><span style="color:#ffb454;">src</span><span style="color:#bfbab0cc;">=</span><span style="color:#c2d94c;">&quot;./main.js&quot;</span><span style="color:#39bae690;">&gt;&lt;/</span><span style="color:#59c2ff;">script</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+  </span><span style="color:#39bae690;">&lt;/</span><span style="color:#59c2ff;">body</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+</span><span style="color:#39bae690;">&lt;/</span><span style="color:#59c2ff;">html</span><span style="color:#39bae690;">&gt;</span><span style="color:#bfbab0;">
+</span></pre>
+<p>Opening <code>dist/index.html</code> in your browser, you should be able to see &quot;Hello World!&quot;. Congratulations, you've just gotten your first React app converted by webpack into something readable by the browser!</p>
+<h1 id="finishing-up">Finishing Up</h1>
+<p>You may be tempted to make your second git commit here, but hold on just a sec! Our build process at the moment outputs our distributable files into our <code>dist</code> folder, however if we committed now we'd also be pushing all of these up to git! Not to mention our <code>node_modules</code> folder, which holds <em>every single dependency in our application</em>. Now this isn't <em>necessarily</em> a problem, however for anyone cloning our repository, this potentially adds an incredibly large download for any contributers (not to mention the poor host who has to hold them all), especially when they can build the source themselves, retrieving dependencies from their own cache and get a reproducible build. So now, we're going to add a <code>.gitignore</code> to the root of the project and populate it with some basic defaults:</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">/node_modules/**</span><span style="color:#bfbab0;">
+/dist/**</span><span style="color:#bfbab0;">
+</span></pre>
+<p>And now we can safely commit our next set of changes.</p>
+<pre style="background-color:#0f1419;">
+<span style="color:#bfbab0;">&gt;git add .</span><span style="color:#bfbab0;">
+&gt;git commit -m &quot;added index.js&quot;</span><span style="color:#bfbab0;">
+</span></pre>
+<p><a href="https://gitlab.com/Worble/react-webpack-tutorial/commit/188101d367dcd4085ac70b2f9b9aee9a591a2ade">Click here to view the commmit</a>.</p>
+<p>You might think that running Webpack for every change is a pain, as is having to create and open a html file. And you'd be right! As we move on, we'll let Webpack do more and more of the heavy lifting.</p>
+<p>Next time we'll look into using React's templating language JSX, creating a custom Webpack config file, and tying the two together so webpack compiles the JSX into browser readable JavaScript.</p>
+<p><a href="https://www.robertclarke.tech/blog/react-webpack-tutorial/part-two/">Click here for Part 2!</a></p>
+
+                            </div>
+                        </div>
+                        
+                        
+<footer class="card-footer">
+    <div class="article-footer">
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                <p>
+                    Published
+                    
+    
+        <time datetime="2019-10-21">
+            2019-10-21
+        </time>
+    
+
+                    
+    
+
+                    
+    
+        
+        in <a href="https://www.robertclarke.tech/categories/react-webpack-tutorial/">
+            <span class="tag is-success">
+                React Webpack Tutorial
+            </span>
+        </a>
+    
+
+                    
+    
+        and tagged
+        
+        <a href="https://www.robertclarke.tech/tags/react/">
+            <span class="tag is-link">react </span>
+        </a>
+            
+                
+                    
+                        and
+                    
+                
+            
+        
+        <a href="https://www.robertclarke.tech/tags/webpack/">
+            <span class="tag is-link">webpack </span>
+        </a>
+            
+                
+            
+        
+    
+
+                </p>
+            </div>
+            <div class="column">
+                <a class="button is-pulled-right is-info" href="/blog">Back Home</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+                        
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+<script async type="text/javascript" src="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;search.js"></script>
+
+
+
+	</div>
+	<!-- Footer -->
+	<footer class="footer">
+		
+<div class="columns is-tablet">
+	<div class="column">
+		<div class="content">
+			Copyright &#169; 2020 Robert Clarke &nbsp;&nbsp;|&nbsp;&nbsp; 
+			<a class="has-text-info" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;sitemap.xml">
+				Site Map
+			</a>
+		</div>
+	</div>
+	<div class="column is-flex">
+		<div class="content is-flex footer-right">
+			<a aria-label="Bulma Homepage" href="https://bulma.io/" rel="noreferrer noopener" target="_blank">
+				<picture>
+					<source srcset="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;img&#x2F;made-with-bulma--dark.png" media="(prefers-color-scheme: dark)">
+					<img alt="Made with bulma" src="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;img&#x2F;made-with-bulma.png" width="128" height="24">
+				</picture>
+			</a>
+			<span>
+				&nbsp;and <a class="has-text-info" rel="noreferrer noopener" href="https://www.getzola.org/" target="_blank">Zola</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+	</footer>
+	<link rel="stylesheet" href="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;icomoon&#x2F;style.css" />
+	<script async src="https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;site.js"></script>
+</body>
+
+</html>

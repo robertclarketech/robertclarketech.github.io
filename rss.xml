@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Robert Clarke - Full Stack Web Developer</title>
+        <link>https://www.robertclarke.tech</link>
+        <description>Robert Clarke&#x27;s website</description>
+        <generator>Zola</generator>
+        <language>en</language>
+        <atom:link href="https://www.robertclarke.tech/rss.xml" rel="self" type="application/rss+xml"/>
+        <lastBuildDate>Mon, 28 Oct 2019 00:00:00 +0000</lastBuildDate>
+        
+            <item>
+                <title>React And Webpack Tutorial - Part 6</title>
+                <pubDate>Mon, 28 Oct 2019 00:00:00 +0000</pubDate>
+                <link>https://www.robertclarke.tech/blog/react-webpack-tutorial/part-six/</link>
+                <guid>https://www.robertclarke.tech/blog/react-webpack-tutorial/part-six/</guid>
+                <description>&lt;h1 id=&quot;previous&quot;&gt;Previous&lt;&#x2F;h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;blog&#x2F;react-webpack-tutorial&#x2F;part-one&#x2F;&quot;&gt;Part 1&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;blog&#x2F;react-webpack-tutorial&#x2F;part-two&#x2F;&quot;&gt;Part 2&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;blog&#x2F;react-webpack-tutorial&#x2F;part-three&#x2F;&quot;&gt;Part 3&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;blog&#x2F;react-webpack-tutorial&#x2F;part-four&#x2F;&quot;&gt;Part 4&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;blog&#x2F;react-webpack-tutorial&#x2F;part-five&#x2F;&quot;&gt;Part 5&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;You can find the full repository and all previous commits by &lt;a href=&quot;https:&#x2F;&#x2F;gitlab.com&#x2F;Worble&#x2F;react-webpack-tutorial&quot;&gt;clicking here&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Last time, we started creating our &lt;code&gt;dist&#x2F;index.html&lt;&#x2F;code&gt; file through Webpack, looked at how to ensure users are always getting our latest changes, and how to serve static files. In today&#x27;s programme, we&#x27;re going to be covering SASS compilation, and file compression!&lt;&#x2F;p&gt;
+</description>
+            </item>
+        
+            <item>
+                <title>React And Webpack Tutorial - Part 5</title>
+                <pubDate>Fri, 25 Oct 2019 00:00:00 +0000</pubDate>
+                <link>https://www.robertclarke.tech/blog/react-webpack-tutorial/part-five/</link>
+                <guid>https://www.robertclarke.tech/blog/react-webpack-tutorial/part-five/</guid>
+                <description>&lt;h1 id=&quot;previous&quot;&gt;Previous&lt;&#x2F;h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;blog&#x2F;react-webpack-tutorial&#x2F;part-one&#x2F;&quot;&gt;Part 1&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;blog&#x2F;react-webpack-tutorial&#x2F;part-two&#x2F;&quot;&gt;Part 2&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;blog&#x2F;react-webpack-tutorial&#x2F;part-three&#x2F;&quot;&gt;Part 3&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;blog&#x2F;react-webpack-tutorial&#x2F;part-four&#x2F;&quot;&gt;Part 4&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;You can find the full repository and all previous commits by &lt;a href=&quot;https:&#x2F;&#x2F;gitlab.com&#x2F;Worble&#x2F;react-webpack-tutorial&quot;&gt;clicking here&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Previously, we had just finished updating our project to have seperate development and production configurations. Today we&#x27;re going to changing the way we create our &lt;code&gt;index.html&lt;&#x2F;code&gt; file, do some cache-busting, and look at serving static files. Let&#x27;s get started.&lt;&#x2F;p&gt;
+</description>
+            </item>
+        
+            <item>
+                <title>React And Webpack Tutorial - Part 4</title>
+                <pubDate>Thu, 24 Oct 2019 00:00:00 +0000</pubDate>
+                <link>https://www.robertclarke.tech/blog/react-webpack-tutorial/part-four/</link>
+                <guid>https://www.robertclarke.tech/blog/react-webpack-tutorial/part-four/</guid>
+                <description>&lt;h1 id=&quot;previous&quot;&gt;Previous&lt;&#x2F;h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;blog&#x2F;react-webpack-tutorial&#x2F;part-one&#x2F;&quot;&gt;Part 1&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;blog&#x2F;react-webpack-tutorial&#x2F;part-two&#x2F;&quot;&gt;Part 2&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;blog&#x2F;react-webpack-tutorial&#x2F;part-three&#x2F;&quot;&gt;Part 3&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;You can find the full repository and all previous commits by &lt;a href=&quot;https:&#x2F;&#x2F;gitlab.com&#x2F;Worble&#x2F;react-webpack-tutorial&quot;&gt;clicking here&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Last time we had finished making ourselves a swanky development setup, with a live refreshing server, source maps, and even hot reloading. We&#x27;re now ready to do some actual developing! But wait, we&#x27;re still writing in plain old JavaScript. Sure, it might have some fancy new ES2015+ features, but it&#x27;s still untyped! That just won&#x27;t do, so today we&#x27;re going to work on adding TypeScript support to our project.&lt;&#x2F;p&gt;
+</description>
+            </item>
+        
+            <item>
+                <title>React And Webpack Tutorial - Part 3</title>
+                <pubDate>Wed, 23 Oct 2019 00:00:00 +0000</pubDate>
+                <link>https://www.robertclarke.tech/blog/react-webpack-tutorial/part-three/</link>
+                <guid>https://www.robertclarke.tech/blog/react-webpack-tutorial/part-three/</guid>
+                <description>&lt;h1 id=&quot;previous&quot;&gt;Previous&lt;&#x2F;h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;blog&#x2F;react-webpack-tutorial&#x2F;part-one&#x2F;&quot;&gt;Part 1&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;blog&#x2F;react-webpack-tutorial&#x2F;part-two&#x2F;&quot;&gt;Part 2&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;You can find the full repository and all previous commits by &lt;a href=&quot;https:&#x2F;&#x2F;gitlab.com&#x2F;Worble&#x2F;react-webpack-tutorial&quot;&gt;clicking here&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Alright, last time we had a working Webpack config and a single JSX file. Today we&#x27;re going to work on making ourselves a dev environment, with an auto-reloading dev server.&lt;&#x2F;p&gt;
+</description>
+            </item>
+        
+            <item>
+                <title>React And Webpack Tutorial - Part 2</title>
+                <pubDate>Tue, 22 Oct 2019 00:00:00 +0000</pubDate>
+                <link>https://www.robertclarke.tech/blog/react-webpack-tutorial/part-two/</link>
+                <guid>https://www.robertclarke.tech/blog/react-webpack-tutorial/part-two/</guid>
+                <description>&lt;h1 id=&quot;previous&quot;&gt;Previous&lt;&#x2F;h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.robertclarke.tech&#x2F;blog&#x2F;react-webpack-tutorial&#x2F;part-one&#x2F;&quot;&gt;Part 1&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;You can find the full repository and all previous commits by &lt;a href=&quot;https:&#x2F;&#x2F;gitlab.com&#x2F;Worble&#x2F;react-webpack-tutorial&quot;&gt;clicking here&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Welcome back. Last time, we left off with a basic Hello World React app that we had just gotten working by using Webpack to bundle it. Today we&#x27;re going to convert that to a JSX file and setup a Webpack configuration file.&lt;&#x2F;p&gt;
+</description>
+            </item>
+        
+            <item>
+                <title>React And Webpack Tutorial - Part 1</title>
+                <pubDate>Mon, 21 Oct 2019 00:00:00 +0000</pubDate>
+                <link>https://www.robertclarke.tech/blog/react-webpack-tutorial/part-one/</link>
+                <guid>https://www.robertclarke.tech/blog/react-webpack-tutorial/part-one/</guid>
+                <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;&#x2F;h1&gt;
+&lt;p&gt;When you&#x27;re first starting to learn React, many tutorials will tell you to use create-react-app. This handy tool allows you focus on learning React, without getting bogged down in Webpack or the additional JavaScript tooling and ecosystem. This is great for people to get familiar with the language and SPA concepts, but chances are at some point you&#x27;ll eventually need to dip down into webpack and make changes. The aim of this tutorial is to hopefully explain React and it&#x27;s relationship with Webpack from the ground up. This tutorial (hopefully) makes few assumptions about the readers previous knowledge of React, Webpack and JavaScript tooling, but assumes a baseline knowledge of general front-end development and JavaScript.&lt;&#x2F;p&gt;
+</description>
+            </item>
+        
+    </channel>
+</rss>
